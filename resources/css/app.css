@@ -1,0 +1,93 @@
+/*///////////////// Add all your css in this file /////////////////*/
+
+
+/*///////////////// TABLE OF CONTENT start /////////////////
+- TAIWIND LAYERS
+- TAILWIND CUSTOM COMPONENTS
+- SASS STYLES
+///////////////// TABLE OF CONTENT end /////////////////*/
+
+/* @import 'scss/style.scss'; */
+
+/*TAIWIND LAYERS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* TAILWIND CUSTOM COMPONENTS */
+@layer components {
+    .btn-primary {
+      @apply text-center cursor-pointer py-2 px-4 bg-main-200 text-main-600 font-semibold rounded-lg hover:bg-main-300 text-xs transition-all
+      focus:bg-main-300 focus:ring-2 focus:outline-none focus:ring-main-200;
+    }
+    .box {
+        @apply bg-white border border-grey-border1 rounded-lg shadow;
+    }
+
+    /* input  */
+    .input-box-wrapper{
+        @apply relative;
+    }
+    .input-box-wrapper i{
+        @apply absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .input-box {
+        @apply px-4 py-2 bg-grey-bg2 hover:bg-grey-border1 rounded-lg focus:ring-2 focus:outline-none focus:ring-grey-border1
+        border-none text-sm transition-all ps-10 w-full;
+    }
+    .input-box-wrapper  label::before{
+        @apply text-grey-border3;
+        content: attr(title);
+        position: absolute;
+        top: 0;
+        left: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        transition: 300ms all;
+        cursor: text;
+    }
+    .input-box:valid + label::before , .input-box:focus + label::before {
+        top: -8px;
+        font-size: 10px;
+    }
+    .input-box::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        @apply text-grey-text1 opacity-100 /* Firefox */
+    }
+
+    /* Medical file tabs */
+    .mf-tab{
+        @apply ms-3 ps-5  py-3
+    }
+    .mf-tab:hover{
+        @apply rounded-lg bg-grey-bg2  cursor-pointer
+    }
+    .mf-tab.active{
+        @apply ms-0 border-0 border-s-2 border-main-600 text-main-600 rounded-te-lg rounded-be-lg bg-main-50
+    }
+    .mf-tab.active > *{@apply text-main-600}
+    .mf-tab.active:hover{
+        @apply rounded-ts-none rounded-bs-none bg-main-100  cursor-default
+    }
+
+    /*///////// RTL ENHANCMENTS (start) /////////*/
+    html[dir="rtl"] .input-box-wrapper  label::before{
+        right: 40px;
+        left: unset;
+    }
+    html[dir="rtl"] .input-box-wrapper i{
+        right: 10px;
+        left: unset;
+    }
+    /* drop down  */
+    html[dir="rtl"] select.input-box{
+        direction: ltr;
+    }
+
+
+    /*///////// RTL ENHANCMENTS (end) /////////*/
+}
