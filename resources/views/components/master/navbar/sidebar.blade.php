@@ -8,14 +8,22 @@
         <div class="flex flex-col flex-grow  overflow-y-auto">
             <div class="flex-grow space-y-10 mx-5 md:space-y-20">
                 <ul class="space-y-3">
-                    <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400"><span
-                            class="arrow text-grey-bg1"> &lt; </span> @lang('Clinics') </li>
-                    <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
-                        @lang('Contact us')</li>
-                    <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">@lang('FAQ')
-                    </li>
-                    <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">@lang('About')
-                        @lang('Athir')</li>
+                    @if (App\Models\Patient::isLoggedin())
+                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
+                            @lang('Profile')
+                        </li>
+                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
+                            @lang('Logout')
+                        </li>
+                    @else
+                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
+                            @lang('Login')
+                        </li>
+                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
+                            @lang('Register')
+                        </li>
+                    @endif
+
                 </ul>
                 <ul class="space-y-3">
                     {{-- <li class="text-xs text-grey-bg1">@lang('Site settings'):</li> --}}
