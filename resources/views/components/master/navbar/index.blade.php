@@ -7,8 +7,10 @@
 
     <!-- SEARCH BAR -->
     @if (Route::current()->getName() != 'home' && Route::current()->getName() != 'doctors')
-        <x-master.navbar.search />
+        {{-- <x-master.navbar.search /> --}}
     @endif
+
+    
     <!-- CTA -->
     <div id="cta" class="flex gap-5 items-center">
 
@@ -202,14 +204,14 @@
                 {{-- LOGIN/REGISTER  --}}
                 @if (Route::current()->getName() != 'login' || Route::current()->getName() != 'register')
                     <div class=" text-sm ">
-                        <a href="{{ route('home', ['locale' => session('locale')]) }}"
+                        <a href="{{ route('login', ['locale' => session('locale')]) }}"
                             class="block p-1 hover:underline">
                             @lang('Login')
                         </a>
                     </div>
 
                     <div class=" text-sm text-white bg-secondary-300 rounded-full hover:bg-secondary-400">
-                        <a href="{{ route('home', ['locale' => session('locale')]) }}"
+                        <a href="{{ route('register', ['locale' => session('locale')]) }}"
                             class="block py-1 px-3 font-semibold tracking-wide">
                             @lang('Register')
                         </a>
