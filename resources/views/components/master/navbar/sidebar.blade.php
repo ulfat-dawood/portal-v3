@@ -8,7 +8,7 @@
         <div class="flex flex-col flex-grow  overflow-y-auto">
             <div class="flex-grow space-y-10 mx-5 md:space-y-20">
                 <ul class="space-y-3">
-                    @if (App\Models\Patient::isLoggedin())
+                    @if (App\Models\Account::isLoggedin())
                         <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
                             @lang('Profile')
                         </li>

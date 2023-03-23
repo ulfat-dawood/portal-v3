@@ -12,7 +12,7 @@
     <!-- CTA -->
     <div id="cta" class="flex gap-5 items-center">
 
-        @if (App\Models\Patient::isLoggedin())
+        @if (App\Models\Account::isLoggedin())
             <!--If is logged in, then display: MF + USER + HOME -->
             <div class="hidden gap-5 items-center lg:flex">
 
