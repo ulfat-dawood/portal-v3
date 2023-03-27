@@ -26,6 +26,8 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::post('/register', [AccountController::class, 'register'])->name('register');
     Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
     Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
+    Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AccountController::class, 'getProfile'])->name('profile');
 
 
 });

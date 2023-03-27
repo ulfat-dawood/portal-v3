@@ -10,7 +10,7 @@
         {{-- <x-master.navbar.search /> --}}
     @endif
 
-    
+
     <!-- CTA -->
     <div id="cta" class="flex gap-5 items-center">
 
@@ -100,7 +100,8 @@
                         class="absolute bottom-[-143px] left-[50%] translate-x-[-50%] hidden  group-hover:block ">
                         <ul class="bg-white border border-grey-border1 p-3 space-y-2 rounded-lg mt-5 ">
                             <li class=" bg-grey-bg1 rounded-lg hover:bg-grey-bg2">
-                                <a href="{{ route('profile', ['locale' => session('locale')]) }}"
+                                {{-- route profile   --}}
+                                <a href="{{ route('home', ['locale' => session('locale')]) }}"
                                     class="py-3 px-5 flex items-center gap-5">
                                     <div
                                         class="h-8 w-8 flex-shrink-0 bg-grey-border2 ring-4 ring-grey-border1 rounded-full flex justify-center items-center ">
@@ -117,7 +118,7 @@
                                 </a>
                             </li>
                             <li class="text-grey-text1 text-sm  rounded-lg hover:bg-grey-bg1">
-                                <a href="{{ route('home', ['locale' => session('locale')]) }}"
+                                <a href="{{ route('logout', ['locale' => session('locale')]) }}"
                                     class="py-3 px-5 block whitespace-nowrap"> @lang('Logout') <i
                                         class="icofont-logout text-grey-text1"></i></a>
                             </li>

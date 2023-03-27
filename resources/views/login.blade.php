@@ -241,7 +241,7 @@
         // MOBILE NUMBER LOGIN
         var loginMobileField = document.getElementById('login-mobile');
         var loginMobileOptions = {
-            mask: '{966}500000000',
+            mask: '{9665}00000000',
             lazy: true,
             placeholderChar : '_ '
         };
@@ -251,15 +251,15 @@
                 lazy: false,
             });
         }, true);
-        loginMobileField.addEventListener('blur', function() {
-            loginMobileMask.updateOptions({
-                lazy: true
-            });
-            // NEXT IS OPTIONAL
-            if (!loginMobileMask.masked.rawInputValue) {
-                loginMobileMask.value = '';
-            }
-        }, true);
+        // loginMobileField.addEventListener('blur', function() {
+        //     loginMobileMask.updateOptions({
+        //         lazy: true
+        //     });
+        //     NEXT IS OPTIONAL
+        //     if (!loginMobileMask.masked.rawInputValue) {
+        //         loginMobileMask.value = '';
+        //     }
+        // }, true);
 
 
 

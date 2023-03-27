@@ -10,6 +10,7 @@ class AccountController extends Controller
 
     public function login()
     {
+
         //validate
         request()->validate([
             'loginMobile' => 'required',
@@ -39,10 +40,10 @@ class AccountController extends Controller
                 2- Redirect the user to the home page
             */
             session(['user' => $response['data']]);
-            return redirect()->route('home', ['locale' => session('locale')])->with('success', $response['msg']);
+            return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error',  __('Error occured, please try again.'));
+            // return redirect()->back()->with('error',  __('Error occured, please try again.'));
             return $th;
         }
     }
