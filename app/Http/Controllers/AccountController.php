@@ -18,7 +18,7 @@ class AccountController extends Controller
         // prepare for the request:
         $token = session('apiToken');
         $locale = session()->has('locale') ? session('locale') : 'ar';
-        $endpoint = env('API_URI_NEW') . '/'. $locale . '/account/login';
+        $endpoint = env('API_URL') . '/'. $locale . '/account/login';
         $parameters = [
             'mobile' => request()->input()['loginMobile'],
             'password' => request()->input()['loginPassword']
@@ -62,10 +62,11 @@ class AccountController extends Controller
 
     public function register(Request $request)
     {
+
         // Validate
         $request->validate([
             // "title" => 'required',
-            "fullName" => "required",
+            "name" => "required",
             "mobile" => "required",
             "email" => "required|email",
             "password" => 'required|confirmed|min:6',
@@ -73,22 +74,21 @@ class AccountController extends Controller
         ]);
 
         // prepare for the request:
-        $token = session('apiToken');
-        $api = env('API_URI');
-
-        // Endpoint:
-        $endpoint = $api . '/AthirProcedures/AccountCreate';
-        $parameters = [
-            'pName' => $request->input('fullName'),
-            'pMobile' => $request->input('mobile'),
-            'pPass' => $request->input('password'),
-            // 'pTitle' => $request->input(''),
-            'pEmail' => $request->input('email')
+            $token = session('apiToken');
+            $locale = session()->has('locale') ? session('locale') : 'ar';
+            $endpoint = env('API_URL') . '/'. $locale . '/account/register';
+            $parameters = [
+            'name' => $request->input('name'),
+            'mobile' => $request->input('mobile'),
+            'password' => $request->input('password'),
+            'email' => $request->input('email')
         ];
+        $response = Http::withToken($token)->post($endpoint, $parameters)->json();
+        dd($response);
         // Make request:
         try {
             $response = Http::withToken($token)->post($endpoint, $parameters)->json();
-
+            dd($response);
             // Endpoint request is successful:
             if (isset($response['operationType']) && $response['operationType'] == "Success") {
 
@@ -134,7 +134,7 @@ class AccountController extends Controller
 
         // prepare for the request:
         $token = session('apiToken');
-        $api = env('API_URI');
+        $api = env('API_URL');
 
         // Endpoint:
         $endpoint = $api . '/NexenOTP/CheckRegistrationOTP';

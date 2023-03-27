@@ -105,15 +105,15 @@
                             </div>
                         </div> --}}
 
-                        {{-- Full name  --}}
+                        {{-- Name  --}}
                         <div class="flex  flex-col gap-2">
                             <div class="input-box-wrapper">
-                                <input value="{{ old('fullName') }}" @if (Route::current()->getName() == 'register') autofocus @endif
-                                    required type="text" id="fullName" name="fullName" class="input-box">
-                                <label for="fullName" title="@lang('Enter full name')"></label>
+                                <input value="{{ old('name') }}" @if (Route::current()->getName() == 'register') autofocus @endif
+                                    required type="text" id="name" name="name" class="input-box">
+                                <label for="name" title="@lang('Enter your name')"></label>
                                 <i class="icofont-id-card"></i>
                             </div>
-                            @error('fullName')
+                            @error('name')
                                 <span class="text-secondary-300 text-xs break-words"><i
                                         class="icofont-warning-alt text-secondary-300"></i>
                                     {{ $message }}
