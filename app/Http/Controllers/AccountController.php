@@ -8,44 +8,28 @@ use Illuminate\Support\Facades\Http;
 class AccountController extends Controller
 {
 
-    public function login()
+    public function login(Request $request)
     {
-
         //validate
-        request()->validate([
+        $request->validate([
             'loginMobile' => 'required',
             'loginPassword' => 'required',
         ]);
-        // prepare for the request:
-        $token = session('apiToken');
-        $locale = session()->has('locale') ? session('locale') : 'ar';
-        $endpoint = env('API_URL') . '/'. $locale . '/account/login';
-        $parameters = [
-            'mobile' => request()->input()['loginMobile'],
-            'password' => request()->input()['loginPassword']
-        ];
-
         // Make request:
         try {
-            $response = Http::withToken($token)->post($endpoint, $parameters)->json();
-
-            // Response returns error
-            if(!$response['status']){
-                return redirect()->back()->with('warning', $response['msg']);
-            }
-
-            /*
-            Response is successful:
-                1- Store user token in the session
-                2- Redirect the user to the home page
-            */
-            session(['user' => $response['data']]);
-            return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
-
+            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/login', [
+                'mobile' =>  $request->input()['loginMobile'],
+                'password' =>  $request->input()['loginPassword']
+            ]);
         } catch (\Throwable $th) {
-            // return redirect()->back()->with('error',  __('Error occured, please try again.'));
-            return $th;
+            return redirect()->back()->with('warning', __('Server error: coudn\'t connet. Please try again'));
         }
+        if ($response->failed()) return redirect()->back()->with('warning', __('Error: Not found. Please try again'));
+        //check if the user exist
+        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
+        // user successfully logged
+        session(['user' => $response->json()['data']]);
+        return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
     }
 
     public function logout()
@@ -75,10 +59,10 @@ class AccountController extends Controller
         ]);
 
         // prepare for the request:
-            $token = session('apiToken');
-            $locale = session()->has('locale') ? session('locale') : 'ar';
-            $endpoint = env('API_URL') . '/'. $locale . '/account/register';
-            $parameters = [
+        $token = session('apiToken');
+        $locale = session()->has('locale') ? session('locale') : 'ar';
+        $endpoint = env('API_URL') . '/' . $locale . '/account/register';
+        $parameters = [
             'name' => $request->input('name'),
             'mobile' => $request->input('mobile'),
             'password' => $request->input('password'),
@@ -103,15 +87,14 @@ class AccountController extends Controller
                     //
 
                     // if OTP sent successfully:
-                        $response['OTP'] = '5151';
-                        // Store the sent OTP in session
-                        session(['otp' => $response['OTP'] ]);
-                        // Redirect the user to the OTP page
-                        return redirect()->route('home', ['locale' => session('locale')])->with('success', $msg);
+                    $response['OTP'] = '5151';
+                    // Store the sent OTP in session
+                    session(['otp' => $response['OTP']]);
+                    // Redirect the user to the OTP page
+                    return redirect()->route('home', ['locale' => session('locale')])->with('success', $msg);
 
                     // if OTP not sent successfully
-                        return redirect()->back()->with('warning',  __('Error occured, please try again.'));
-
+                    return redirect()->back()->with('warning',  __('Error occured, please try again.'));
                 }
                 // if status code != 200   >> redirect back
                 return redirect()->back()->with('warning', $msg);
@@ -126,10 +109,10 @@ class AccountController extends Controller
     }
 
 
-    public function verifyRegistrationOtp()
+    public function verifyRegistrationOtp(Request $request)
     {
         //validate
-        request()->validate([
+        $request->validate([
             "registrationOtp" => "Required"
         ]);
 
@@ -140,7 +123,7 @@ class AccountController extends Controller
         // Endpoint:
         $endpoint = $api . '/NexenOTP/CheckRegistrationOTP';
         $parameters = [
-            'otp' => intval(request()->input('registrationOtp')),
+            'otp' => intval($request->input('registrationOtp')),
             'transactionID' => session('registrationOperationId')
         ];
 
@@ -161,5 +144,4 @@ class AccountController extends Controller
             return $th;
         }
     }
-
 }
