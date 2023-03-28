@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        //validate
-        $request->validate([
-            'loginMobile' => 'required',
-            'loginPassword' => 'required',
-        ]);
-        // Make request:
         try {
             $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/login', [
                 'mobile' =>  $request->input()['loginMobile'],
