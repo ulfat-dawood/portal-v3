@@ -7,6 +7,8 @@
 
 {{-- <x-home.doctors-slider :ranDoctors="$ranDoctors"/> --}}
 
+<x-home.packages :packages="$packages"/>
+
 <x-home.partners/>
 
 <x-home.features/>

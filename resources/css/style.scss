@@ -270,7 +270,56 @@ body * {
 }
 ////////// SWIPER JS PARTNERS (end) //////////
 
+////////// SWIPER JS PACKAGES (start) //////////
+#packages {
 
+    .swiper-button-prev.packages,
+    .swiper-button-next.packages {
+        height: fit-content;
+        width: fit-content;
+        padding: 15px;
+        background-color: #9f9f9f;
+        border: 1px solid $grey-border1;
+        border-radius: 50%;
+        bottom: 50%;
+        transform: translateY(50%);
+        top: unset;
+
+        &:hover {
+            box-shadow: 2px 0 2px 0px rgba(0, 0, 0, 0.126);
+        }
+
+        &::after {
+            font-size: x-small;
+            color: $grey-border2;
+            position: absolute;
+        }
+    }
+
+    .swiper-button-prev.packages {
+        left: 0px;
+
+    }
+
+    .swiper-button-next.packages {
+        right: 0px;
+    }
+
+    .swiper-pagination.packages {
+        bottom: -35px;
+
+        .swiper-pagination-bullet {
+            opacity: 1;
+            background-color: $grey-border2;
+
+            &.swiper-pagination-bullet-active {
+                background-color: $grey-text1;
+            }
+        }
+    }
+}
+
+////////// SWIPER JS PACKAGES (end) //////////
 
 ////////// SWIPER JS DOCTORS (start) //////////
 #doctors {
