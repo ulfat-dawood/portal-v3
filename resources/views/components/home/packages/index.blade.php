@@ -3,10 +3,10 @@
         <!-- title  -->
         <div class="flex items-center border-b border-teal-500 mb-14">
             <h2 class="flex-none w-11/12 text-gray text-lg mr-3 py-1 px-2">
-                @lang('Offers')
+                @lang('Packages')
             </h2>
             <a href="#" class="flex-shrink-0 text-md text-gray py-1 px-2">
-                @lang('All Offers')
+                @lang('All packages')
             </a>
         </div>
 
