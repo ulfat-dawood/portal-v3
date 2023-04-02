@@ -13,6 +13,7 @@
 - STARTING DATE
 - DOCTOR APPT DAYS
 - SIDEBAR
+- BANNER
 
 
 - RTL ENHANCMENTS
@@ -725,6 +726,21 @@ input:checked + label {
   }
 
 ////////// TOAST MSG (end) //////////
+
+
+
+////////// BANNER (start) //////////
+#banner{
+
+    .banner-wrapper{
+        // background-color: red;
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        // height: 400px;
+    }
+}
+////////// BANNER (end) //////////
 
 
 
