@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +23,17 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     // Account
     Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
     Route::post('/login', [AccountController::class, 'login'])->name('login');
-    Route::get('/register', [AccountController::class, 'getRegistrationView'])->name('register')->middleware('RedirectIfLoggedIn');
+    Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
+    Route::post('/register/otp', [AccountController::class, 'registrationOtp'])->name('register-otp');
     Route::post('/register', [AccountController::class, 'register'])->name('register');
-    Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
-    Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
+    // Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
+    // Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
     Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
     Route::get('/profile', [AccountController::class, 'getProfile'])->name('profile');
+
+    //Doctor
+    Route::get('/doctors', [DoctorController::class, 'getDoctors'] )->name('getDoctors');
+    Route::get('/doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}', [DoctorController::class, 'getDoctor'])->name('doctor');
 
 
 });

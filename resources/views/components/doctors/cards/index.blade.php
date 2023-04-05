@@ -1,15 +1,5 @@
 <div class="flex-grow">
 
-    <!-- [filter-btn] for mobile -->
-    {{-- <div class="flex justify-between mb-2 lg:justify-end mx-2 sm:mx-auto">
-
-        <!-- filter  -->
-        <div data-open-modal="#search"
-            class="box px-1 cursor-pointer hover:bg-grey-bg1 lg:hidden">
-            <i class="icofont-filter text-xs text-grey-border3"></i>
-            <span class="text-xs text-grey-border3">@lang('Filters')</span>
-        </div>
-    </div> --}}
 
 
     <!-- cards  -->

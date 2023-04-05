@@ -1,9 +1,10 @@
 <div>
-    <form action="">
+    <form action="{{route('getDoctors', ['locale' => session('locale')])}}" method="get">
+        @csrf
         <div class="flex flex-col pt-10 gap-5">
 
             {{-- CITY DROPDOWN   --}}
-            <select name="city" data-placeholder="@lang('Select city')"
+            <select name="cityId" data-placeholder="@lang('Select city')"
                 class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select city')</option>
@@ -18,7 +19,7 @@
 
 
             {{-- CLINIC DROPDOWN   --}}
-            <select name="clinic" data-placeholder="@lang('Select speciality')"
+            <select name="clinicId" data-placeholder="@lang('Select speciality')"
                 class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select speciality')</option>

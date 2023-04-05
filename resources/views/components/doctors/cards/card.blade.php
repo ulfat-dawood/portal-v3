@@ -6,18 +6,18 @@
         <figure class="absolute w-full h-full">
             <a
                 href={{ route('doctor', [
-                    'doctorName' => "$doctor[doctorName1]-$doctor[doctorNameFamily]",
-                    'doctorId' => $doctor['doctorId'],
-                    'centerId' => $doctor['centerId'],
-                    'clinicId' => $doctor['clinicId'],
+                    'doctorName' => "$doctor[DOCTOR_NAME_1]-$doctor[DOCTOR_NAME_FAMILY]",
+                    'doctorId' => $doctor['DOCTOR_ID'],
+                    'centerId' => $doctor['CENTER_ID'],
+                    'clinicId' => $doctor['CLINIC_ID'],
                     'locale' => session('locale'),
                 ]) }}>
-                @if (file_exists(public_path('storage/doctors_images/' . $doctor['empPhoto'])))
+                @if (file_exists(public_path('storage/doctors_images/' . $doctor['EMP_PHOTO'])))
                     <img class="bg-main-50 object-cover w-full h-full"
-                        src="{{ asset('storage/doctors_images/' . $doctor['empPhoto']) }}" alt="">
+                        src="{{ asset('storage/doctors_images/' . $doctor['EMP_PHOTO']) }}" alt="">
                 @else
                     <img class="border border-grey-border1 border-0 border-e-2  object-cover w-full h-full"
-                        src="{{ asset('assets/images/dr-' . $doctor['sex'] . '-no_bg.png') }}" alt="">
+                        src="{{ asset('assets/images/dr-' . $doctor['SEX'] . '-no_bg.png') }}" alt="">
                 @endif
             </a>
         </figure>
@@ -29,10 +29,10 @@
         <div class="">
             <a class=""
                 href={{ route('doctor', [
-                    'doctorName' => "$doctor[doctorName1]-$doctor[doctorNameFamily]",
-                    'doctorId' => $doctor['doctorId'],
-                    'centerId' => $doctor['centerId'],
-                    'clinicId' => $doctor['clinicId'],
+                    'doctorName' => "$doctor[DOCTOR_NAME_1]-$doctor[DOCTOR_NAME_FAMILY]",
+                    'doctorId' => $doctor['DOCTOR_ID'],
+                    'centerId' => $doctor['CENTER_ID'],
+                    'clinicId' => $doctor['CLINIC_ID'],
                     'locale' => session('locale'),
                 ]) }}>
                 <div class="flex flex-col justify-between p-3 hover:bg-grey-bg1 md:flex-row">
@@ -40,13 +40,13 @@
                     <div class="flex flex-col gap-5">
                         <div class="flex gap-2">
                             <figure class="h-14 w-14 rounded-lg overflow-hidden sm:hidden">
-                                @if (file_exists(public_path('storage/doctors_images/' . $doctor['empPhoto'])))
+                                @if (file_exists(public_path('storage/doctors_images/' . $doctor['EMP_PHOTO'])))
                                     <img class="bg-main-50 object-cover w-full h-full"
-                                        src="{{ asset('storage/doctors_images/' . $doctor['empPhoto']) }}"
+                                        src="{{ asset('storage/doctors_images/' . $doctor['EMP_PHOTO']) }}"
                                         alt="">
                                 @else
                                     <img class="bg-main-50  object-cover w-full h-full"
-                                        src="{{ asset('assets/images/dr-' . $doctor['sex'] . '-no_bg.png') }}"
+                                        src="{{ asset('assets/images/dr-' . $doctor['SEX'] . '-no_bg.png') }}"
                                         alt="">
                                 @endif
 
@@ -54,30 +54,19 @@
                             </figure>
                             <div>
                                 <div class="font-normal text-sm sm:text-lg ">{{ __('Dr.') }}
-                                    @if (session('locale') == 'ar')
-                                        {{ $doctor['doctorName1b'] .
+
+                                        {{ $doctor['DOCTOR_NAME_1'] .
                                             ' ' .
-                                            $doctor['doctorName2b'] .
+                                            $doctor['DOCTOR_NAME_2'] .
                                             ' ' .
-                                            $doctor['doctorName3b'] .
+                                            $doctor['DOCTOR_NAME_3'] .
                                             ' ' .
-                                            $doctor['doctorNameFamilyb'] }}
-                                    @else
-                                        {{ $doctor['doctorName1'] .
-                                            ' ' .
-                                            $doctor['doctorName2'] .
-                                            ' ' .
-                                            $doctor['doctorName3'] .
-                                            ' ' .
-                                            $doctor['doctorNameFamily'] }}
-                                    @endif
+                                            $doctor['DOCTOR_NAME_FAMILY'] }}
+
                                 </div>
                                 <div class="text-grey-border3 text-sm">
-                                    @if (session('locale') == 'ar')
-                                        {{ $doctor['clinicNameB'] }}
-                                    @else
-                                        {{ $doctor['clinicName'] }}
-                                    @endif
+                                        {{ $doctor['CLINIC_NAME'] }}
+
                                 </div>
                             </div>
                         </div>
@@ -87,30 +76,30 @@
                                 <div>
                                     <i class="icofont-bill-alt text-grey-border3 text-sm"></i>
                                 </div>
-                                @if ($doctor['discountPercent'] != 0)
+                                @if ($doctor['discount_percent'] != 0)
                                     <div class="text-grey-border3 text-xs line-through">
-                                        {{ $doctor['examPrice'] }}
+                                        {{ $doctor['EXAM_PRICE'] }}
                                     </div>
                                     <div class="text-sm">
-                                        {{ $doctor['examPrice'] - ($doctor['discountPercent'] / 100) * $doctor['examPrice'] }}
+                                        {{ $doctor['EXAM_PRICE'] - ($doctor['discount_percent'] / 100) * $doctor['EXAM_PRICE'] }}
                                     </div>
                                     <div>@lang('SR')</div>
                                     <div
                                         class="text-xs ms-2 font-bold rounded-full bg-secondary-100 text-secondary-400 px-2">
-                                        {{ $doctor['discountPercent'] }}%
+                                        {{ $doctor['discount_percent'] }}%
                                     </div>
                                 @else
                                     <div class="text-sm">
-                                        {{ $doctor['examPrice'] }}
+                                        {{ $doctor['EXAM_PRICE'] }}
                                     </div>
                                     <div>@lang('SR')</div>
                                 @endif
 
                             </div>
 
-                            @if (isset($doctor['earliestAppointment']) &&
-                                !is_null($doctor['earliestAppointment']) &&
-                                $doctor['earliestAppointment'] !== '')
+                            @if (isset($doctor['earliest_appointment']) &&
+                                !is_null($doctor['earliest_appointment']) &&
+                                $doctor['earliest_appointment'] !== '')
                                 <div class="text-grey-border3 text-sm mt-3">
                                     <i class="icofont-clock-time text-grey-border3 text-xs"></i>
                                     @lang('Nearest appointment')
@@ -118,14 +107,14 @@
                                         class="text-grey-border3 text-xs rounded-full bg-grey-bg2 px-2 font-normal  ms-2 w-fit sm:inline sm:ms-auto">
                                         @if (session('locale') == 'ar')
                                             يوم
-                                            {{ $carbon::parse($doctor['earliestAppointment'])->format('d-m-y') }}
+                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('d-m-y') }}
                                             الساعة
-                                            {{ $carbon::parse($doctor['earliestAppointment'])->format('H:i') }}
+                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('H:i') }}
                                         @else
                                             on
-                                            {{ $carbon::parse($doctor['earliestAppointment'])->format('d-m-y') }}
+                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('d-m-y') }}
                                             at
-                                            {{ $carbon::parse($doctor['earliestAppointment'])->format('H:i') }}
+                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('H:i') }}
                                         @endif
                                     </span>
                                     {{-- @lang('Nearest appoitnemt on')
@@ -159,34 +148,28 @@
         </div>
         <!-- clinic info  -->
         <div>
-            <a href="{{ route('home', ['locale' => session('locale'), 'CenterId' => $doctor['centerId']]) }}">
+            <a href="{{ route('home', ['locale' => session('locale'), 'CenterId' => $doctor['CENTER_ID']]) }}">
                 <div class="flex justify-between p-3 hover:bg-grey-bg1">
                     <!-- start  -->
                     <div>
                         <div class="text-grey-border3 text-sm font-normal">
-                            @if (session('locale') == 'ar')
-                                {{ $doctor['hospitalNameB'] }}
-                            @else
-                                {{ $doctor['hospitalName'] }}
-                            @endif
+                                {{ $doctor['HOSPITAL_NAME'] }}
+
                         </div>
                         <div>
                             <i class="icofont-location-pin text-grey-border3 text-xs"></i><span
                                 class="text-grey-border3 text-xs">
-                                @if (session('locale') == 'ar')
-                                    {{ $doctor['addressB'] }}
-                                @else
-                                    {{ $doctor['address'] }}
-                                @endif
+                                    {{ $doctor['ADDRESS'] }}
+
                             </span>
                         </div>
                     </div>
                     <!-- end  -->
                     {{-- <div class="basis-1/4 h-14"> --}}
                     <div class=" h-10">
-                        @if (file_exists(public_path('storage/Logo/' . $doctor['logo'])))
+                        @if (file_exists(public_path('storage/Logo/' . $doctor['LOGO'])))
                             <img class="w-full h-full object-contain"
-                                src="{{ asset('storage/Logo/' . $doctor['logo']) }}" alt="">
+                                src="{{ asset('storage/Logo/' . $doctor['LOGO']) }}" alt="">
                         @else
                             <img class="w-full h-full object-contain" src="{{ asset('assets/images/athir_logo.png') }}"
                                 alt="">

@@ -15,12 +15,10 @@ class HomeController extends Controller
                 $pool->get(env('API_URL') . '/' . app()->getLocale() . '/cities'),
                 $pool->get(env('API_URL') . '/' . app()->getLocale() . '/clinics')
             ]);
-
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
         if ($response[0]->failed() && $response[1]->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        //check if the user exist
         if (!$response[0]->json()['status']) return redirect()->back()->with('warning', $response[0]->json()['msg']);
         if (!$response[1]->json()['status']) return redirect()->back()->with('warning', $response[1]->json()['msg']);
 

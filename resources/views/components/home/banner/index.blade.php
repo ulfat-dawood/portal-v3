@@ -3,7 +3,7 @@
         <div class="m-auto flex  flex-col-reverse  pb-10  w-12/12  lg:flex-row lg:w-11/12 2xl:w-10/12">
 
             {{-- START SECTION  --}}
-            <div class=" w-1/3 flex items-center justify-center">
+            <div class=" w-1/3 flex items-center justify-end">
                 <div class="">
                     <h2>
                         <div class="text-2xl text-center lg:text-start">@lang('Find your doctor')</div>
