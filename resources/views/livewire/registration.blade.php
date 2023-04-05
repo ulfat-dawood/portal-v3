@@ -132,7 +132,7 @@
                 <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                     role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                     <div class="flex gap-5 flex-col bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-
+                        <p class="text-red-600 text-center">{{ $msg }}</p>
                         {{-- OTP  --}}
                         <div class="flex  flex-col gap-2">
                             <div class="input-box-wrapper">
