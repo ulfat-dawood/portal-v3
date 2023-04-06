@@ -53,9 +53,9 @@ const toggleSidebar = () => {
 
 ////////// TOM SELECT (start) //////////
 //Translate terms of Tom Select:
-var terms= {add:'Search for ',noResult:'No results'};
+var terms = { add: 'Search for ', noResult: 'No results' };
 var locale = document.getElementsByTagName("html")[0].getAttribute("lang");
-if(locale == 'ar'){
+if (locale == 'ar') {
     terms.add = 'البحث عن';
     terms.noResult = 'لا توجد نتائج';
 }
@@ -76,12 +76,12 @@ let searchKeywordSettings = {
         this.refreshOptions();
     },
     render: {
-        optgroup_header: function(data, escape) {
-			return '<div class="font-bold" style="padding:5px; background:#fafafa">' + escape(data.label) + '</div>';
-		},
-        option_create: function(data, escape) {
-			return `<div class="create">${terms.add}<strong> ${escape(data.input)} </strong>&hellip;</div>`;
-		},
+        optgroup_header: function (data, escape) {
+            return '<div class="font-bold" style="padding:5px; background:#fafafa">' + escape(data.label) + '</div>';
+        },
+        option_create: function (data, escape) {
+            return `<div class="create">${terms.add}<strong> ${escape(data.input)} </strong>&hellip;</div>`;
+        },
         option: function (data, escape) {
             return `<div class="flex justify-start gap-2 items-center">
                     <span class="ms-auto"> <i class="text-main-600 icofont-${escape(data.icon)}"></i> </span>
@@ -89,7 +89,7 @@ let searchKeywordSettings = {
                 </div>`;
         },
 
-        no_results: function(data,escape){
+        no_results: function (data, escape) {
             return `<div class="p-1">${terms.noResult}</div>`;
         },
         //displayed inside the box as:
@@ -118,7 +118,7 @@ let searchClinicSetting = {
                         <span> ${escape(data.display)} </span>
                     </div>`;
         },
-        no_results: function(data,escape){
+        no_results: function (data, escape) {
             return `<div class="p-1">${terms.noResult}</div>`;
         },
         //displayed inside the box as:
@@ -285,7 +285,31 @@ const swiperDoctors = new Swiper('.swiper.doctors', {
 );
 ////////// SWIPER JS DOCTCORS (end) //////////
 
-
+////////// SWIPER JS PACKAGES (start) //////////
+const swiperPackages = new Swiper('.swiper.packages', {
+    slidesPerView: 1,
+    spaceBetween: 50,
+    navigation: {
+        nextEl: '.swiper-button-next.packages',
+        prevEl: '.swiper-button-prev.packages',
+    },
+    direction: 'horizontal',
+    breakpoints: {
+        1280: {
+            slidesPerView: 5,
+        },
+        1100: {
+            slidesPerView: 4,
+        },
+        900: {
+            slidesPerView: 3,
+        },
+        580: {
+            slidesPerView: 2,
+        },
+    }
+});
+////////// SWIPER JS PACKAGES (end) //////////
 
 ////////// MODAL (start) //////////
 const openModal = document.querySelectorAll('[data-open-modal]');

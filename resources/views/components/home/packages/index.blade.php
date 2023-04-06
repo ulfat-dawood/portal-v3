@@ -12,40 +12,48 @@
 
         <!-- Slider -->
         <div class="packages-swiper-container relative">
-            <div class="swiper doctors w-11/12 m-auto">
+            <div class="swiper packages w-11/12 mx-auto">
                 <div class="swiper-wrapper">
                     @if (isset($packages))
-                        @foreach ($packages as $package)
-                            <div class="swiper-slide mb-2">
-                                <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                                    <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
-                                        <figure class="absolute left-0 right-0 top-0 bottom-0 w-full">
-                                            <img class="bg-main-50 object-cover w-full h-full"
-                                                src="{{ $package['img'] }}" alt="">
+                        @foreach ($packages as $key => $package)
+                        @if ($key > 5)
+                            @break
+                        @endif
+
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 relative">
+                                    {{-- <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
+                                        <figure class="absolute bg-white">
+                                            <img class="h-32 w-full ps-10 pr-4 ms-8" src="https://www.backgroundsy.com/file/preview/red-sticker-template.jpg"/>
                                         </figure>
-                                    </div>
-                                    <a href="#" class="px-8 py-4">
-                                        <div class="font-bold text-xl mb-2 mr-2">{{ $package['title'] }}</div>
-                                        <p class="text-gray-700 text-base mr-3"> {{ $package['description'] }} </p>
-                                    </a>
-                                    <div class="px-6 pt-4 pb-2">
-                                        <span
-                                            class="inline-block bg-orange-300 rounded-full px-3 py-1 text-sm font-semibold text-orange-600 mr-2 mb-2">
-                                            {{ $package['price'] }} @lang('SR')</span>
+                                        <h3 class=" relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white hidden" class="if-true:line-through">@lang('Before') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>
+                                        @if ($package['PKG_PRICE'] != null)
+                                            <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white">@lang('After') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>
+                                        @endif
+                                    </div> --}}
+
+                                    <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
+
+                                    <p class="px-3 mx-2 text-gray-700 text-sm">{{ Str::substr($package['PKG_DESC'], 0, 45) }} ...</p>
+
+                                    <div class="px-6 pt-4 pb-2 text-center">
+                                        <h2 class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">{{ $package['PKG_PRICE'] }} @lang('SR')</h2>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <div><span class="text-center">@lang('No Packages Available')</span></div>
-                    @endif
-                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @else
+                    <div><span>@lang('No Packages Available')</span></div>
+                @endif
             </div>
-            <!-- navigation buttons -->
-            <div class="swiper-button-prev packages !hidden md:!flex"></div>
-            <div class="swiper-button-next packages !hidden md:!flex"></div>
-            <!-- pagination -->
-            <div class="swiper-pagination packages"></div>
         </div>
+        <!-- navigation buttons -->
+        <div class="swiper-button-prev packages !hidden md:!flex"></div>
+        <div class="swiper-button-next packages !hidden md:!flex"></div>
+        <!-- pagination -->
+        <div class="swiper-pagination packages"></div>
     </div>
+</div>
 </section>
