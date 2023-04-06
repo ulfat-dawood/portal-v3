@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'packages'])->name('home');
 
     // Account
     Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
