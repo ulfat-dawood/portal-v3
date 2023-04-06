@@ -6,22 +6,22 @@
             <div class="swiper available-days w-11/12 m-auto">
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper ">
-                    @forelse ($doctorAppts as $days)
+                    @forelse ($days as $day)
                         <div class="swiper-slide !w-28  relative">
                             <input class="w-0 h-0 opacity-0 absolute" wire:model="selectedDay" type="radio"
-                                id="{{ explode('T', $days['date'])[0] }}" name="day"
-                                value="{{ explode('T', $days['date'])[0] }}">
+                                id="{{ explode('T', $day['date'])[0] }}" name="day"
+                                value="{{ explode('T', $day['date'])[0] }}">
 
-                            <label for="{{ explode('T', $days['date'])[0] }}"
+                            <label for="{{ explode('T', $day['date'])[0] }}"
                                 class="group bg-white p-1.5 rounded-xl !w-28 block cursor-pointer">
                                 <div class="rounded-xl overflow-hidden">
                                     <div
                                         class="day-name bg-main-100 text-xs font-medium px-3 py-1 text-center text-main-600 group-hover:bg-main-200">
-                                        {{ $days['day'] }}
+                                        {{ $day['day'] }}
                                     </div>
                                     <div
                                         class="day-date bg-white text-xs font-medium px-3 py-1 text-center group-hover:bg-main-100 group-hover:text-main-600">
-                                        {{ explode('T', $days['date'])[0] }}
+                                        {{ explode('T', $day['date'])[0] }}
                                     </div>
                                 </div>
                             </label>
@@ -49,22 +49,33 @@
 
         @if ($selectedDay)
             <div wire:loading.remove>
-                <div class="mb-4 text-grey-text1 text-xs text-center">
-                    @lang('Slots available on') {{ $selectedDay }}
+                <div class="mb-4 text-grey-text1  text-start">
+                    @lang('Morning appointments')
                 </div>
                 <div class="flex flex-wrap gap-x-6 gap-y-4">
-                    @isset($slots)
-                        @forelse ($slots as $slot)
-                            <div wire:click="getSlot({{ $slot['clinApptSlotId'] }})"
-                                class="w-16 text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium hover:bg-grey-bg2 cursor-pointer">
-                                {{ explode(':', $slot['slotTime'])[0] . ':' . explode(':', $slot['slotTime'])[1] }}
-                            </div>
-                        @empty
-                            @lang('No Results Found.')
-                        @endforelse
-                    @endisset
-                    {{ $msg }}
+                    @forelse ($slots['am'] as $slot)
+                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }})"
+                            class="w-20 text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium hover:bg-grey-bg2 cursor-pointer">
+                            {{  $slot['slot_time'] }} @lang('am')
+                        </div>
+                    @empty
+                        @lang('No appointments available in the morning')
+                    @endforelse
                 </div>
+                <div class="my-4 text-grey-text1  text-start">
+                    @lang('Evening appointments')
+                </div>
+                <div class="flex flex-wrap gap-x-6 gap-y-4">
+                    @forelse ($slots['pm'] as $slot)
+                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }})"
+                            class="w-20 text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium hover:bg-grey-bg2 cursor-pointer">
+                            {{ $slot['slot_time']}} @lang('pm')
+                        </div>
+                    @empty
+                        @lang('No appointments available in the evening')
+                    @endforelse
+                </div>
+                {{ $msg }}
             </div>
 
         @endif

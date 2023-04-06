@@ -11,7 +11,7 @@ use RalphJSmit\Livewire\Urls\Facades\Url;
 
 class Appt extends Component
 {
-    public $doctorAppts;
+    public $days;
     public $selectedDay;
     public $slots;
     public $doctorInfo = ['doctorId' => '', 'centerId' => '', 'clinicId' => ''];
@@ -20,36 +20,30 @@ class Appt extends Component
 
     public function mount()
     {
+        if(count($this->days)){ //if days available
+            $this->selectedDay =  $this->days[0]['date'];
+            $this->updatedSelectedDay();
+        }
     }
 
     public function updatedSelectedDay()
     {
-        // prepare for the request:
-        $token = session('apiToken');
-        $api = env('API_URI');
-
-        // Endpoint:
-        $endpoint = $api . '/AthirProcedures/GetDoctorSlotsByDay';
-        $parameters = [
-            'DoctorId' => $this->param['DoctorId'],
-            'CenterId' => $this->param['CenterId'],
-            'ClinicID' => $this->param['ClinicID'],
-            'SlotsDate' => $this->selectedDay,
-            'pageSize' => '100'
-
-        ];
-        // Make request:
         try {
-            //is success?
-            $response = Http::withToken($token)->get($endpoint, $parameters)->json();
-            if (isset($response['operationType']) && $response['operationType'] == "Success") {
-                $this->slots =  $response['data'];
-                $this->msg = '';
-            } else {
-                $this->msg = __('Error occured, please try again.');
-            }
-        } catch (\Throwable $th) {
-            return $th;
+            $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slots/'
+            .$this->param['DoctorId'] . '/'
+            .$this->param['CenterId'] . '/'
+            .$this->param['ClinicID'] . '/'
+            .$this->selectedDay
+        );
+    } catch (\Throwable $th) {
+        return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+    }
+    if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
+    // dd( $response->json() );
+        if (!$response->json()['status']) {
+            $this->msg = $response->json()['msg'];
+        } else {
+            $this->slots = $this->refineSlots($response->json()['data']);
         }
     }
 
@@ -58,6 +52,20 @@ class Appt extends Component
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
     }
 
+    public function refineSlots($slots){
+        $am = [];
+        $pm = [];
+        foreach($slots as $slot){
+            $time = date('H:i:s',  strtotime($slot['slot_time']));
+            $afrernoon = date('H:i:s', strtotime('12:00:00'));
+            if($time < $afrernoon){
+                array_push($am, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i',strtotime($time))]);
+            }else{
+                array_push($pm, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i',strtotime($time))]);
+            }
+        }
+        return ['am'=> $am, 'pm'=>$pm];
+    }
 
     public function render()
     {

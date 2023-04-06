@@ -23,6 +23,7 @@ class DoctorController extends Controller
                 'cityId' =>  $request->cityId,
                 'clinicId' =>  $request->clinicId,
             ]);
+            // dd($response->json());
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
@@ -60,23 +61,22 @@ class DoctorController extends Controller
             if (!$responses[0]->json()['status']) return redirect()->back()->with('warning', $responses[0]->json()['msg']);
             if (!$responses[1]->json()['status']) return redirect()->back()->with('warning', $responses[1]->json()['msg']);
 
-            // dd([$responses[0]->json(), $responses[1]->json()]);
-                $days = [];
-                foreach ($responses[1]->json()['data'] as $day) {
-                    array_push($days, ['date' => $day['available_days'], 'day' => $this->getDay($day['available_days'])]);
-                };
-                dd($days);
+            $days = [];
+            foreach ($responses[1]->json()['data'] as $day) {
+                array_push($days, ['date' => $day['available_days'], 'day' => $this->getDay($day['available_days'])]);
+            };
+            // dd([$responses[0]->json(), $days]);
                 $discountInfo = [
-                    'discPercentage' => $responses[0]->json()['data']['discount'],
-                    'priceBeforeDisc' => $responses[0]->json()['data']['examPrice'],
-                    'priceAfterDisc' => $responses[0]->json()['data']['examPrice'] - (($responses[0]->json()['data']['examPrice'] / 100) * $responses[0]->json()['data']['discount'])
+                    // 'discPercentage' => $responses[0]->json()['data']['discount'],
+                    // 'priceBeforeDisc' => $responses[0]->json()['data']['examPrice'],
+                    // 'priceAfterDisc' => $responses[0]->json()['data']['examPrice'] - (($responses[0]->json()['data']['examPrice'] / 100) * $responses[0]->json()['data']['discount'])
                 ];
                 return view('doctor', [
-                    'doctorInfo' => array_merge($responses[0]->json()['data'],  $discountInfo),
-                    'doctorQualifications' => session('locale') == 'ar' ? $responses[0]->json()['data']['qualificationsB'] : $responses[0]->json()['data']['qualifications'],
-                    'doctorAppts' => $days,
+                    'doctor' => array_merge($responses[0]->json()['data'][0],  $discountInfo),
+                    // 'doctorQualifications' => $responses[0]->json()['data']['qualificationsB'] ,
+                    'days' => $days,
                     'param' => $parameters,
-                    'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $responses[0]->json()['data']['doctorName1b'] : 'Dr. ' . $responses[0]->json()['data']['doctorName1']
+                    'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1']
                 ]);
 
     }
