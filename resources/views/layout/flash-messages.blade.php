@@ -67,10 +67,10 @@
 @endif
 
 
-@error('DoctorOrCenterName')
+@error('cityId')
     <div id="my-toast" onl class="warning">
         <div class="close-btn" onclick="closeToast(this)"><i class="icofont-ui-close"></i></div>
-        <div class="toast-msg">@lang('Either search keyword or the speciality must be provided')</div>
+        <div class="toast-msg">@lang('Please select a city')</div>
         <div class="toast-icon"><i class="icofont-warning-alt"></i></div>
     </div>
     <script>
@@ -83,10 +83,10 @@
         }, 7500)
     </script>
 @enderror
-@error('ClinicId')
+@error('clinicId')
     <div id="my-toast" onl class="warning">
         <div class="close-btn" onclick="closeToast(this)"><i class="icofont-ui-close"></i></div>
-        <div class="toast-msg">@lang('Either search keyword or the speciality must be provided')</div>
+        <div class="toast-msg">@lang('Please select a speciality')</div>
         <div class="toast-icon"><i class="icofont-warning-alt"></i></div>
     </div>
     <script>

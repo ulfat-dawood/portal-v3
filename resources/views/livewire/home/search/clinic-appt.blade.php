@@ -1,15 +1,27 @@
 <div>
-    <form action="{{route('getDoctors', ['locale' => session('locale')])}}" method="get">
-        @csrf
-        <div class="flex flex-col pt-10 gap-5">
+    <div>
 
+
+        <div class="error-messages">
+
+            @error('cityId')
+                <div class="text-sm text-secondary-400 text-center">@lang('Please select a city')</div>
+            @enderror
+            @error('clinicId')
+                <div class="text-sm text-secondary-400 text-center">@lang('Please select a speciality')</div>
+            @enderror
+        </div>
+
+
+        <div class="flex flex-col pt-10 gap-5" wire:ignore>
             {{-- CITY DROPDOWN   --}}
-            <select name="cityId" data-placeholder="@lang('Select city')"
+            <select name="cityId" wire:model.lazy="cityId" data-placeholder="@lang('Select city')"
                 class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select city')</option>
                 @foreach ($cities as $city)
-                    <option value="{{ $city['CITY_ID'] }}" data-display="{{ $city['CITY_NAME'] }}">
+                    <option @if ($city['CITY_ID'] == '3174') selected @endif value="{{ $city['CITY_ID'] }}"
+                        data-display="{{ $city['CITY_NAME'] }}">
                         {{ $city['CITY_NAME'] }}
 
                     </option>
@@ -19,7 +31,7 @@
 
 
             {{-- CLINIC DROPDOWN   --}}
-            <select name="clinicId" data-placeholder="@lang('Select speciality')"
+            <select name="clinicId" wire:model.lazy="clinicId" data-placeholder="@lang('Select speciality')"
                 class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select speciality')</option>
@@ -32,20 +44,19 @@
 
             </select>
 
-            <button type="submit"
+            <button wire:click="loadSearchResults"
                 class=" self-center bg-main-600 py-2 px-5 mt-3 rounded-lg text-grey-bg2 hover:bg-main-500">
                 @lang('Book appoointment at the clinic')
                 <i class="icofont-search-1 text-grey-bg2 me-3"></i>
             </button>
         </div>
-    </form>
+    </div>
 
 
 
     <!-- Tom Select  -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
     <script>
-
         //Translate the terms of Tom Select:
         var terms = {
             add: 'Search for ',
@@ -83,6 +94,5 @@
         document.querySelectorAll('.search-dropdown-clinic-appt').forEach(item => {
             new TomSelect(item, searchDropdownSetting);
         });
-
     </script>
 </div>
