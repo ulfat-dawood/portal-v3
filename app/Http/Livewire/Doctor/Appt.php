@@ -56,8 +56,8 @@ class Appt extends Component
         $am = [];
         $pm = [];
         foreach($slots as $slot){
-            $time = date('H:i:s',  strtotime($slot['slot_time']));
             $afrernoon = date('H:i:s', strtotime('12:00:00'));
+            $time = date('H:i:s',  strtotime($slot['slot_time']));
             if($time < $afrernoon){
                 array_push($am, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i',strtotime($time))]);
             }else{
