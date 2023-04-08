@@ -1,8 +1,8 @@
 <div>
-    <div>
+    <div class="h-[272px]">
 
 
-        <div class="error-messages">
+        <div class="error-messages pt-5">
 
             @error('cityId')
                 <div class="text-sm text-secondary-400 text-center">@lang('Please select a city')</div>
@@ -13,7 +13,7 @@
         </div>
 
 
-        <div class="flex flex-col pt-10 gap-5" wire:ignore>
+        <div class="flex flex-col pt-5 gap-5" wire:ignore>
             {{-- CITY DROPDOWN   --}}
             <select name="cityId" wire:model.lazy="cityId" data-placeholder="@lang('Select city')"
                 class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">

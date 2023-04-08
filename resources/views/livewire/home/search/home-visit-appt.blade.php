@@ -1,7 +1,12 @@
-<div>
-    <form action="">
-        <div class="flex flex-col pt-10 gap-5">
+<div class="h-[272px]">
 
+
+    <div class="error-messages pt-5">
+        <div class="text-sm text-secondary-400 text-center">{{$msg}}</div>
+    </div>
+
+
+    <div class="flex flex-col pt-5 gap-5" wire:ignore>
             {{-- CITY DROPDOWN   --}}
             <select name="city" data-placeholder="@lang('Select city')"
                 class="search-dropdown-home-vitit-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
@@ -31,13 +36,13 @@
 
             </select>
 
-            <button type="submit"
+            <button  wire:click='sendAlert'
                 class=" self-center bg-main-600 py-2 px-5 mt-3 rounded-lg text-grey-bg2 hover:bg-main-500">
                 @lang('Book a home visit')
                 <i class="icofont-search-1 text-grey-bg2 me-3"></i>
             </button>
         </div>
-    </form>
+    </div>
 
 
 
