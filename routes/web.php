@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SlotController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,10 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     //Doctor
     Route::get('/doctors', [DoctorController::class, 'getDoctors'] )->name('getDoctors');
     Route::get('/doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}', [DoctorController::class, 'getDoctor'])->name('doctor');
+
+    //Slots
+    Route::get('/slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
+
 
 
 });

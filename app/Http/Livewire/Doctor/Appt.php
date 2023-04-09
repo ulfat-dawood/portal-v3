@@ -49,6 +49,7 @@ class Appt extends Component
 
     public function getSlot($slotId)
     {
+        //is user logged?  login> has register btn
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
     }
 

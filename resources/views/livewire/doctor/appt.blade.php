@@ -1,6 +1,5 @@
 <div id="slots" class="box p-5 rounded-none sm:rounded-lg ">
     <div class="font-normal mb-5">@lang('Select a day')</div>
-
     <div class="bg-grey-bg2 w-full rounded-lg p-3">
         <div class="parners-swiper-container relative" wire:ignore>
             <div class="swiper available-days w-11/12 m-auto">
@@ -54,12 +53,14 @@
                 </div>
                 <div class="flex flex-wrap gap-x-6 gap-y-4">
                     @forelse ($slots['am'] as $slot)
-                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }})"
+                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }} )"
                             class="w-24 text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium hover:bg-grey-bg2 cursor-pointer">
                             {{  $slot['slot_time'] }} @lang('am')
                         </div>
                     @empty
+                    <div class="text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium">
                         @lang('No appointments available in the morning')
+                    </div>
                     @endforelse
                 </div>
                 <div class="my-4 mt-8 text-grey-text1  text-start">
@@ -67,12 +68,14 @@
                 </div>
                 <div class="flex flex-wrap gap-x-6 gap-y-4">
                     @forelse ($slots['pm'] as $slot)
-                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }})"
+                        <div wire:click="getSlot({{ $slot['CLIN_APPT_SLOT_ID'] }} )"
                             class="w-24 text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium hover:bg-grey-bg2 cursor-pointer">
                             {{ $slot['slot_time']}} @lang('pm')
                         </div>
                     @empty
-                        @lang('No appointments available in the evening')
+                        <div class="text-center rounded-lg bg-grey-bg1 px-4 py-2 text-xs font-medium">
+                            @lang('No appointments available in the evening')
+                        </div>
                     @endforelse
                 </div>
                 {{ $msg }}
