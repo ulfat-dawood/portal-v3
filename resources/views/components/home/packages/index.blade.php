@@ -1,4 +1,4 @@
-<section id="packages" class="w-full mt-28 py-20 bg-white ">
+<section id="packages" class="w-full py-20 bg-grey-bg2">
     <div class="container">
         <!-- title  -->
         <div class="flex items-center border-b border-teal-500 mb-14">
