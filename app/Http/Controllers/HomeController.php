@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
         try {
             $response = Http::pool(fn (Pool $pool) => [
                 $pool->get(env('API_URL') . '/' . app()->getLocale() . '/cities'),
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/clinics')
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/clinics'),
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/packages')
             ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
@@ -26,12 +28,7 @@ class HomeController extends Controller
         return  view('index', [
             'cities' => $response[0]['data'],
             'clinics' => $response[1]['data'],
-            'packages' => [
-                ['img'=> 'https://cdn.pixabay.com/photo/2014/12/10/21/01/doctor-563429_960_720.jpg', 'title'=> 'عرض الليزر', 'description'=> 'هنا وصف العرض', 'price'=> '500'],
-                ['img'=> 'https://cdn.pixabay.com/photo/2015/08/25/03/50/herbs-906140_960_720.jpg', 'title'=> 'عرض العناية بالوجه', 'description'=> 'هنا وصف العرض', 'price'=> '500'],
-                ['img'=> 'https://cdn.pixabay.com/photo/2016/09/14/20/50/tooth-1670434_960_720.png', 'title'=> 'عرض الأسنان', 'description'=> 'هنا وصف العرض', 'price'=> '500'],
-                ['img'=> 'https://cdn.pixabay.com/photo/2014/08/26/21/54/dentist-428646_960_720.jpg', 'title'=> 'عرض تقويم الأسنان', 'description'=> 'هنا وصف العرض', 'price'=> '500'],
-            ]
+            'packages' => $response[2]['data']
         ]);
     }
 }

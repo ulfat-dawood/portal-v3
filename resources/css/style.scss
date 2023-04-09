@@ -55,8 +55,7 @@ $grey-text2: #707070;
     font-family: "Poppins";
     // font-weight: normal;
     // font-style: "Regular";
-    src: url("./fonts/Poppins/Poppins-Regular.ttf") format("truetype")
-        // url("./fonts/Poppins/Poppins-Black.ttf") format("truetype"),
+    src: url("./fonts/Poppins/Poppins-Regular.ttf") format("truetype") // url("./fonts/Poppins/Poppins-Black.ttf") format("truetype"),
         // url("./fonts/Poppins/Poppins-BlackItalic.ttf") format("truetype"),
         // url("./fonts/Poppins/Poppins-Bold.ttf") format("truetype"),
         // url("./fonts/Poppins/Poppins-BoldItalic.ttf") format("truetype"),
@@ -75,20 +74,22 @@ $grey-text2: #707070;
         // url("./fonts/Poppins/Poppins-Thin.ttf") format("truetype"),
         // url("./fonts/Poppins/Poppins-ThinItalic.ttf") format("truetype");
 }
+
 @font-face {
     font-family: "NotoNaskh";
     src: url("./fonts/NotoNaskh.ttf") format("truetype");
 }
+
 @font-face {
     font-family: "Tajawal";
     src:
-     url("./fonts/Tajawal/Tajawal-Regular.ttf") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-Medium.ttf") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-Light") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-ExtraLight") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-ExtraBold") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-Bold") format("truetype"),
-     url("./fonts/Tajawal/Tajawal-Black") format("truetype");
+        url("./fonts/Tajawal/Tajawal-Regular.ttf") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-Medium.ttf") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-Light") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-ExtraLight") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-ExtraBold") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-Bold") format("truetype"),
+        url("./fonts/Tajawal/Tajawal-Black") format("truetype");
 }
 
 body * {
@@ -97,15 +98,16 @@ body * {
     color: $grey-text2;
 }
 
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+    /* Code for Firefox */
     color: $secondary-400;
     background: $secondary-100;
-  }
+}
 
-  ::selection {
+::selection {
     color: $secondary-400;
     background: $secondary-100;
-  }
+}
 
 ////////// THEME STYLES (end) //////////
 
@@ -123,13 +125,13 @@ body * {
 
 .ts-wrapperr {
     border-radius: 0px;
-    background-color: $grey-bg2  !important;
+    background-color: $grey-bg2 !important;
     color: $grey-text1;
     flex-grow: 1;
     width: 100%;
 
     &:hover {
-        background-color: $grey-border1  !important;
+        background-color: $grey-border1 !important;
     }
 
     .ts-controll {
@@ -269,9 +271,53 @@ body * {
         }
     }
 }
+
 ////////// SWIPER JS PARTNERS (end) //////////
 
+////////// SWIPER JS PACKAGES (start) //////////
+#packages {
 
+    .swiper-slide h1 {
+        height: 50px;
+    }
+    .swiper-slide p {
+        height: 50px;
+    }
+
+    .swiper-button-prev.packages,
+    .swiper-button-next.packages {
+        height: fit-content;
+        width: fit-content;
+        padding: 15px;
+        background-color: #9f9f9f;
+        border: 1px solid $grey-border1;
+        border-radius: 50%;
+        bottom: 50%;
+        transform: translateY(50%);
+        top: unset;
+
+        &:hover {
+            box-shadow: 2px 0 2px 0px rgba(0, 0, 0, 0.126);
+        }
+
+        &::after {
+            font-size: x-small;
+            color: $grey-border2;
+            position: absolute;
+        }
+    }
+
+    .swiper-button-prev.packages {
+        left: 0px;
+
+    }
+
+    .swiper-button-next.packages {
+        right: 0px;
+    }
+}
+
+////////// SWIPER JS PACKAGES (end) //////////
 
 ////////// SWIPER JS DOCTORS (start) //////////
 #doctors {
@@ -650,31 +696,38 @@ body * {
 
 
 //////////  DOCTOR APPT DAYS (start) //////////
-input:checked + label {
-    .day-name{background-color: $main-200;}
-    .day-date{
+input:checked+label {
+    .day-name {
+        background-color: $main-200;
+    }
+
+    .day-date {
         color: $main-600;
         background-color: $main-100;
     }
 }
+
 //////////  DOCTOR APPT DAYS (end) //////////
 
 
 //////////  SIDEBAR (start) //////////
-#sidebar{
+#sidebar {
     left: 100%;
-    &.open{
+
+    &.open {
         transform: translateX(-100%);
     }
-    #sidebar-overlay{
+
+    #sidebar-overlay {
         right: 100%;
     }
 }
+
 //////////  SIDEBAR (end) //////////
 
 
 ////////// TOAST MSG (start) //////////
-#my-toast{
+#my-toast {
 
     min-width: 250px;
     width: fit-content;
@@ -693,41 +746,68 @@ input:checked + label {
     bottom: 10%;
     overflow: hidden;
     transition: bottom 3s ease;
-    &.slideDown{bottom: -50%;}
-    &.hide{display: none;}
-    &.danger{background: hsl(2, 65%, 90%) ; color:	hsl(2, 65%, 58%) ;}
-    &.success{background: hsl(121, 40%, 90%) ; color:	hsl(121, 40%, 44%) ;}
-    &.warning{background: hsl(35, 84%, 90%); color: 	hsl(35, 84%, 40%) ;}
-    &.info{background: hsl(206, 94%, 90%) ; color: hsl(206, 94%, 32%) ;}
 
-    .close-btn{
-      color: #909090;
-      font-size: 11px;
-      padding-left: 10px;
-      padding: 7px 15px;
-      cursor: pointer;
-      transition: all .2s linear;
-      align-self: stretch;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &:hover{
-        background: #dbdbdb;
-      }
-    }
-    .toast-msg{
-      font-weight: 800;
-      padding: 7px;
-      color: inherit;
+    &.slideDown {
+        bottom: -50%;
     }
 
-    .toast-icon{
-      padding: 7px 15px;
-      color: inherit;
-      i{color:inherit}
+    &.hide {
+        display: none;
     }
 
-  }
+    &.danger {
+        background: hsl(2, 65%, 90%);
+        color: hsl(2, 65%, 58%);
+    }
+
+    &.success {
+        background: hsl(121, 40%, 90%);
+        color: hsl(121, 40%, 44%);
+    }
+
+    &.warning {
+        background: hsl(35, 84%, 90%);
+        color: hsl(35, 84%, 40%);
+    }
+
+    &.info {
+        background: hsl(206, 94%, 90%);
+        color: hsl(206, 94%, 32%);
+    }
+
+    .close-btn {
+        color: #909090;
+        font-size: 11px;
+        padding-left: 10px;
+        padding: 7px 15px;
+        cursor: pointer;
+        transition: all .2s linear;
+        align-self: stretch;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background: #dbdbdb;
+        }
+    }
+
+    .toast-msg {
+        font-weight: 800;
+        padding: 7px;
+        color: inherit;
+    }
+
+    .toast-icon {
+        padding: 7px 15px;
+        color: inherit;
+
+        i {
+            color: inherit
+        }
+    }
+
+}
 
 ////////// TOAST MSG (end) //////////
 
@@ -769,28 +849,28 @@ input:checked + label {
 
 ////////// RTL ENHANCMENTS (start) //////////
 
-html[dir="rtl"]  {
+html[dir="rtl"] {
 
-    #sidebar{
+    #sidebar {
         // right: -100%;
     }
 
     body * {
-        font-family: 'Tajawal', sans-serif ;
+        font-family: 'Tajawal', sans-serif;
         // font-family: 'NotoNaskh', sans-serif;
         // font-weight: 400;
     }
 
     // sidebar //
-    #sidebar{
+    #sidebar {
         left: unset;
         right: 100%;
 
-        &.open{
+        &.open {
             transform: translateX(100%);
         }
 
-        #sidebar-overlay{
+        #sidebar-overlay {
             right: unset;
             left: 100%;
         }
