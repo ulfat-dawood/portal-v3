@@ -288,7 +288,7 @@ const swiperDoctors = new Swiper('.swiper.doctors', {
 ////////// SWIPER JS PACKAGES (start) //////////
 const swiperPackages = new Swiper('.swiper.packages', {
     slidesPerView: 1,
-    spaceBetween: 50,
+    spaceBetween: 10,
     navigation: {
         nextEl: '.swiper-button-next.packages',
         prevEl: '.swiper-button-prev.packages',
