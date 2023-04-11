@@ -20,8 +20,8 @@ class Appt extends Component
 
     public function mount()
     {
-        if(count($this->days)){ //if days available
-            $this->selectedDay =  $this->days[0]['date'];
+        if (count($this->days)) { //if days available
+            $this->selectedDay =  $this->days[0];
             $this->updatedSelectedDay();
         }
     }
@@ -29,17 +29,17 @@ class Appt extends Component
     public function updatedSelectedDay()
     {
         try {
-            $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slots/'
-            .$this->param['DoctorId'] . '/'
-            .$this->param['CenterId'] . '/'
-            .$this->param['ClinicID'] . '/'
-            .$this->selectedDay
-        );
-    } catch (\Throwable $th) {
-        return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-    }
-    if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
-    // dd( $response->json() );
+            $response = Http::get(
+                env('API_URL') . '/' . app()->getLocale() . '/slots/'
+                    . $this->param['DoctorId'] . '/'
+                    . $this->param['CenterId'] . '/'
+                    . $this->param['ClinicID'] . '/'
+                    . $this->selectedDay
+            );
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+        }
+        if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
         if (!$response->json()['status']) {
             $this->msg = $response->json()['msg'];
         } else {
@@ -53,19 +53,20 @@ class Appt extends Component
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
     }
 
-    public function refineSlots($slots){
+    public function refineSlots($slots)
+    {
         $am = [];
         $pm = [];
-        foreach($slots as $slot){
+        foreach ($slots as $slot) {
             $afrernoon = date('H:i:s', strtotime('12:00:00'));
             $time = date('H:i:s',  strtotime($slot['slot_time']));
-            if($time < $afrernoon){
-                array_push($am, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i',strtotime($time))]);
-            }else{
-                array_push($pm, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i',strtotime($time))]);
+            if ($time < $afrernoon) {
+                array_push($am, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i', strtotime($time))]);
+            } else {
+                array_push($pm, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i', strtotime($time))]);
             }
         }
-        return ['am'=> $am, 'pm'=>$pm];
+        return ['am' => $am, 'pm' => $pm];
     }
 
     public function render()
