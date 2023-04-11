@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Doctor;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL as FacadesURL;
@@ -49,6 +50,12 @@ class Appt extends Component
 
     public function getSlot($slotId)
     {
+        if(!Account::isLoggedin()){
+            $previousUrl = route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
+            session(['slot-url' => $previousUrl ]);
+            return redirect()->route('login', ['locale' => session('locale')])->with('warning', __('Please login first'));
+
+        }
         //is user logged?  login> has register btn
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
     }
