@@ -12,7 +12,13 @@
                             <label for="{{ $day }}" class="group bg-white p-1.5 rounded-xl !w-28 block cursor-pointer">
                                 <div class="rounded-xl overflow-hidden">
                                     <div class="day-name bg-main-100 text-xs font-medium px-3 py-1 text-center text-main-600 group-hover:bg-main-200">
-                                        @lang(date('D',strtotime($day)))
+                                        @if ($day == date('Y-m-d'))
+                                            @lang('Today')
+                                        @elseif(strtotime($day) == strtotime('tomorrow'))
+                                            @lang('Tomorrow')
+                                        @else
+                                            @lang(date('D', strtotime($day)))
+                                        @endif
                                     </div>
                                     <div class="day-date bg-white text-xs font-medium px-3 py-1 text-center group-hover:bg-main-100 group-hover:text-main-600">
                                         {{ $day }}
