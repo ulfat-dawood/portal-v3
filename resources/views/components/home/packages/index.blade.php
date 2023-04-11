@@ -5,9 +5,9 @@
             <h2 class="flex-none w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
-            <a href="#" class="flex-shrink-0 text-md text-gray-text1">
+            <button data-open-modal="#Allpackages" class="flex-shrink-0 text-md text-gray-text1">
                 @lang('All packages')
-            </a>
+            </button>
         </div>
 
         <!-- Slider -->
@@ -35,12 +35,10 @@
 
                                     <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
 
-                                    <p class="px-3 mx-2 text-gray-700 text-sm">
-                                        {{ Str::substr($package['PKG_DESC'], 0, 45) }}</p>
+                                    <p class="px-3 mx-2 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</p>
 
                                     <div class="px-6 pt-4 pb-2 text-center">
-                                        <h2
-                                            class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">
+                                        <h2 class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">
                                             {{ $package['PKG_PRICE'] }} @lang('SR')</h2>
                                     </div>
                                 </div>
@@ -58,5 +56,36 @@
         <!-- pagination -->
         <div class="swiper-pagination packages"></div>
     </div>
-</div>
+
+    <div class="modal-box" id="Allpackages">
+        <header class="modal-header">
+            <div class="text-md">@lang('All packages')</div>
+            <div class="close-modal" data-close-modal='#Allpackages'> <i class="icofont-close"></i> </div>
+        </header>
+        <div class="modal-content">
+            <div class="container">
+                <div class="card w-10/12 mx-auto flex flex-col flex-wrap justify-center">
+                    @if (isset($packages))
+                        @foreach ($packages as $key => $package)
+                            <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+
+                                <div class="rounded overflow-hidden shadow-lg mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
+
+                                    <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
+
+                                    <h6 class="px-3 mx-2 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</h6>
+
+                                    <div class="px-6 pt-4 pb-2 text-center">
+                                        <h2 class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">
+                                            {{ $package['PKG_PRICE'] }} @lang('SR')</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                        <div class="text-center"><span>@lang('No Packages Available')</span></div>
+                    @endif
+                </div>
+            </div>
+        </div>
 </section>

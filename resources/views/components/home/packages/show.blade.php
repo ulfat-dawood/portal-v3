@@ -8,8 +8,7 @@
         <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $packages['PKG_ID'] }}" />
         <div class="container">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
-                <div
-                    class=" flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-3/5 lg:w-3/5 lg:flex-grow-0 ">
+                <div class="flex-grow flex flex-col gap-5 min-h-0 min-w-0 lg:basis-3/5 lg:w-3/5 lg:flex-grow-0 ">
                     <div class="box p-4 space-y-2">
 
                         <h3 class="font-bold text-sm">@lang('Package details')</h3>
@@ -17,8 +16,7 @@
                         <div class="flex gap-4 flex-col md:flex-row">
 
                             <div class="flex-grow flex gap-2 rounded-lg bg-grey-bg2 p-2">
-
-                                <div class="bg-main-100 w-14 rounded-lg overflow-hidden relative">
+                                <div class="flex-none bg-main-100 w-14 rounded-lg overflow-hidden relative">
                                     <figure class="absolute left-0 right-0 top-0 bottom-0">
                                         <img src="{{ $packages['PKG_PHOTO'] }}" alt=""
                                             class="w-full h-full object-cover">
@@ -33,15 +31,13 @@
                                         <i class="text-sm">{{ $packages['PKG_DESC'] }}</i>
                                     </div>
                                 </div>
-
                             </div>
 
                             {{-- appointment info  --}}
-                            <div class="flex-grow bg-grey-bg2 p-1 rounded-lg">
-                                <div class="flex gap-2">
-                                    <div
-                                        class="flex-grow bg-white rounded-md p-2 text-sm flex-shrink text-center items-center gap-1">
-                                        <div class="text-sm ps-2">@lang('Package Price')</div>
+                            <div class="flex-none bg-grey-bg2 p-1 rounded-lg">
+                                <div class="flex gap-2 h-full">
+                                    <div class="flex-none bg-white rounded-md text-xs text-center">
+                                        <div class="text-sm p-3 px-2">@lang('Package Price')</div>
                                         <i class="icofont-bill-alt"></i>
                                         {{-- @if ($packages['priceAfterDisc'] != $packages['priceBeforeDisc'])
                                             <div class="text-grey-border3 text-sm line-through">
@@ -68,13 +64,13 @@
                         {{-- center info --}}
                         <div class="flex gap-2 rounded-lg bg-grey-bg2 p-2">
 
-                            <div class=" bg-main-100 w-14 rounded-lg overflow-hidden relative">
+                            <div class="bg-main-100 w-14 rounded-lg overflow-hidden relative">
                                 <figure class="absolute left-0 right-0 top-0 bottom-0 ">
                                     @if (file_exists(public_path('storage/Logo/')))
-                                        <img class="w-full h-full object-cover"
+                                        <img class=" object-cover"
                                             src="#" alt="">
                                     @else
-                                        <img class="w-full h-full object-cover"
+                                        <img class="h-full w-full object-cover"
                                             src="{{ asset('assets/images/athir_logo.png') }}" alt="">
                                     @endif
                                 </figure>
@@ -83,6 +79,10 @@
                                 <div class="bg-white rounded-md p-2 text-sm w-full">
                                     <i class="text-md"></i>
                                     {{ $packages['HOSPITAL_NAME'] }}
+                                </div>
+                                <div class="text-xs ps-2">
+                                    <i class="icofont-location-pin text-xs"></i>
+                                    {{-- {{ $packages['ADDRESS'] }} --}}
                                 </div>
                             </div>
                         </div>
