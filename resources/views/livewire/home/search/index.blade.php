@@ -6,20 +6,20 @@
             <div class="flex ">
 
                 <div wire:click='selectTab(1)'
-                    class="hover:cursor-pointer py-5 px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
+                    class="hover:cursor-pointer py-5 px-3 sm:px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
                     @if ($selectedTab == 1) border-b-main-600  @endif">
-                    <div class="@if ($selectedTab == 1) text-main-600 @else text-grey-border3 @endif">@lang('At the clinic')</div>
+                    <div class="text-center @if ($selectedTab == 1) text-main-600 @else text-grey-border3 @endif">@lang('At the clinic')</div>
                 </div>
                 <div wire:click='selectTab(2)'
-                    class="hover:cursor-pointer py-5 px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
+                    class="hover:cursor-pointer py-5 px-3 sm:px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
                     @if ($selectedTab == 2) border-b-main-600 @else text-grey-border3 @endif">
-                    <div class="@if ($selectedTab == 2) text-main-600 @else text-grey-border3 @endif">@lang('Home visit')</div>
+                    <div class="text-center @if ($selectedTab == 2) text-main-600 @else text-grey-border3 @endif">@lang('Home visit')</div>
 
                 </div>
                 <div wire:click='selectTab(3)'
-                    class="hover:cursor-pointer py-5 px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
+                    class="hover:cursor-pointer py-5 px-3 sm:px-10 flex items-center justify-center border border-t-0 border-l-0 border-r-0
                     @if ($selectedTab == 3) border-b-main-600  @endif">
-                    <div class="@if ($selectedTab == 3) text-main-600 @else text-grey-border3 @endif">@lang('Online appointment')</div>
+                    <div class="text-center @if ($selectedTab == 3) text-main-600 @else text-grey-border3 @endif">@lang('Online appointment')</div>
 
                 </div>
             </div>
