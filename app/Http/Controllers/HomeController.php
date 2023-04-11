@@ -31,18 +31,4 @@ class HomeController extends Controller
             'packages' => $response[2]['data']
         ]);
     }
-
-    public function getPackages()
-    {
-        try {
-            $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/packages');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
-
-
-        return  view('components.home.packages.show', ['packages' => $response['data']]);
-    }
 }

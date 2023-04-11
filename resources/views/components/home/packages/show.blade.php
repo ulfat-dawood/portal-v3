@@ -2,176 +2,118 @@
 @section('title', __('Packages'))
 
 @section('content')
-    <div class="container xl:px-[15vw]">
 
-        {{-- <x-master.breadcrumbs path="{{ __('doctors') }}" current="{{ $breadcrumb }}" /> --}}
-        <div class="container mb-10">
-            <div class="flex flex-col gap-10">
+    <div class="container xl:px-[9vw]">
 
-                @inject('carbon', 'Carbon\Carbon')
-                <!-- DOCTOR CARD  -->
-                <div class="box flex flex-col rounded-none sm:rounded-lg sm:flex-row">
-                    <!-- doctor img  -->
-                    <div
-                        class="hidden overflow-hidden basis-3/12 relative rounded-lg sm:rounded-te-none sm:rounded-be-none sm:block">
-                        <figure class="absolute w-full h-full">
-                            <div>
-                                {{-- @if (file_exists( {{ $packages['PKG_PHOTO'] }} ))
-                                    <img class="bg-main-50 object-cover w-full h-full" src="{{ $packages['PKG_PHOTO'] }}" alt="">
-                                @else --}}
-                                    {{-- <img class="border border-grey-border1 border-0 border-e-2  object-cover w-full h-full"
-                                        src="{{ asset('assets/images/dr-' . 'F' . '-no_bg.png') }}" alt=""> --}}
-                                {{-- @endif --}}
-                            </div>
-                        </figure>
-                    </div>
-                    <!-- card information -->
-                    <div class="flex-grow divide-y divide-grey-border1">
-                        <!-- doctor info  -->
-                        <div class="">
-                            <div>
-                                <div class="flex flex-col justify-between p-3 hover:bg-grey-bg1 md:flex-row">
-                                    <!-- start  -->
-                                    <div class="flex flex-col gap-5">
-                                        <div class="flex gap-2">
-                                            <figure class="h-14 w-14 rounded-lg overflow-hidden sm:hidden">
-                                                {{-- @if (file_exists(public_path('storage/doctors_images/' . $doctor['Photo'])))
-                                                    <img class="bg-main-50 object-cover w-full h-full"
-                                                        src="{{ asset('storage/doctors_images/' . $doctor['Photo']) }}"
-                                                        alt="">
-                                                @else --}}
-                                                    <img class="bg-main-50  object-cover w-full h-full"
-                                                        src="{{ asset('assets/images/dr-' . 'F' . '-no_bg.png') }}"
-                                                        alt="">
-                                                {{-- @endif --}}
+        <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $packages['PKG_ID'] }}" />
+        <div class="container">
+            <div class="flex items-start gap-10 flex-col lg:flex-row">
+                <div
+                    class=" flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-3/5 lg:w-3/5 lg:flex-grow-0 ">
+                    <div class="box p-4 space-y-2">
 
-                                                {{-- <img class="w-full h-full object-cover" src="../img/dr_female.png" alt=""> --}}
-                                            </figure>
-                                            <div>
-                                                <div class="font-normal text-sm sm:text-lg ">
-                                                    Package Name
-                                                </div>
-                                                <div class="text-grey-border3 text-sm">
-                                                    Package Description
-                                                </div>
-                                            </div>
-                                        </div>
+                        <h3 class="font-bold text-sm">@lang('Package details')</h3>
 
-                                        <div>
-                                            <div class="flex gap-1 text-grey-border3 text-sm items-center">
-                                                <div>
-                                                    <i class="icofont-bill-alt text-grey-border3 text-sm"></i>
-                                                </div>
-                                                @if (/* $doctor['discount_percent'] */ 0 != 0)
-                                                    <div class="text-grey-border3 text-xs line-through">
-                                                        Packages Price SR
-                                                    </div>
-                                                    <div class="text-sm">
-                                                        Packages Price SR
-                                                    </div>
-                                                    <div>@lang('SR')</div>
-                                                    <div
-                                                        class="text-xs ms-2 font-bold rounded-full bg-secondary-100 text-secondary-400 px-2">
-                                                        discount_percent
-                                                    </div>
-                                                @else
-                                                    <div class="text-sm">
-                                                        Packages Price SR
-                                                    </div>
-                                                    <div>@lang('SR')</div>
-                                                {{-- @endif --}}
+                        <div class="flex gap-4 flex-col md:flex-row">
 
-                                            </div>
+                            <div class="flex-grow flex gap-2 rounded-lg bg-grey-bg2 p-2">
 
-                                            {{-- @if (isset($doctor['earliest_appointment']) &&
-                                                    !is_null($doctor['earliest_appointment']) &&
-                                                    $doctor['earliest_appointment'] !== '') --}}
-                                                <div class="text-grey-border3 text-sm mt-3">
-                                                    <i class="icofont-clock-time text-grey-border3 text-xs"></i>
-                                                    @lang('Nearest appointment')
-                                                    <span
-                                                        class="text-grey-border3 text-xs rounded-full bg-grey-bg2 px-2 font-normal  ms-2 w-fit sm:inline sm:ms-auto">
-                                                        {{-- @if (session('locale') == 'ar')
-                                                            يوم
-                                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('d-m-y') }}
-                                                            الساعة
-                                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('H:i') }}
-                                                        @else
-                                                            on
-                                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('d-m-y') }}
-                                                            at
-                                                            {{ $carbon::parse($doctor['earliest_appointment'])->format('H:i') }}
-                                                        @endif --}}
-                                                    </span>
-                                                    {{-- @lang('Nearest appoitnemt on')
-                                    <span
-                                        class="text-grey-border3 text-xs rounded-full bg-grey-bg2 px-2 font-normal block ms-4 w-fit sm:inline sm:ms-auto">
-                                        {{ $carbon::parse($doctor['earliestAppointment'])->format('H:i a') }}
-                                    </span>
-                                    &nbsp; @lang('at') &nbsp;
-                                    <span
-                                        class="text-grey-border3 text-xs rounded-full bg-grey-bg2 px-2 font-normal block ms-4 w-fit sm:inline sm:ms-auto">
-                                        {{ explode('T', $doctor['earliestAppointment'])[1] }}
-                                    </span> --}}
-                                                </div>
-                                            @endif
-                                        </div>
+                                <div class="bg-main-100 w-14 rounded-lg overflow-hidden relative">
+                                    <figure class="absolute left-0 right-0 top-0 bottom-0">
+                                        <img src="{{ $packages['PKG_PHOTO'] }}" alt=""
+                                            class="w-full h-full object-cover">
+                                    </figure>
+                                </div>
 
+                                <div class="space-y-2 flex-grow">
+                                    <div class="text-sm ps-2">
+                                        {{ $packages['PKG_NAME'] }}
                                     </div>
-                                    <!-- end  -->
-                                    <div class="flex gap-2 mt-2 md:flex-col md:mt-0">
-                                        <div data-open-modal="#doctor-qualifications"
-                                            class="cursor-pointer border border-main-600 text-main-600 rounded-lg text-center text-xs px-3 py-1 bg-white  hover:bg-main-50 basis-1/2 sm:basis-auto">
-                                            @lang('View qualifications')
-                                        </div>
+                                    <div class="bg-white rounded-md p-2 text-sm w-full flex-wrap">
+                                        <i class="text-sm">{{ $packages['PKG_DESC'] }}</i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {{-- appointment info  --}}
+                            <div class="flex-grow bg-grey-bg2 p-1 rounded-lg">
+                                <div class="flex gap-2">
+                                    <div
+                                        class="flex-grow bg-white rounded-md p-2 text-sm flex-shrink text-center items-center gap-1">
+                                        <div class="text-sm ps-2">@lang('Package Price')</div>
+                                        <i class="icofont-bill-alt"></i>
+                                        {{-- @if ($packages['priceAfterDisc'] != $packages['priceBeforeDisc'])
+                                            <div class="text-grey-border3 text-sm line-through">
+                                                {{ $packages['priceBeforeDisc'] }}
+                                            </div>
+                                            <div class="text-sm">
+                                                {{ $packages['priceAfterDisc'] }}
+                                            </div>
+                                        @else
+                                            {{ $packages['PKG_PRICE'] }}
+                                        @endif --}}
+                                        {{ $packages['PKG_PRICE'] }}
+                                        <div>@lang('SR')</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- clinic info  -->
-                        <div>
-                            <a href="">
-                                <div class="flex justify-between p-3 hover:bg-grey-bg1">
-                                    <!-- start  -->
-                                    <div>
-                                        <div class="text-grey-border3 text-sm font-normal">
-                                            {{-- {{ $doctor['CENTER_NAME'] }} --}}
+                    </div>
 
-                                        </div>
-                                        <div>
-                                            <i class="icofont-location-pin text-grey-border3 text-xs"></i><span
-                                                class="text-grey-border3 text-xs">
-                                                {{-- {{ $doctor['ADDRESS'] }} --}}
+                    <div class="box p-4 space-y-2">
 
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- end  -->
-                                    {{-- <div class="basis-1/4 h-14"> --}}
-                                    <div class=" h-10">
-                                        {{-- @if (file_exists(public_path('storage/Logo/' . $doctor['LOGO'])))
-                                            <img class="w-full h-full object-contain"
-                                                src="{{ asset('storage/Logo/' . $doctor['LOGO']) }}" alt="">
-                                        @else --}}
-                                            <img class="w-full h-full object-contain"
-                                                src="{{ asset('assets/images/athir_logo.png') }}" alt="">
-                                        {{-- @endif --}}
+                        <h3 class="font-bold text-sm">@lang('Clinic details')</h3>
 
-                                    </div>
+                        {{-- center info --}}
+                        <div class="flex gap-2 rounded-lg bg-grey-bg2 p-2">
+
+                            <div class=" bg-main-100 w-14 rounded-lg overflow-hidden relative">
+                                <figure class="absolute left-0 right-0 top-0 bottom-0 ">
+                                    @if (file_exists(public_path('storage/Logo/')))
+                                        <img class="w-full h-full object-cover"
+                                            src="#" alt="">
+                                    @else
+                                        <img class="w-full h-full object-cover"
+                                            src="{{ asset('assets/images/athir_logo.png') }}" alt="">
+                                    @endif
+                                </figure>
+                            </div>
+                            <div class="space-y-2 flex-grow">
+                                <div class="bg-white rounded-md p-2 text-sm w-full">
+                                    <i class="text-md"></i>
+                                    {{ $packages['HOSPITAL_NAME'] }}
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- DOCTOR CARD END -->
+                <!-- end section  -->
+                <div class="basis-2/5 flex-grow flex-shrink-0 lg:flex-grow-0 ">
 
+                    <div class="box p-4 space-y-2">
 
+                        <h3 class="font-bold text-sm">@lang('Package confirmation')</h3>
 
+                        <p class="my-4 text-sm text-grey-text1">
+                            @lang('Please confirm your package reservation and payment method')
+                        </p>
 
-                <!-- DOCTOR APPT  -->
-                {{-- <livewire:doctor.appt :days='$days' :param='$param' /> --}}
-                <!-- DOCTOR APPT END -->
+                        <form action="{{ route('home', ['locale' => session('locale')]) }}" method="post"
+                            class="space-y-2">
+                            @csrf
 
+                            <input type="hidden" name="ApptSotId">
+                            <div class="btn-primary bg-grey-border1 hover:bg-grey-border1 text-grey-text1">@lang('Pay now')
+                                <span class="text-xs text-inherit ps-2"> @lang('currently unavailable')</span>
+                            </div>
+
+                            <button class="btn-primary w-full">@lang('Pay on arriaval') <span class="text-xs text-inherit ps-2">
+                                    {{ $packages['PKG_PRICE'] }} @lang('SR')</span> </button>
+
+                        </form>
+                    </div>
+                </div>
 
             </div>
         </div>

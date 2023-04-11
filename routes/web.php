@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SlotController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/packages', [HomeController::class, 'getPackages'])->name('getPackages');
 
     // Account
     Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
@@ -40,6 +40,6 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     //Slots
     Route::get('/slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
 
-
+    Route::get('/package/{packageId}', [PackageController::class, 'getPackages'])->name('getPackages');
 
 });
