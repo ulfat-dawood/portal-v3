@@ -18,12 +18,12 @@
             <!--If is logged in, then display: MF + USER + HOME -->
             <div class="hidden gap-5 items-center lg:flex">
 
-                @if (Route::current()->getName() != 'home')
+                @if (Route::current()->getName() != 'medical-file')
                     <div id="medical-file-btn-wrapper" class="relative group">
                         <div id="medical-file-btn">
                             <div
                                 class="bg-secondary-100 text-secondary-300 py-1 px-8 rounded-full font-light cursor-pointer hover:bg-secondary-200 group-hover:bg-secondary-200
-                        select-none text-sm">
+                                    select-none text-sm">
                                 @lang('Medical file')
                                 <i class="icofont-arrow-right inline text-secondary-300 group-hover:hidden"></i>
                                 <i class="icofont-arrow-down  hidden text-secondary-300 group-hover:inline"></i>

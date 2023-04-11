@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SlotController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,9 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     //Slots
     Route::get('/slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
+
+    // payment
+    Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
 
 

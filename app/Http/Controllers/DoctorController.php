@@ -14,6 +14,7 @@ class DoctorController extends Controller
             'cityId' => 'required',
             'clinicId' => 'required',
 
+
         ]);
         // dd($request->perpage);
         try {
@@ -22,6 +23,7 @@ class DoctorController extends Controller
                 'perPage' => $request->perpage ? $request->perpage : 20,
                 'cityId' =>  $request->cityId,
                 'clinicId' =>  $request->clinicId,
+                'allowCache' => 0 , 
             ]);
             // dd($response->json());
         } catch (\Throwable $th) {

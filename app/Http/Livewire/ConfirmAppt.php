@@ -7,18 +7,18 @@ use Livewire\Component;
 
 class ConfirmAppt extends Component
 {
-    public $slot; // coming from parent
     public $hospitalId;
     public $patients;
     public $selectedPatient;
+    public $showNewPatient = false;
     // submit values:
+    public $slot; // coming from parent
     public $firstName;
     public $mobile;
     public $accountId;
     public $patient_id;
     public $centerId;
     public $slotId;
-    public $showNewPatient = false;
 
     public function mount(){
         $this->mobile = session('user')['phone'];
@@ -39,13 +39,34 @@ class ConfirmAppt extends Component
     public function updatedSelectedPatient(){
         if($this->selectedPatient == 'new'){
             $this->showNewPatient = true;
-            $this->firstName = ''; 
+            $this->firstName = '';
         }else{
             $this->showNewPatient = false;
             $this->firstName = $this->patients[$this->selectedPatient]['PATIENT_NAME_1'];
             $this->mobile = $this->patients[$this->selectedPatient]['MOBILE_NO'];
             $this->patient_id = $this->patients[$this->selectedPatient]['PATIENT_ID'];
         }
+    }
+
+    public function pay($payOnArrival){
+
+        $this->validate([
+            'firstName' => 'required',
+            'mobile' => 'required',
+            'patient_id' => 'required',
+        ]);
+
+        session(['checkout' => [
+            'payOnArrival' => $payOnArrival,
+            'firstName' => $this->firstName,
+            'mobile' =>  $this->mobile,
+            'slot' => $this->slot,
+            'accountId' => session('user')['id'],
+            'patient_id' => $this->patient_id
+        ]]);
+
+        return redirect()->route('checkout');
+
     }
 
     public function render()

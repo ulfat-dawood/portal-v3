@@ -109,7 +109,7 @@
                                 <div class="text-xs ps-2">
                                         {{ $slot['CENTER_NAME'] }}
                                 </div>
-                                <div class="bg-white rounded-md p-2 text-xs w-full flex gap-3 items-center jus">
+                                <div class="bg-white rounded-md p-2 text-xs w-full flex gap-3 items-center justify-between">
                                     <div>
                                         <i class="icofont-location-pin text-xs"></i>
                                         {{ $slot['ADDRESS'] }}
