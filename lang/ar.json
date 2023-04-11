@@ -950,10 +950,10 @@
     "Please select a speciality": "الرجاء اختيار التخصص",
     "Please select a city": "الرجاء اختيار المدينة",
     "Sorry, this service is not available at the moment.": "عذرا ، هذه الخدمة غير متوفرة في الوقت الحالي.",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
+    "Select a patient name": "حدد اسم المراجع",
+    "New patient": "مراجع جديد",
+    "Patient name": "اسم المراجع",
+    "Directions": "الاتجاهات",
     "": "",
     "": ""
 }

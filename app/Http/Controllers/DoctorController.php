@@ -15,11 +15,11 @@ class DoctorController extends Controller
             'clinicId' => 'required',
 
         ]);
-
+        // dd($request->perpage);
         try {
             $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/doctors/search', [
                 'pageNo' => '',
-                'perPage' => '',
+                'perPage' => $request->perpage ? $request->perpage : 20,
                 'cityId' =>  $request->cityId,
                 'clinicId' =>  $request->clinicId,
             ]);
@@ -49,36 +49,35 @@ class DoctorController extends Controller
 
         // Make request:
 
-            try {
-                $responses = Http::pool(fn (Pool $pool) => [
-                    $pool->get(env('API_URL') . '/' . app()->getLocale() . '/doctor/'.request('doctorId').'/'.request('centerId').'/'.request('clinicId')),
-                    $pool->get(env('API_URL') . '/' . app()->getLocale() . '/doctor/days/'.request('doctorId').'/'.request('centerId').'/'.request('clinicId'))
-                ]);
-            } catch (\Throwable $th) {
-                return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-            }
-            if ($responses[0]->failed() && $responses[1]->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-            if (!$responses[0]->json()['status']) return redirect()->back()->with('warning', $responses[0]->json()['msg']);
-            if (!$responses[1]->json()['status']) return redirect()->back()->with('warning', $responses[1]->json()['msg']);
+        try {
+            $responses = Http::pool(fn (Pool $pool) => [
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/doctor/' . request('doctorId') . '/' . request('centerId') . '/' . request('clinicId')),
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/doctor/days/' . request('doctorId') . '/' . request('centerId') . '/' . request('clinicId'))
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+        }
+        if ($responses[0]->failed() && $responses[1]->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
+        if (!$responses[0]->json()['status']) return redirect()->back()->with('warning', $responses[0]->json()['msg']);
+        if (!$responses[1]->json()['status']) return redirect()->back()->with('warning', $responses[1]->json()['msg']);
 
-            $days = [];
-            foreach ($responses[1]->json()['data'] as $day) {
-                array_push($days, ['date' => $day['available_days'], 'day' => $this->getDay($day['available_days'])]);
-            };
-            // dd([$responses[0]->json(), $days]);
-                $discountInfo = [
-                    // 'discPercentage' => $responses[0]->json()['data']['discount'],
-                    // 'priceBeforeDisc' => $responses[0]->json()['data']['examPrice'],
-                    // 'priceAfterDisc' => $responses[0]->json()['data']['examPrice'] - (($responses[0]->json()['data']['examPrice'] / 100) * $responses[0]->json()['data']['discount'])
-                ];
-                return view('doctor', [
-                    'doctor' => array_merge($responses[0]->json()['data'][0],  $discountInfo),
-                    // 'doctorQualifications' => $responses[0]->json()['data']['qualificationsB'] ,
-                    'days' => $days,
-                    'param' => $parameters,
-                    'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1']
-                ]);
-
+        $days = [];
+        foreach ($responses[1]->json()['data'] as $day) {
+            array_push($days, ['date' => $day['available_days'], 'day' => $this->getDay($day['available_days'])]);
+        };
+        // dd([$responses[0]->json(), $days]);
+        $discountInfo = [
+            // 'discPercentage' => $responses[0]->json()['data']['discount'],
+            // 'priceBeforeDisc' => $responses[0]->json()['data']['examPrice'],
+            // 'priceAfterDisc' => $responses[0]->json()['data']['examPrice'] - (($responses[0]->json()['data']['examPrice'] / 100) * $responses[0]->json()['data']['discount'])
+        ];
+        return view('doctor', [
+            'doctor' => array_merge($responses[0]->json()['data'][0],  $discountInfo),
+            // 'doctorQualifications' => $responses[0]->json()['data']['qualificationsB'] ,
+            'days' => $days,
+            'param' => $parameters,
+            'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $responses[0]->json()['data'][0]['DOCTOR_NAME_1']
+        ]);
     }
 
     public function getDay($date)

@@ -17,11 +17,11 @@ class SlotController extends Controller
 
         try {
             $responses = Http::pool(fn (Pool $pool) => [
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/slot/'. $request->slotId),
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . 'account/patientfinder',[
-                    'accountId'=> session('user')['id'] ,
-                    'mobile_no'=> session('user')['phone'] ,
-                    'hospital_id'=> '',
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/slot/' . $request->slotId),
+                $pool->get(env('API_URL') . '/' . app()->getLocale() . 'account/patientfinder', [
+                    'accountId' => session('user')['id'],
+                    'mobile_no' => session('user')['phone'],
+                    'hospital_id' => '',
                 ])
             ]);
         } catch (\Throwable $th) {
@@ -33,9 +33,8 @@ class SlotController extends Controller
 
         return view('slot', [
             'slot' => $responses[0]['data'][0],
-            'patients'=> $responses[1]['data']
+            'patients' => $responses[1]['data']
         ]);
-
     }
     public function getSlot(Request $request)
     {
@@ -44,32 +43,15 @@ class SlotController extends Controller
             return redirect()->back();
         }
 
-        try{
-            $responseSlot = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slot/'. $request->slotId);
-        } catch (\Throwable $th){
+        try {
+            $responseSlot = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slot/' . $request->slotId);
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
         if ($responseSlot->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
         if (!$responseSlot->json()['status']) return redirect()->back()->with('warning', $responseSlot->json()['msg']);
-
-        // Use the hospitalId of the slot to find patients
-
-        try{
-            $responsePatients = Http::get(env('API_URL') . '/' . app()->getLocale() . '/account/patientfinder',[
-                'accountId'=> session('user')['id'] ,
-                'mobile_no'=> session('user')['phone'] ,
-                'hospital_id'=> $responseSlot->json()['data'][0]['HOSPITAL_ID'],
-            ]);
-        } catch (\Throwable $th){
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($responsePatients->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$responsePatients->json()['status']) return redirect()->back()->with('warning', $responsePatients->json()['msg']);
-
         return view('slot', [
             'slot' => $responseSlot['data'][0],
-            'patients' => $responsePatients->json()['data']
         ]);
-
     }
 }
