@@ -37,7 +37,7 @@
                             <div class="flex-none bg-grey-bg2 p-1 rounded-lg">
                                 <div class="flex gap-2 h-full">
                                     <div class="flex-none bg-white rounded-md text-xs text-center">
-                                        <div class="text-sm p-3 px-2">@lang('Package Price')</div>
+                                        <div class="text-xs p-3 px-2">@lang('Package Price')</div>
                                         <i class="icofont-bill-alt"></i>
                                         {{-- @if ($packages['priceAfterDisc'] != $packages['priceBeforeDisc'])
                                             <div class="text-grey-border3 text-sm line-through">
