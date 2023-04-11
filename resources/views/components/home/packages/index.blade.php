@@ -28,7 +28,7 @@
                                         <figure class="absolute">
                                             <img class="h-32 w-full ps-10 pr-4 ms-8" src="https://www.backgroundsy.com/file/preview/red-sticker-template.jpg"/>
                                         </figure>
-                                        <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white hidden" class="isTrue:line-through">@lang('Before') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>                                        @if ($package['PKG_PRICE'] != null)
+                                        <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white" class="isTrue:line-through">@lang('Before') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>                                        @if ($package['PKG_PRICE'] != null)
                                             <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white">@lang('After') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>
                                         @endif
                                     </div> --}}
@@ -67,7 +67,7 @@
                 <div class="card w-10/12 mx-auto flex flex-col flex-wrap justify-center">
                     @if (isset($packages))
                         @foreach ($packages as $key => $package)
-                            <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+                            <a class="hover:bg-gray-100" href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
                                 <div class="rounded overflow-hidden shadow-lg mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
 
