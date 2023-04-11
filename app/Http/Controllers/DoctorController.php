@@ -14,6 +14,7 @@ class DoctorController extends Controller
             'cityId' => 'required',
             'clinicId' => 'required',
 
+
         ]);
         try {
             $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/doctors/search', [
@@ -21,6 +22,7 @@ class DoctorController extends Controller
                 'perPage' => $request->perpage ? $request->perpage : 20,
                 'cityId' =>  $request->cityId,
                 'clinicId' =>  $request->clinicId,
+                'allowCache' => 0 , 
             ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
