@@ -14,62 +14,7 @@
         @else
         flex-col lg:flex-row @endif
         ">
-            {{-- << LOGIN >> --}}
-            <div class="w-full max-w-sm ">
-                <div class="box px-5 py-7">
-                    <h2>@lang('Login')</h2>
-                    <form class=" text-left space-y-7" method="post"
-                        action="{{ route('login', ['locale' => session('locale')]) }}">
-                        @csrf
-
-                        {{-- MOBILE NO --}}
-                        <div class="flex  flex-col gap-2">
-                            <div class="input-box-wrapper">
-                                <input @if (Route::current()->getName() == 'login') autofocus @endif required type="text"
-                                    id="login-mobile" name="loginMobile" class="input-box"
-                                    style="direction: ltr">
-                                <label for="login-mobile" title="@lang('Mobile number')"></label>
-                                <i class="icofont-mobile-phone"></i>
-                            </div>
-                            @error('loginMobile')
-                                <span class="text-secondary-300 text-xs break-words"><i
-                                        class="icofont-warning-alt text-secondary-300"></i>
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-
-                        {{-- PASSWORD --}}
-                        <div class="flex  flex-col gap-2">
-                            <div class="input-box-wrapper">
-                                <input required type="password" id="login-password" name="loginPassword" class="input-box">
-                                <label for="login-password" title="@lang('Enter password')"></label>
-                                <i class="icofont-unlock"></i>
-                            </div>
-                            @error('loginPassword')
-                                <span class="text-secondary-300 text-xs break-words"><i
-                                        class="icofont-warning-alt text-secondary-300"></i>
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                            <div class=" text-start">
-                                <a class="text-xs text-grey-text1 underline"
-                                    href="{{ route('home', ['locale' => session('locale')]) }}">
-                                    @lang('Fotogt password?')
-                                </a>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <button type="submit" class="btn-primary w-full uppercase">
-                                @lang('Login')
-                                {{-- <i class="icofont-login text-xs text-main-600"></i> --}}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <livewire:login/>
 
             <div class="hidden bg-grey-border2 w-[1px] my-14  relative lg:block">
                 <div class="absolute text-sm bg-grey-bg1 text-grey-border3"
