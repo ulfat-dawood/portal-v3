@@ -40,6 +40,7 @@ class ConfirmAppt extends Component
         if($this->selectedPatient == 'new'){
             $this->showNewPatient = true;
             $this->firstName = '';
+            $this->patient_id = 0;
         }else{
             $this->showNewPatient = false;
             $this->firstName = $this->patients[$this->selectedPatient]['PATIENT_NAME_1'];
