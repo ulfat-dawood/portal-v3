@@ -28,7 +28,7 @@ class AccountController extends Controller
         if(session()->has('url')){
             $url = session('url');
             session()->forget('url');
-            return redirect($url);
+            return redirect($url)->with('success', __('Logged in sucessfully'));
         }
         return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
     }
