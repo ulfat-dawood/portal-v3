@@ -24,6 +24,12 @@ class AccountController extends Controller
         if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
         // user successfully logged
         session(['user' => $response->json()['data']]);
+
+        if(session()->has('url')){
+            $url = session('url');
+            session()->forget('url');
+            return redirect($url)->with('success', __('Logged in sucessfully'));
+        }
         return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
     }
 
@@ -37,6 +43,14 @@ class AccountController extends Controller
 
     public function getRegistrationView()
     {
+        if(session()->has('slot-url')){
+            $url = session('slot-url');
+            session()->forget('slot-url');
+        }else{
+            $url = url()->previous();
+        }
+        session(['url' => $url ]);
+
         return view('login');
     }
 
@@ -81,6 +95,12 @@ class AccountController extends Controller
         if (!$responseRegister->json()['status']) return redirect()->back()->with('warning', $responseRegister->json()['msg']);
 
         // Registration succesful
+        if(session()->has('url')){
+            $url = session('url');
+            session()->forget('url');
+            return redirect($url);
+        }
+
         return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Accout crated succesfully, please login'));
     }
 }
