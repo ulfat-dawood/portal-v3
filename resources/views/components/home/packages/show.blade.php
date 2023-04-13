@@ -37,20 +37,21 @@
                             <div class="flex-none bg-grey-bg2 p-1 rounded-lg">
                                 <div class="flex gap-2 h-full">
                                     <div class="flex-none bg-white rounded-md text-xs text-center">
-                                        <div class="text-xs p-3 px-2">@lang('Package Price')</div>
+                                        <div class="text-xs p-2 px-2">@lang('Package Price')</div>
                                         <i class="icofont-bill-alt"></i>
-                                        {{-- @if ($packages['priceAfterDisc'] != $packages['priceBeforeDisc'])
+                                        @if ($packages['PKG_PRICE'] != $packages['PKG_PRICE'])
                                             <div class="text-grey-border3 text-sm line-through">
-                                                {{ $packages['priceBeforeDisc'] }}
+                                                {{ $packages['PKG_PRICE'] }}
                                             </div>
                                             <div class="text-sm">
-                                                {{ $packages['priceAfterDisc'] }}
+                                                {{ $packages['PKG_PRICE'] }}
                                             </div>
                                         @else
-                                            {{ $packages['PKG_PRICE'] }}
-                                        @endif --}}
-                                        {{ $packages['PKG_PRICE'] }}
-                                        <div>@lang('SR')</div>
+                                            <div class="text-xs">
+                                                {{ $packages['PKG_PRICE'] }}
+                                            </div>
+                                        @endif
+                                        <label>@lang('SR')</label>
                                     </div>
                                 </div>
                             </div>
