@@ -23,7 +23,7 @@
                         <div class="swiper-slide">
                             <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
-                                <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white border-t-2 border-teal-500">
+                                <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
                                     {{-- <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
                                         <figure class="absolute">
                                             <img class="h-32 w-full ps-10 pr-4 ms-8" src="https://www.backgroundsy.com/file/preview/red-sticker-template.jpg"/>

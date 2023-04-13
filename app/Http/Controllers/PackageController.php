@@ -16,12 +16,10 @@ class PackageController extends Controller
 
         try {
             $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/packages');
-            // $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/package/' . $request->packageId);
+
             // $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/package/{packageId}', [
             //     'packageId' => $request->packageId,
             // ]);
-            // dd($request->packageId);
-            // dd($response);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
