@@ -21,9 +21,11 @@
                         @endif
 
                         <div class="swiper-slide">
-                            <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+                            <a
+                                href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
-                                <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
+                                <div
+                                    class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
                                     {{-- <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
                                         <figure class="absolute">
                                             <img class="h-32 w-full ps-10 pr-4 ms-8" src="https://www.backgroundsy.com/file/preview/red-sticker-template.jpg"/>
@@ -37,9 +39,19 @@
 
                                     <p class="px-3 mx-2 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</p>
 
-                                    <div class="px-6 pt-4 pb-2 text-center">
-                                        <h2 class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">
-                                            {{ $package['PKG_PRICE'] }} @lang('SR')</h2>
+                                    <p class="px-3 mx-2 text-gray-800 text-xs">{{ $package['HOSPITAL_NAME'] }},
+                                        {{ $package['CITY_NAME'] }}</p>
+
+                                    <div
+                                        class="px-6 pb-2 text-center inline-block bg-main-500 rounded-full py-1 my-2 mb-2">
+                                        @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
+                                            <h2 class="text-xs text-gray line-through">{{ $package['PKG_PRICE'] }}
+                                            </h2>
+                                            <h2 class="text-sm text-white">{{ $package['SRVC_PRICE'] }}
+                                                @lang('SR')</h2>
+                                        @else
+                                            <h2 class="text-sm text-white">{{ $package['PKG_PRICE'] }}</h2>
+                                        @endif
                                     </div>
                                 </div>
                             </a>
@@ -69,15 +81,24 @@
                         @foreach ($packages as $key => $package)
                             <a class="hover:bg-gray-100" href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
-                                <div class="rounded overflow-hidden shadow-lg mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
+                                <div class="flex-grow p-1 grid grid-cols-2 divide-x-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
+                                    <div class="flex felx-row rounded overflow-hidden shadow-lg mx-1 mb-1 mt-1 py-2 relative bg-white">
 
-                                    <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
+                                        <div>
+                                            <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
+                                            <h6 class="flex px-3 mx-2 p-3 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</h6>
+                                            <i class="icofont-location-pin text-xs px-4 mx-2 text-gray-700"> {{ $package['HOSPITAL_NAME'] }}, {{ $package['CITY_NAME'] }}</i>
+                                            <h6 class="flex  text-sm"></h6>
+                                        </div>
 
-                                    <h6 class="px-3 mx-2 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</h6>
-
-                                    <div class="px-6 pt-4 pb-2 text-center">
-                                        <h2 class="inline-block bg-main-500 rounded-full px-5 py-1 text-sm text-white my-2 mb-2">
-                                            {{ $package['PKG_PRICE'] }} @lang('SR')</h2>
+                                        <div class="flex-shrink-0 absolute left-0 top-0 w-24 h-11 m-1 bg-main-500 rounded-xl text-center items-center">
+                                            @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
+                                                <h2 class="text-sm text-gray line-through">{{ $package['PKG_PRICE'] }} @lang('SR')</h2>
+                                                <h2 class="text-sm text-white">{{ $package['SRVC_PRICE'] }} @lang('SR')</h2>
+                                            @else
+                                                <h2 class="text-sm text-white">{{ $package['PKG_PRICE'] }}</h2>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </a>

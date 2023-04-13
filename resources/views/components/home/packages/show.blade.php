@@ -39,12 +39,12 @@
                                     <div class="flex-none bg-white rounded-md text-xs text-center">
                                         <div class="text-xs p-2 px-2">@lang('Package Price')</div>
                                         <i class="icofont-bill-alt"></i>
-                                        @if ($packages['PKG_PRICE'] != $packages['PKG_PRICE'])
+                                        @if ($packages['PKG_PRICE'] != $packages['SRVC_PRICE'])
                                             <div class="text-grey-border3 text-sm line-through">
                                                 {{ $packages['PKG_PRICE'] }}
                                             </div>
                                             <div class="text-sm">
-                                                {{ $packages['PKG_PRICE'] }}
+                                                {{ $packages['SRVC_PRICE'] }}
                                             </div>
                                         @else
                                             <div class="text-xs">
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="text-xs ps-2">
                                     <i class="icofont-location-pin text-xs"></i>
-                                    {{-- {{ $packages['ADDRESS'] }} --}}
+                                    {{ $packages['CITY_NAME'] }}
                                 </div>
                             </div>
                         </div>
