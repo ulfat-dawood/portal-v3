@@ -29,6 +29,6 @@ class Account extends Component
     }
     public function render()
     {
-        return view('livewire.account');
+        return view('livewire.account.index');
     }
 }

@@ -10,18 +10,25 @@
                 <ul class="space-y-3">
                     @if (App\Models\Account::isLoggedin())
                         <li class="text-grey-bg1 bg-main-500 rounded w-64 cursor-pointer hover:bg-main-400">
-                            <a href="{{route('profile')}}" class="py-2 px-3 "></a>
-                            @lang('Profile')
+                            <a href="{{route('account', ['tabNo'=> '3','locale'=> session('locale')])}}" class="block py-2 px-3 ">
+                                @lang('Profile')
+                            </a>
                         </li>
-                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
-                            @lang('Logout')
+                        <li class="text-grey-bg1 bg-main-500 rounded w-64  cursor-pointer hover:bg-main-400">
+                            <a href="{{route('logout', ['locale' => session('locale')])}}" class="block py-2 px-3">
+                                @lang('Logout')
+                            </a>
                         </li>
                     @else
-                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
-                            @lang('Login')
+                        <li class="text-grey-bg1 bg-main-500 rounded w-64 cursor-pointer hover:bg-main-400">
+                            <a href="{{route('login', ['locale' => session('locale')])}}" class="block py-2 px-3">
+                                @lang('Login')
+                            </a>
                         </li>
-                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
-                            @lang('Register')
+                        <li class="text-grey-bg1 bg-main-500 rounded w-64 cursor-pointer hover:bg-main-400">
+                            <a href="{{route('register', ['locale' => session('locale')])}}" class="block py-2 px-3">
+                                @lang('Register')
+                            </a>
                         </li>
                     @endif
 

@@ -42,36 +42,22 @@
                 <div id="MF-FILE-CONTENT" class=" absolute left-0 right-0 top-0 bottom-0 overflow-y-auto">
                     @switch($selectedTab)
                         @case(1)
-                        <livewire:account.upcoming-appointments >
+                            <livewire:account.upcoming-appointments>
                             @break
 
                             @case(2)
-                                past visits
+                                <p class="text-center">
+                                    @lang('No past appointmes recoreded.')
+                                </p>
+                            @break
+
+                            @case(3)
+                                <livewire:account.account-details>
                                 @break
 
-                                @case(3)
-                                    sick leaves
-                                    @break
-
-                                    @case(4)
-                                        prescription
-                                        @break
-
-                                        @case(5)
-                                            radiology
-                                            @break
-
-                                            @case(6)
-                                                lab
-                                                @break
-
-                                                @case(7)
-                                                    medical reports
-                                                    @break
-
-                                                    @default
-                                                        coming appointments
-                                                    @endswitch
+                                @default
+                                    <livewire:account.upcoming-appointments>
+                                @endswitch
 
                 </div>
             </div>
