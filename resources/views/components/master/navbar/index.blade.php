@@ -31,7 +31,8 @@
                             <!-- divide-y divide-grey-border1 -->
                             <div id="medical-file-dowpdown"
                                 class="absolute w-60  bottom-[-250px] left-[50%] translate-x-[-50%]  hidden group-hover:block">
-                                <ul class="flex flex-col gap-2 bg-white border border-grey-border1 rounded-lg  overflow-hidden mt-5 p-3">
+                                <ul
+                                    class="flex flex-col gap-2 bg-white border border-grey-border1 rounded-lg  overflow-hidden mt-5 p-3">
 
                                     <li
                                         class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
@@ -102,20 +103,18 @@
                                     </div>
                                 </a>
                             </li>
-                            <li
-                            class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                            <a class="py-2 px-5 text-sm text-center block"
-                                href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 1]) }}">
-                                @lang('Upcoming Appointments')
-                            </a>
-                        </li>
-                        <li
-                            class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                            <a class="py-2 px-5 text-sm text-center block"
-                                href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 2]) }}">
-                                @lang('Past visits')
-                            </a>
-                        </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-2 px-5 text-sm text-center block"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 1]) }}">
+                                    @lang('Upcoming Appointments')
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-2 px-5 text-sm text-center block"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 2]) }}">
+                                    @lang('Past visits')
+                                </a>
+                            </li>
                             <li class="text-grey-text1 text-sm  rounded-lg hover:bg-grey-bg1">
                                 <a href="{{ route('logout', ['locale' => session('locale')]) }}"
                                     class="py-3 px-5 block whitespace-nowrap"> @lang('Logout') <i

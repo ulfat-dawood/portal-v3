@@ -8,16 +8,7 @@
     <div class="modal-content">
 
         <ul class="flex flex-col gap-3 bg-white ">
-            <li class=" text-grey-text1 bg-grey-bg2 rounded-lg hover:bg-grey-border1 cursor-pointer">
-                <a class="py-3 px-5 text-sm text-center block" href="{{route('home' , ['locale' => session('locale'),'tabNo'=> 1])}}">
-                    @lang('Coming appointments')
-                </a>
-            </li>
-            <li class=" text-grey-text1 bg-grey-bg2 rounded-lg hover:bg-grey-border1 cursor-pointer">
-                <a class="py-3 px-5 text-sm text-center block" href="{{route('home' , ['locale' => session('locale'),'tabNo'=> 2])}}">
-                    @lang('Past visits')
-                </a>
-            </li>
+
             <li class=" text-grey-text1 bg-grey-bg2 rounded-lg hover:bg-grey-border1 cursor-pointer">
                 <a class="py-3 px-5 text-sm text-center block" href="{{route('home' , ['locale' => session('locale'),'tabNo'=> 3])}}">
                     @lang('Sick leaves')
