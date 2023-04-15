@@ -1,4 +1,6 @@
 <div class="">
+    @include('layout.flash-messages')
+
     <!-- Coming appointments  -->
     <div class="timeline flex flex-col me-1">
         <!-- ADD NEW APPT  -->
@@ -22,16 +24,18 @@
                 </div>
             </div>
         </div>
-        @if($appointments)
+        @if ($appointments)
             @forelse ($appointments as $appt)
                 <!-- APPT card  -->
                 <div class="flex">
-                    <!-- time stamp  -->  explode(':', explode(' ', $appt['APPT_DATE'])[0])[0]
+                    <!-- time stamp  -->
                     <div
                         class="timestamp flex-shrink-0 self-center rounded-lg bg-grey-bg2 p-1.5 w-24 flex-col items-center relative me-6 hidden md:flex">
-                        <div class="text-xs">{{ explode(' ', $appt['APPT_DATE'])[0] }}</div>
-                        <div class="text-xs"><i class="icofont-clock-time text-xs"></i>
-                            {{ explode(':', $appt['APPT_DATE'])[0] . ':' . explode(':', $appt['APPT_DATE'])[1] }}
+                        <div class="text-xs">{{ date('d/m/y', strtotime($appt['APPT_DATE'])) }}</div>
+                        <div class="text-xs flex gap-1">
+                            <div><i class="icofont-clock-time text-xs"></i></div>
+                            <div>{{ date('g:i', strtotime($appt['APPT_DATE'])) }}</div>
+                            <div>@lang(date('a', strtotime($appt['APPT_DATE'])))</div>
                         </div>
                     </div>
                     <!-- line  -->
@@ -56,11 +60,11 @@
                                 <figure class="absolute left-0 right-0 top-0 bottom-0 ">
                                     @if (file_exists(public_path('storage/doctors_images/' . $appt['APPT_DATE'])))
                                         <img class="bg-main-50 object-cover w-full h-full"
-                                            src="{{ asset('storage/doctors_images/' . $appt['APPT_DATE']) }}" alt="">
+                                            src="{{ asset('storage/doctors_images/' . $appt['APPT_DATE']) }}"
+                                            alt="">
                                     @else
                                         <img class="bg-main-50 object-cover w-full h-full"
-                                            src="{{ asset('assets/images/dr-' . 'M' . '-no_bg.png') }}"
-                                            alt="">
+                                            src="{{ asset('assets/images/dr-' . 'M' . '-no_bg.png') }}" alt="">
                                     @endif
                                     {{-- <img src="{{ asset('assets/images/dr-' . $appt['sex'] . '-no_bg.png') }}" alt=""
                                         class="w-full h-full object-cover"> --}}
@@ -73,31 +77,38 @@
 
                                 </div>
                                 <div class="text-xs text-grey-border3">
-                                    ## CLINIC NAME ##
+                                    {{ $appt['Center_Name'] }}
                                 </div>
                                 <div class="text-xs text-grey-border3">
-                                     {{ $appt['Center_Name'] }}
+                                    @lang('appointment for') {{ $appt['Patient_Name'] }}
                                 </div>
-                                <div class="text-xs text-grey-border3 flex gap-1">
-                                    PRICE
-                                    {{-- @if ($appt['discountPercent'] == 0)
-                                        <div>{{ $appt['examPrice'] }}</div>
-                                    @else
-                                        <span
-                                            class="text-xs line-through text-grey-border3">{{ $appt['examPrice'] }}</span>
-                                        <div>{{ ($appt['examPrice'] / 100) * $appt['discountPercent'] }}</div>
-                                    @endif
-                                    <div>@lang('SR')</div> --}}
-                                </div>
+                                @if ($appt['is_paid'])
+                                    <div class="text-xs text-main-700 ">
+                                        @lang('Paid')
+                                    </div>
+                                @else
+                                    <div class="text-xs text-secondary-400 ">
+                                        @lang('Not paid')
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
                         <!-- appt details  -->
                         <div class="flex flex-row gap-2  py-1 md:flex-col md:py-0 justify-start">
-                            <div wire:click="cancel({{ $appt['CLIN_APPT_SLOT_ID'] }})""
+
+                            <div wire:click="cancel({{ $appt['CLIN_APPT_SLOT_ID'] }})"
                                 class="border border-white  border-4 text-center bg-secondary-100 rounded-lg text-secondary-400 text-xs font-normal px-2 py-1 cursor-pointer hover:bg-secondary-200">
                                 <i class="icofont-ui-remove text-secondary-400 text-xs"></i>
                                 @lang('Cancel')
                             </div>
+
+                            <a target="_blank"
+                                href="https://www.google.com/maps/dir/Current+Location/{{ $appt['CENTER_LATITUDE'] }},{{ $appt['CENTER_LONGITUDE'] }}"
+                                class=" block border border-white  border-4 text-center bg-main-100 rounded-lg text-main-600 text-xs font-normal px-2 py-1 cursor-pointer hover:bg-main-200">
+                                <i class="icofont-location-arrow text-main-600 text-xs"></i>
+                                @lang('Directions')
+                            </a>
 
                         </div>
                     </div>
@@ -135,4 +146,6 @@
 
         <p class="text-center ">{{ $msg }}</p>
     </div>
+   
+
 </div>
