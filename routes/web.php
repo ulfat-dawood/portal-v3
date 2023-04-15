@@ -5,6 +5,8 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SlotController;
+use App\Http\Livewire\Account as LivewireAccount;
+use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,8 +32,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::post('/register', [AccountController::class, 'register'])->name('register');
     // Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
     // Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
-    Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
-    Route::get('/profile', [AccountController::class, 'getProfile'])->name('profile');
+
 
     //Doctor
     Route::get('/doctors', [DoctorController::class, 'getDoctors'] )->name('getDoctors');
@@ -42,6 +43,16 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     // payment
     Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+
+
+    Route::middleware('AccountAuth')->group(function () {
+
+        // Account
+        Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
+        Route::get('/profile', [AccountController::class, 'getProfile'])->name('profile');
+        Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
+
+    });
 
 
 

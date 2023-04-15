@@ -9,7 +9,8 @@
             <div class="flex-grow space-y-10 mx-5 md:space-y-20">
                 <ul class="space-y-3">
                     @if (App\Models\Account::isLoggedin())
-                        <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">
+                        <li class="text-grey-bg1 bg-main-500 rounded w-64 cursor-pointer hover:bg-main-400">
+                            <a href="{{route('profile')}}" class="py-2 px-3 "></a>
                             @lang('Profile')
                         </li>
                         <li class="text-grey-bg1 bg-main-500 rounded py-2 w-64 px-3 cursor-pointer hover:bg-main-400">

@@ -25,7 +25,7 @@ class AccountController extends Controller
         // user successfully logged
         session(['user' => $response->json()['data']]);
 
-        if(session()->has('url')){
+        if (session()->has('url')) {
             $url = session('url');
             session()->forget('url');
             return redirect($url)->with('success', __('Logged in sucessfully'));
@@ -43,13 +43,13 @@ class AccountController extends Controller
 
     public function getRegistrationView()
     {
-        if(session()->has('slot-url')){
+        if (session()->has('slot-url')) {
             $url = session('slot-url');
             session()->forget('slot-url');
-        }else{
+        } else {
             $url = url()->previous();
         }
-        session(['url' => $url ]);
+        session(['url' => $url]);
 
         return view('login');
     }
@@ -62,12 +62,12 @@ class AccountController extends Controller
         $response = Http::post(
             env('API_URL') . '/' . app()->getLocale() . '/account/register',
             [
-                'mobile' =>  '966' . substr($request->mobile, -9) ,
+                'mobile' =>  '966' . substr($request->mobile, -9),
                 "name" => $request->name,
                 "email" => $request->email,
                 "password" => $request->password,
-                ]
-            );
+            ]
+        );
         if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
         if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
 
@@ -95,7 +95,7 @@ class AccountController extends Controller
         if (!$responseRegister->json()['status']) return redirect()->back()->with('warning', $responseRegister->json()['msg']);
 
         // Registration succesful
-        if(session()->has('url')){
+        if (session()->has('url')) {
             $url = session('url');
             session()->forget('url');
             return redirect($url);
@@ -103,5 +103,9 @@ class AccountController extends Controller
 
         return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Accout crated succesfully, please login'));
     }
-}
 
+    public function getProfile()
+    {
+        return view('profile'); 
+    }
+}
