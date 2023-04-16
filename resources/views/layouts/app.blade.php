@@ -31,7 +31,6 @@ dir="rtl" @endif>
 
 
 <body class="bg-grey-bg1 overflow-scroll">
-
     @include('layout.flash-messages')
 
     <x-master.tab-bar />
