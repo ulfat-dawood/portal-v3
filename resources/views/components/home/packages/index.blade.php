@@ -21,11 +21,9 @@
                         @endif
 
                         <div class="swiper-slide">
-                            <a
-                                href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+                            <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
-                                <div
-                                    class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
+                                <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
                                     {{-- <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
                                         <figure class="absolute">
                                             <img class="h-32 w-full ps-10 pr-4 ms-8" src="https://www.backgroundsy.com/file/preview/red-sticker-template.jpg"/>
@@ -39,8 +37,10 @@
 
                                     <p class="px-3 mx-2 text-gray-700 text-sm">{{ $package['PKG_DESC'] }}</p>
 
-                                    <p class="px-3 mx-2 text-gray-800 text-xs">{{ $package['HOSPITAL_NAME'] }},
-                                        {{ $package['CITY_NAME'] }}</p>
+                                    <div class="py-4">
+                                        <h3 class=" text-gray-400 text-xs">{{ $package['HOSPITAL_NAME'] }}</h3>
+                                        <h3 class=" text-gray-400 text-xs">{{ $package['CITY_NAME'] }}</h3>
+                                    </div>
 
                                     <div
                                         class="px-6 pb-2 text-center inline-block bg-main-500 rounded-full py-1 my-2 mb-2">
@@ -86,8 +86,9 @@
 
                                         <div>
                                             <h1 class="flex text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
-                                            <h6 class="flex px-3 mx-2 p-3 text-gray-400 text-sm">{{ $package['PKG_DESC'] }}</h6>
-                                            <i class="icofont-location-pin text-xs px-4 mx-2 text-gray-700"> {{ $package['HOSPITAL_NAME'] }}, {{ $package['CITY_NAME'] }}</i>
+                                            <h6 class="flex px-3 mx-2 p-3 text-gray-600 text-sm">{{ $package['PKG_DESC'] }}</h6>
+                                            <i class="icofont-location-pin text-xs px-4 mx-2 text-gray-400"> {{ $package['HOSPITAL_NAME'] }}</i>
+                                            <i class="icofont-location-pin text-xs px-4 mx-2 text-gray-400"> {{ $package['CITY_NAME'] }}</i>
                                         </div>
 
                                         <div class="flex-shrink-0 absolute left-0 top-0 w-24 h-11 m-1 bg-main-500 rounded-xl text-center items-center">
