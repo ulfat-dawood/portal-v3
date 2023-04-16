@@ -10,8 +10,7 @@
             <div class="flex items-start gap-10 flex-col lg:flex-row">
 
                 <!-- start section  -->
-                <div
-                    class="basis-full w-full flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-3/5 lg:w-3/5 lg:flex-grow-0 ">
+                <div class="basis-full w-full flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-3/4 lg:w-3/4 lg:flex-grow-0 ">
                     <div class="box p-4 space-y-2">
 
                         <h3 class="font-bold text-sm">@lang('Appointment details')</h3>
@@ -110,41 +109,24 @@
                                 <div class="text-xs ps-2">
                                         {{ $slot['CENTER_NAME'] }}
                                 </div>
-                                <div class="bg-white rounded-md p-2 text-xs w-full">
-                                    <i class="icofont-location-pin text-xs"></i>
+                                <div class="bg-white rounded-md p-2 text-xs w-full flex gap-3 items-center justify-between">
+                                    <div>
+                                        <i class="icofont-location-pin text-xs"></i>
                                         {{ $slot['ADDRESS'] }}
+                                    </div>
+                                    <div class="text-center bg-main-200 text-main-600 font-semibold rounded-lg hover:bg-main-300 text-xs transition-all
+                                    focus:bg-main-300 focus:ring-2 focus:outline-none focus:ring-main-200">
+                                        <a class="py-1 px-4 block" target="_blank" href="https://www.google.com/maps/dir/Current+Location/{{$slot['CENTER_LAT']}},{{$slot['CENTER_LONG']}}">@lang('Directions')</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- end section  -->
-                <div class="basis-2/5 w-full flex-grow flex-shrink-0 lg:flex-grow-0 ">
+                <div class="basis-1/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 ">
 
-                    <div class="box p-4 space-y-2">
-
-                        <h3 class="font-bold text-sm">@lang('Appointment confirmation')</h3>
-
-                        <p class="my-4 text-sm text-grey-text1">
-                            @lang('Please confirm your appointment reservation and payment method')
-                        </p>
-
-                        <form action="{{ route('home', ['locale' => session('locale')]) }}" method="post"
-                            class="space-y-2">
-                            @csrf
-
-                            <input type="hidden" name="ApptSotId" value="{{ $slot['CLIN_APPT_SLOT_ID'] }}">
-                            <div class="btn-primary bg-grey-border1 hover:bg-grey-border1 text-grey-text1">@lang('Pay now')
-                                <span class="text-xs text-inherit ps-2"> @lang('currently unavailable')</span>
-                            </div>
-
-                            <button class="btn-primary w-full">@lang('Pay on arriaval') <span class="text-xs text-inherit ps-2">
-                                    {{ $slot['EXAM_PRICE'] }} @lang('SR')</span> </button>
-
-                        </form>
-
-
-                    </div>
+                    <livewire:confirm-appt :slot='$slot'>
                 </div>
 
             </div>

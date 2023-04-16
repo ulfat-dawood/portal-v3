@@ -71,7 +71,13 @@ class Registration extends Component
         } else {
             // Registration succesful
             session(['user' => $responseRegister->json()['data']]);
-            return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Accout crated succesfully, please login'));
+            // Registration succesful
+            if (session()->has('url')) {
+                $url = session('url');
+                session()->forget('url');
+                return redirect($url)->with('success', __('Account created succesfully.'));
+            }
+            return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Account created succesfully.'));
         }
     }
     public function render()
