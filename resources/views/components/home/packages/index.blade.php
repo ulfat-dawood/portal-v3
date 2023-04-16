@@ -1,11 +1,11 @@
 <section id="packages" class="w-full py-20 bg-grey-bg2">
     <div class="container">
         <!-- title  -->
-        <div class="flex items-center mb-14 mx-14">
-            <h2 class="flex-none w-10/12 text-gray-text1 text-lg">
+        <div class="container items-center mb-14 px-11 inline-flex">
+            <h2 class="flex-none w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
-            <button data-open-modal="#Allpackages" class="flex-shrink text-md text-gray-text1">
+            <button data-open-modal="#Allpackages" class="text-md text-gray-text1">
                 @lang('All packages')
             </button>
         </div>
@@ -85,10 +85,9 @@
                                     <div class="flex felx-row rounded overflow-hidden shadow-lg mx-1 mb-1 mt-1 py-2 relative bg-white">
 
                                         <div>
-                                            <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
+                                            <h1 class="flex text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
                                             <h6 class="flex px-3 mx-2 p-3 text-gray-400 text-sm">{{ $package['PKG_DESC'] }}</h6>
                                             <i class="icofont-location-pin text-xs px-4 mx-2 text-gray-700"> {{ $package['HOSPITAL_NAME'] }}, {{ $package['CITY_NAME'] }}</i>
-                                            <h6 class="flex  text-sm"></h6>
                                         </div>
 
                                         <div class="flex-shrink-0 absolute left-0 top-0 w-24 h-11 m-1 bg-main-500 rounded-xl text-center items-center">
