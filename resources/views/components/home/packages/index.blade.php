@@ -5,7 +5,7 @@
             <h2 class="flex-none w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
-            <button data-open-modal="#Allpackages" class="text-md text-gray-text1">
+            <button data-open-modal="#Allpackages" class="text-sm text-gray-text1">
                 @lang('All packages')
             </button>
         </div>
