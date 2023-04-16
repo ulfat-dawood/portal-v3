@@ -2,7 +2,7 @@
     <div class="container">
         <!-- title  -->
         <div class="container items-center mb-14 px-11 inline-flex">
-            <h2 class="flex-none w-11/12 text-gray-text1 text-lg">
+            <h2 class=" mr-8 w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
             <button data-open-modal="#Allpackages" class="text-sm text-gray-text1">
