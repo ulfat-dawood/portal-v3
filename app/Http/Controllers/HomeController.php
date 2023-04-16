@@ -17,7 +17,7 @@ class HomeController extends Controller
                 $pool->get(env('API_URL') . '/' . app()->getLocale() . '/clinics'),
                 $pool->get(env('API_URL') . '/' . app()->getLocale() . '/packages')
             ]);
-            // dd($response[2]->json());
+
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
