@@ -9,12 +9,12 @@
                <div class="text-main-200 text-xs">@lang('HOME')</div>
             </a>
 
-            <div data-open-modal='#search'
+            <div data-open-modal='#dependents'
             class="
             @if (Route::current()->getName() == 'doctors') bg-main-600 @endif
             flex flex-col items-center px-2 rounded-lg hover:bg-main-600">
-               <div><i class="icofont-search-1 text-main-200 text-lg"></i></div>
-               <div class="text-main-200 text-xs">@lang('SEARCH')</div>
+               <div><i class="icofont-ui-user-group text-main-200 text-lg"></i></div>
+               <div class="text-main-200 text-xs">@lang('DEPENDENTS')</div>
             </div>
 
 
@@ -28,7 +28,7 @@
 
             <div data-open-modal='#profile'
             class="
-            @if (Route::current()->getName() == 'profile') bg-main-600 @endif
+            @if (Route::current()->getName() == 'account') bg-main-600 @endif
             flex flex-col items-center px-2 rounded-lg hover:bg-main-600">
                <div><i class="icofont-ui-user text-main-200 text-lg"></i></div>
                <div class="text-main-200 text-xs">@lang('PROFILE')</div>
