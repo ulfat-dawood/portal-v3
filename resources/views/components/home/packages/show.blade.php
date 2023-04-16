@@ -16,12 +16,12 @@
                         <div class="flex gap-4 flex-col md:flex-row">
 
                             <div class="flex-grow flex gap-2 rounded-lg bg-grey-bg2 p-2">
-                                <div class="flex-none bg-main-100 w-14 rounded-lg overflow-hidden relative">
+                                {{-- <div class="flex-none bg-main-100 w-14 rounded-lg overflow-hidden relative">
                                     <figure class="absolute left-0 right-0 top-0 bottom-0">
                                         <img src="{{ $packages['PKG_PHOTO'] }}" alt=""
                                             class="w-full h-full object-cover">
                                     </figure>
-                                </div>
+                                </div> --}}
 
                                 <div class="space-y-2 flex-grow">
                                     <div class="text-sm ps-2">
