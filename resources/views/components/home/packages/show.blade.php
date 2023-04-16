@@ -34,8 +34,8 @@
                             </div>
 
                             {{-- appointment info  --}}
-                            <div class="flex-none bg-grey-bg2 p-1 rounded-lg">
-                                <div class="flex gap-2 h-full">
+                            <div class="flex bg-grey-bg2 p-1 rounded-lg">
+                                <div class="flex-grow gap-2 h-full">
                                     <div class="flex-none bg-white rounded-md text-xs text-center">
                                         <div class="text-xs p-2 px-2">@lang('Package Price')</div>
                                         <i class="icofont-bill-alt"></i>
@@ -109,8 +109,15 @@
                                 <span class="text-xs text-inherit ps-2"> @lang('currently unavailable')</span>
                             </div>
 
-                            <button class="btn-primary w-full">@lang('Pay on arriaval') <span class="text-xs text-inherit ps-2">
-                                    {{ $packages['PKG_PRICE'] }} @lang('SR')</span> </button>
+                            <button class="btn-primary w-full">@lang('Pay on arriaval')
+                                <span class="text-xs text-inherit ps-2">
+                                    @if ($packages['PKG_PRICE'] != $packages['SRVC_PRICE'])
+                                        {{ $packages['SRVC_PRICE'] }} @lang('SR')
+                                    @else
+                                        {{ $packages['PKG_PRICE'] }} @lang('SR')
+                                    @endif
+                                </span>
+                            </button>
 
                         </form>
                     </div>
