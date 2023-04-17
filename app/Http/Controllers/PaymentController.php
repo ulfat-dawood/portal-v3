@@ -29,21 +29,51 @@ class PaymentController extends Controller
         // return $pay;
         return view('payment.checkout', ['url' => $pay]);
     }
+
+    /**
+     * handle payment return response from paytabs
+     * redirect to success/failed page
+     *
+     * @param Request $request
+     * @return redirect
+     */
     public function response(Request $request) //return
     {
-        return '<script>window.parent.location.href = "'.route('payment.failed').'";</script>';
+        return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
         dd($request->query('respStatus'));
     }
+
+    /**
+     * handeling payment callback response status from paytabs
+     * store payment information
+     *
+     * @param Request $request
+     * @return void
+     */
     public function callback(Request $request) //callback
     {
         dd($request->query());
     }
+
+    /**
+     * success page
+     *
+     * @param Request $request
+     * @return view
+     */
     public function success(Request $request) //callback
     {
-        dd($request->query());
+        return view('payment.success');
     }
+
+    /**
+     * failed payment page
+     *
+     * @param Request $request
+     * @return view
+     */
     public function failed(Request $request) //callback
     {
-        dd($request->query());
+        return view('payment.failed');
     }
 }

@@ -47,11 +47,9 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::post('payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
     Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
     Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
-    Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
 
     Route::middleware('AccountAuth')->group(function () {
-
         // Account
         Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
