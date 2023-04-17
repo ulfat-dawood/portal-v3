@@ -84,41 +84,42 @@
                     </div>
 
                     <div id="user-options-dropdown"
-                        class="absolute bottom-[-233px] left-[50%] translate-x-[-50%] hidden  group-hover:block ">
+                        class="absolute bottom-[-290px] left-[50%] translate-x-[-50%] hidden w-52 group-hover:block ">
                         <ul class="bg-white border border-grey-border1 p-3 space-y-2 rounded-lg mt-5 ">
-                            <li class=" bg-grey-bg1 rounded-lg hover:bg-grey-bg2">
-                                <a href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 3]) }}"
-                                    class="py-3 px-5 flex items-center gap-5">
-                                    <div
-                                        class="h-8 w-8 flex-shrink-0 bg-grey-border2 ring-4 ring-grey-border1 rounded-full flex justify-center items-center ">
-                                        <i class="icofont-user-alt-7 text-grey-border1"></i>
-                                    </div>
-                                    <div class="text-grey-text1 text-sm whitespace-nowrap">
-                                        @if (session('locale') == 'ar')
-                                            ملف
-                                            {{ session('user')['name'] }}
-                                        @else
-                                            {{ ucwords(strtolower(session('user')['name'])) }}'s Profile
-                                        @endif
-                                    </div>
-                                </a>
-                            </li>
                             <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                <a class="py-2 px-5 text-sm text-center block"
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
                                     href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 1]) }}">
-                                    @lang('Upcoming Appointments')
+                                    <i class="icofont-ui-calendar"></i>
+                                    <div class=""> @lang('Upcoming Appointments')</div>
                                 </a>
                             </li>
                             <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                <a class="py-2 px-5 text-sm text-center block"
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
                                     href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 2]) }}">
-                                    @lang('Past visits')
+                                    <i class="icofont-history"></i>
+                                    <div class=""> @lang('Past visits')</div>
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 3]) }}">
+                                    <i class="icofont-location-pin"></i>
+                                    <div class=""> @lang('Manage Addresses')</div>
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 4]) }}">
+                                    <i class="icofont-info-square"></i>
+                                    <div class=""> @lang('Account info')</div>
                                 </a>
                             </li>
                             <li class="text-grey-text1 text-sm  rounded-lg hover:bg-grey-bg1">
                                 <a href="{{ route('logout', ['locale' => session('locale')]) }}"
-                                    class="py-3 px-5 block whitespace-nowrap"> @lang('Logout') <i
-                                        class="icofont-logout text-grey-text1"></i></a>
+                                    class="py-3 px-5 whitespace-nowrap flex gap-2 justify-center">
+                                    <i class="icofont-logout text-grey-text1"></i>
+                                    <div class="">@lang('Logout')</div>
+                                </a>
                             </li>
                         </ul>
                     </div>

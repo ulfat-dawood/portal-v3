@@ -20,22 +20,26 @@
                 </li>
                 <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
                     <a class="py-5 px-5 text-sm justify-center flex gap-2"
-                        href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 1]) }}">
+                        href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 2]) }}">
                         <i class="icofont-history"></i>
                         <div class=""> @lang('Past visits')</div>
                     </a>
                 </li>
-                <li class=" bg-grey-bg1 rounded-lg hover:bg-grey-bg2">
-                    <a href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 3]) }}"
-                        class="py-3 px-5 flex items-center justify-center gap-5">
-                        <div>
-                            <i class="icofont-info-square"></i>
-                        </div>
-                        <div class="text-grey-text1 text-sm whitespace-nowrap">
-                            @lang('Account info')
-                        </div>
+                <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                    <a class="py-5 px-5 text-sm justify-center flex gap-2"
+                        href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 3]) }}">
+                        <i class="icofont-location-pin"></i>
+                        <div class=""> @lang('Manage Addresses')</div>
                     </a>
                 </li>
+                <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                    <a class="py-5 px-5 text-sm justify-center flex gap-2"
+                        href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 4]) }}">
+                        <i class="icofont-info-square"></i>
+                        <div class=""> @lang('Account info')</div>
+                    </a>
+                </li>
+
                 {{-- <li class="text-grey-text1 text-sm  rounded-lg hover:bg-grey-bg1">
                     <a href="{{ route('logout', ['locale' => session('locale')]) }}"
                         class="py-3 px-5 block whitespace-nowrap text-center">
