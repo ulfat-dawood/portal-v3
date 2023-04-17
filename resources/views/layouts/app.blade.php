@@ -35,8 +35,9 @@ dir="rtl" @endif>
 
     <x-master.tab-bar />
     <x-master.tab-bar.medical-file />
-    <x-master.tab-bar.search />
-    <x-master.tab-bar.patient />
+    {{-- <x-master.tab-bar.search /> --}}
+    <x-master.tab-bar.account />
+    <x-master.tab-bar.dependents />
 
     <x-master.navbar />
     <x-master.navbar.sidebar />

@@ -52,12 +52,16 @@
                             @break
 
                             @case(3)
-                                <livewire:account.account-details>
-                                @break
+                                <livewire:account.manage-addresses>
+                            @break
 
-                                @default
-                                    <livewire:account.upcoming-appointments>
-                                @endswitch
+                            @case(4)
+                                <livewire:account.account-details>
+                            @break
+
+                            @default
+                                <livewire:account.upcoming-appointments>
+                            @endswitch
 
                 </div>
             </div>

@@ -18,7 +18,8 @@ class Account extends Component
         $this->tabs = [
             1=> ['title'=> __('Upcoming Appointments'), 'icon'=>'ui-calendar'] ,
             2=> ['title'=> __('Past Visits'), 'icon'=>'history'] ,
-            3=> ['title'=> __('Account info'), 'icon'=>'info-square'] ,
+            3=> ['title'=> __('Manage Addresses'), 'icon'=>'location-pin'] ,
+            4=> ['title'=> __('Account info'), 'icon'=>'info-square'] ,
  ];
     }
 
