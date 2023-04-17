@@ -281,8 +281,13 @@ body * {
     .swiper-slide h1 {
         height: 50px;
     }
+
     .swiper-slide p {
         height: 50px;
+        max-width: 45ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .swiper-button-prev.packages,
@@ -290,7 +295,7 @@ body * {
         height: fit-content;
         width: fit-content;
         padding: 15px;
-        background-color: #9f9f9f;
+        background-color: #fff;
         border: 1px solid $grey-border1;
         border-radius: 50%;
         bottom: 50%;
@@ -375,8 +380,14 @@ body * {
 ////////// SWIPER JS DAYS (start) //////////
 #slots {
 
-    .swiper-button-next.days{ right: 0px !important;}
-    .swiper-button-prev.days{ left: 0px !important;}
+    .swiper-button-next.days {
+        right: 0px !important;
+    }
+
+    .swiper-button-prev.days {
+        left: 0px !important;
+    }
+
     .swiper-button-prev.days,
     .swiper-button-next.days {
         height: fit-content;
@@ -815,9 +826,9 @@ input:checked+label {
 
 
 ////////// BANNER (start) //////////
-#banner{
+#banner {
 
-    .banner-wrapper{
+    .banner-wrapper {
         // background-color: red;
         background-size: cover;
         background-position: center bottom;
@@ -825,6 +836,7 @@ input:checked+label {
         // height: 400px;
     }
 }
+
 ////////// BANNER (end) //////////
 
 
