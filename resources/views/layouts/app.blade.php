@@ -31,13 +31,13 @@ dir="rtl" @endif>
 
 
 <body class="bg-grey-bg1 overflow-scroll">
-
     @include('layout.flash-messages')
 
     <x-master.tab-bar />
     <x-master.tab-bar.medical-file />
-    <x-master.tab-bar.search />
-    <x-master.tab-bar.patient />
+    {{-- <x-master.tab-bar.search /> --}}
+    <x-master.tab-bar.account />
+    <x-master.tab-bar.dependents />
 
     <x-master.navbar />
     <x-master.navbar.sidebar />

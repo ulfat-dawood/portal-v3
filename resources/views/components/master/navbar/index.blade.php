@@ -10,7 +10,7 @@
         {{-- <x-master.navbar.search /> --}}
     @endif
 
-    
+
     <!-- CTA -->
     <div id="cta" class="flex gap-5 items-center">
 
@@ -18,35 +18,22 @@
             <!--If is logged in, then display: MF + USER + HOME -->
             <div class="hidden gap-5 items-center lg:flex">
 
-                @if (Route::current()->getName() != 'home')
+                @if (Route::current()->getName() != 'medical-file')
                     <div id="medical-file-btn-wrapper" class="relative group">
                         <div id="medical-file-btn">
                             <div
                                 class="bg-secondary-100 text-secondary-300 py-1 px-8 rounded-full font-light cursor-pointer hover:bg-secondary-200 group-hover:bg-secondary-200
-                        select-none text-sm">
+                                    select-none text-sm">
                                 @lang('Medical file')
                                 <i class="icofont-arrow-right inline text-secondary-300 group-hover:hidden"></i>
                                 <i class="icofont-arrow-down  hidden text-secondary-300 group-hover:inline"></i>
                             </div>
                             <!-- divide-y divide-grey-border1 -->
                             <div id="medical-file-dowpdown"
-                                class="absolute w-60  bottom-[-335px] left-[50%] translate-x-[-50%]  hidden group-hover:block">
+                                class="absolute w-60  bottom-[-250px] left-[50%] translate-x-[-50%]  hidden group-hover:block">
                                 <ul
                                     class="flex flex-col gap-2 bg-white border border-grey-border1 rounded-lg  overflow-hidden mt-5 p-3">
-                                    <li
-                                        class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                        <a class="py-2 px-5 text-sm text-center block"
-                                            href="{{ route('home', ['locale' => session('locale'), 'tabNo' => 1]) }}">
-                                            @lang('Coming appointments')
-                                        </a>
-                                    </li>
-                                    <li
-                                        class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                        <a class="py-2 px-5 text-sm text-center block"
-                                            href="{{ route('home', ['locale' => session('locale'), 'tabNo' => 2]) }}">
-                                            @lang('Past visits')
-                                        </a>
-                                    </li>
+
                                     <li
                                         class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
                                         <a class="py-2 px-5 text-sm text-center block"
@@ -97,29 +84,42 @@
                     </div>
 
                     <div id="user-options-dropdown"
-                        class="absolute bottom-[-143px] left-[50%] translate-x-[-50%] hidden  group-hover:block ">
+                        class="absolute bottom-[-290px] left-[50%] translate-x-[-50%] hidden w-52 group-hover:block ">
                         <ul class="bg-white border border-grey-border1 p-3 space-y-2 rounded-lg mt-5 ">
-                            <li class=" bg-grey-bg1 rounded-lg hover:bg-grey-bg2">
-                                <a href="{{ route('profile', ['locale' => session('locale')]) }}"
-                                    class="py-3 px-5 flex items-center gap-5">
-                                    <div
-                                        class="h-8 w-8 flex-shrink-0 bg-grey-border2 ring-4 ring-grey-border1 rounded-full flex justify-center items-center ">
-                                        <i class="icofont-user-alt-7 text-grey-border1"></i>
-                                    </div>
-                                    <div class="text-grey-text1 text-sm whitespace-nowrap">
-                                        @if (session('locale') == 'ar')
-                                            ملف
-                                            {{ session('user')['name'] }}
-                                        @else
-                                            {{ ucwords(strtolower(session('user')['name'])) }}'s Profile
-                                        @endif
-                                    </div>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 1]) }}">
+                                    <i class="icofont-ui-calendar"></i>
+                                    <div class=""> @lang('Upcoming Appointments')</div>
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 2]) }}">
+                                    <i class="icofont-history"></i>
+                                    <div class=""> @lang('Past visits')</div>
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 3]) }}">
+                                    <i class="icofont-location-pin"></i>
+                                    <div class=""> @lang('Manage Addresses')</div>
+                                </a>
+                            </li>
+                            <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
+                                <a class="py-3 px-3 text-sm items-center justify-center flex gap-2"
+                                    href="{{ route('account', ['locale' => session('locale'), 'tabNo' => 4]) }}">
+                                    <i class="icofont-info-square"></i>
+                                    <div class=""> @lang('Account info')</div>
                                 </a>
                             </li>
                             <li class="text-grey-text1 text-sm  rounded-lg hover:bg-grey-bg1">
-                                <a href="{{ route('home', ['locale' => session('locale')]) }}"
-                                    class="py-3 px-5 block whitespace-nowrap"> @lang('Logout') <i
-                                        class="icofont-logout text-grey-text1"></i></a>
+                                <a href="{{ route('logout', ['locale' => session('locale')]) }}"
+                                    class="py-3 px-5 whitespace-nowrap flex gap-2 justify-center">
+                                    <i class="icofont-logout text-grey-text1"></i>
+                                    <div class="">@lang('Logout')</div>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -150,21 +150,10 @@
                         </div>
                         <!-- divide-y divide-grey-border1 -->
                         <div id="medical-file-dowpdown"
-                            class="absolute w-60  bottom-[-335px] left-[50%] translate-x-[-50%]  hidden group-hover:block">
+                            class="absolute w-60  bottom-[-250px] left-[50%] translate-x-[-50%]  hidden group-hover:block">
                             <ul
                                 class="flex flex-col gap-2 bg-white border border-grey-border1 rounded-lg  overflow-hidden mt-5 p-3">
-                                <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                    <a class="py-2 px-5 text-sm text-center block"
-                                        href="{{ route('home', ['locale' => session('locale'), 'tabNo' => 1]) }}">
-                                        @lang('Coming appointments')
-                                    </a>
-                                </li>
-                                <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
-                                    <a class="py-2 px-5 text-sm text-center block"
-                                        href="{{ route('home', ['locale' => session('locale'), 'tabNo' => 2]) }}">
-                                        @lang('Past visits')
-                                    </a>
-                                </li>
+
                                 <li class=" text-grey-text1 bg-grey-bg1 rounded-lg hover:bg-grey-bg2 cursor-pointer">
                                     <a class="py-2 px-5 text-sm text-center block"
                                         href="{{ route('home', ['locale' => session('locale'), 'tabNo' => 3]) }}">

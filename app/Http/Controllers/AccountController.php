@@ -2,49 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterOtpRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-        //validate
-        request()->validate([
-            'loginMobile' => 'required',
-            'loginPassword' => 'required',
-        ]);
-        // prepare for the request:
-        $token = session('apiToken');
-        $locale = session()->has('locale') ? session('locale') : 'ar';
-        $endpoint = env('API_URI_NEW') . '/'. $locale . '/account/login';
-        $parameters = [
-            'mobile' => request()->input()['loginMobile'],
-            'password' => request()->input()['loginPassword']
-        ];
-
-        // Make request:
         try {
-            $response = Http::withToken($token)->post($endpoint, $parameters)->json();
-
-            // Response returns error
-            if(!$response['status']){
-                return redirect()->back()->with('warning', $response['msg']);
-            }
-
-            /*
-            Response is successful:
-                1- Store user token in the session
-                2- Redirect the user to the home page
-            */
-            session(['user' => $response['data']]);
-            return redirect()->route('home', ['locale' => session('locale')])->with('success', $response['msg']);
-
+            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/login', [
+                'mobile' =>  $request->loginMobile,
+                'password' =>  $request->loginPassword,
+            ]);
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error',  __('Error occured, please try again.'));
-            return $th;
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
         }
+        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
+        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
+        // user successfully logged
+        session(['user' => $response->json()['data']]);
+
+        if (session()->has('url')) {
+            $url = session('url');
+            session()->forget('url');
+            return redirect($url)->with('success', __('Logged in sucessfully'));
+        }
+        return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Logged in sucessfully'));
     }
 
     public function logout()
@@ -57,108 +43,69 @@ class AccountController extends Controller
 
     public function getRegistrationView()
     {
-        return view('login', ['titles' => [__('Mrs'), __('Mr'), __('Miss')]]);
-    }
-
-    public function register(Request $request)
-    {
-        // Validate
-        $request->validate([
-            // "title" => 'required',
-            "fullName" => "required",
-            "mobile" => "required",
-            "email" => "required|email",
-            "password" => 'required|confirmed|min:6',
-            "policy" => "required"
-        ]);
-
-        // prepare for the request:
-        $token = session('apiToken');
-        $api = env('API_URI');
-
-        // Endpoint:
-        $endpoint = $api . '/AthirProcedures/AccountCreate';
-        $parameters = [
-            'pName' => $request->input('fullName'),
-            'pMobile' => $request->input('mobile'),
-            'pPass' => $request->input('password'),
-            // 'pTitle' => $request->input(''),
-            'pEmail' => $request->input('email')
-        ];
-        // Make request:
-        try {
-            $response = Http::withToken($token)->post($endpoint, $parameters)->json();
-
-            // Endpoint request is successful:
-            if (isset($response['operationType']) && $response['operationType'] == "Success") {
-
-                //response msg:
-                $msg = session('locale') == 'ar' ? $response['data']['messageAr'] : $response['data']['message'];
-
-                // if status code == 200:
-                if ($response['data']['code'] == '200') {
-                    // Send OTP via API endpoint
-                    //
-                    //
-
-                    // if OTP sent successfully:
-                        $response['OTP'] = '5151';
-                        // Store the sent OTP in session
-                        session(['otp' => $response['OTP'] ]);
-                        // Redirect the user to the OTP page
-                        return redirect()->route('home', ['locale' => session('locale')])->with('success', $msg);
-
-                    // if OTP not sent successfully
-                        return redirect()->back()->with('warning',  __('Error occured, please try again.'));
-
-                }
-                // if status code != 200   >> redirect back
-                return redirect()->back()->with('warning', $msg);
-            } else {
-                // Endpoint request is not successful:
-                return redirect()->back()->with('warning',  __('Error occured, please try again.'));
-            }
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error',  __('Error occured, please try again.'));
-            return $th;
+        if (session()->has('slot-url')) {
+            $url = session('slot-url');
+            session()->forget('slot-url');
+        } else {
+            $url = url()->previous();
         }
+        session(['url' => $url]);
+
+        return view('login');
     }
 
 
-    public function verifyRegistrationOtp()
+
+    public function registrationOtp(RegisterRequest $request)
     {
-        //validate
-        request()->validate([
-            "registrationOtp" => "Required"
+        // Send OTP to user
+        $response = Http::post(
+            env('API_URL') . '/' . app()->getLocale() . '/account/register',
+            [
+                'mobile' =>  '966' . substr($request->mobile, -9),
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => $request->password,
+            ]
+        );
+        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
+        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
+
+        return view('registration-otp', [
+            'data' => [
+                'mobile' => $request->mobile,
+                'password' => $request->password
+            ]
         ]);
-
-        // prepare for the request:
-        $token = session('apiToken');
-        $api = env('API_URI');
-
-        // Endpoint:
-        $endpoint = $api . '/NexenOTP/CheckRegistrationOTP';
-        $parameters = [
-            'otp' => intval(request()->input('registrationOtp')),
-            'transactionID' => session('registrationOperationId')
-        ];
-
-        // Make request:
-        try {
-            $response = Http::withToken($token)->post($endpoint, $parameters)->json();
-            //is success?
-            if (isset($response['operationType']) && $response['operationType'] == "Success") {
-                session()->forget('registrationOperationId');
-                return redirect()->route('login', ['locale' => session('locale')])->with('success', __('successfully register, please login'));
-            } elseif (isset($response['operationType']) && $response['operationType'] == "Error") {
-                return redirect()->back()->with('error', $response['operationDetails'][0]['details']);
-            } else {
-                return redirect()->back()->with('error', __('Error occured, please try again.'));
-            }
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Error occured, please try again.'));
-            return $th;
-        }
     }
 
+    public function register(RegisterOtpRequest $request)
+    {
+
+        try {
+            $responseRegister = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/registerOtp', [
+                'otp' => $request->otp,
+                'mobile' => $request->mobile,
+                'password' => $request->password,
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+        }
+        if ($responseRegister->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
+        if (!$responseRegister->json()['status']) return redirect()->back()->with('warning', $responseRegister->json()['msg']);
+
+        // Registration succesful
+        if (session()->has('url')) {
+            $url = session('url');
+            session()->forget('url');
+            return redirect($url);
+        }
+
+        return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Accout crated succesfully, please login'));
+    }
+
+    public function getProfile()
+    {
+        return view('profile'); 
+    }
 }

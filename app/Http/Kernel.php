@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'RedirectIfLoggedIn' => \App\Http\Middleware\RedirectIfLoggedIn::class,
         'Localization' => \App\Http\Middleware\Localization::class,
+        'AccountAuth' => \App\Http\Middleware\AccountAuth::class,
     ];
 }

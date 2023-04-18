@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Doctor;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL as FacadesURL;
@@ -11,7 +12,7 @@ use RalphJSmit\Livewire\Urls\Facades\Url;
 
 class Appt extends Component
 {
-    public $doctorAppts;
+    public $days;
     public $selectedDay;
     public $slots;
     public $doctorInfo = ['doctorId' => '', 'centerId' => '', 'clinicId' => ''];
@@ -20,44 +21,60 @@ class Appt extends Component
 
     public function mount()
     {
+        if (count($this->days)) { //if days available
+            $this->selectedDay =  $this->days[0];
+            $this->updatedSelectedDay();
+        }
     }
 
     public function updatedSelectedDay()
     {
-        // prepare for the request:
-        $token = session('apiToken');
-        $api = env('API_URI');
-
-        // Endpoint:
-        $endpoint = $api . '/AthirProcedures/GetDoctorSlotsByDay';
-        $parameters = [
-            'DoctorId' => $this->param['DoctorId'],
-            'CenterId' => $this->param['CenterId'],
-            'ClinicID' => $this->param['ClinicID'],
-            'SlotsDate' => $this->selectedDay,
-            'pageSize' => '100'
-
-        ];
-        // Make request:
         try {
-            //is success?
-            $response = Http::withToken($token)->get($endpoint, $parameters)->json();
-            if (isset($response['operationType']) && $response['operationType'] == "Success") {
-                $this->slots =  $response['data'];
-                $this->msg = '';
-            } else {
-                $this->msg = __('Error occured, please try again.');
-            }
+            $response = Http::get(
+                env('API_URL') . '/' . app()->getLocale() . '/slots/'
+                    . $this->param['DoctorId'] . '/'
+                    . $this->param['CenterId'] . '/'
+                    . $this->param['ClinicID'] . '/'
+                    . $this->selectedDay
+            );
         } catch (\Throwable $th) {
-            return $th;
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+        }
+        if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
+        if (!$response->json()['status']) {
+            $this->msg = $response->json()['msg'];
+        } else {
+            $this->slots = $this->refineSlots($response->json()['data']);
         }
     }
 
     public function getSlot($slotId)
     {
+        if(!Account::isLoggedin()){
+            $previousUrl = route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
+            session(['slot-url' => $previousUrl ]);
+            return redirect()->route('login', ['locale' => session('locale')])->with('warning', __('Please login first'));
+
+        }
+        //is user logged?  login> has register btn
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
     }
 
+    public function refineSlots($slots)
+    {
+        $am = [];
+        $pm = [];
+        foreach ($slots as $slot) {
+            $afrernoon = date('H:i:s', strtotime('12:00:00'));
+            $time = date('H:i:s',  strtotime($slot['slot_time']));
+            if ($time < $afrernoon) {
+                array_push($am, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i', strtotime($time))]);
+            } else {
+                array_push($pm, ['CLIN_APPT_SLOT_ID' => $slot['CLIN_APPT_SLOT_ID'], 'slot_time' => date('g:i', strtotime($time))]);
+            }
+        }
+        return ['am' => $am, 'pm' => $pm];
+    }
 
     public function render()
     {
