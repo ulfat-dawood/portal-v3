@@ -8,7 +8,9 @@ use Livewire\Component;
 class ManageAddresses extends Component
 {
     public $addresses;
-    public $msg= "";
+    public $showModal = 0;
+
+    protected $listeners = ['toggleModal'];
 
     public function mount(){
 
@@ -43,6 +45,10 @@ class ManageAddresses extends Component
         }
         return session()->flash('success', __('Address removed successfully.'));
 
+    }
+
+    public function toggleModal($showModal){
+        $this->showModal = $showModal;
     }
 
     public function render()

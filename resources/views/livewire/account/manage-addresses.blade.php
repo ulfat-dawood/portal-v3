@@ -1,10 +1,18 @@
 <div>
     @include('layout.flash-messages')
+    
+    <div>
+        @if ($showModal)
+            <div>
+                <livewire:account.add-address>
+            </div>
+        @endif
+    </div>
 
     <div class="flex flex-col gap-4 ">
-        <div class="flex justify-start items-center self-center py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
+        <div wire:click="toggleModal(1)" class="flex justify-start items-center self-center py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
             <i class="icofont-ui-add text-xs text-main-600"></i>
-            <div class="text-main-600 text-sm">@lang('Add location')</div>
+            <div class="text-main-600 text-sm">@lang('Add address')</div>
         </div>
         @forelse ($addresses as $address)
 
@@ -37,7 +45,7 @@
                     <a target="_blank"
                         href="https://www.google.com/maps/search/?api=1&query={{ $address['LATITUDE'] }},{{ $address['LONGITUDE'] }}"
                         class=" block border border-white  border-4 text-center bg-main-100 rounded-lg text-main-600 text-xs font-normal px-2 py-1 cursor-pointer hover:bg-main-200">
-                        <i class="icofont-location-arrow text-main-600 text-xs"></i>
+                        <i class="icofont-location-pin text-main-600 text-xs"></i>
                         @lang('Map')
                     </a>
 
