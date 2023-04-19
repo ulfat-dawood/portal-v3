@@ -470,5 +470,13 @@ window.onload = function () {
         console.log(address);
     });
 };
+// ////showing the map in balde
+// @section('script')
+//     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+// @endsection
+// <div id="map" style="width:100%;height:400px; ">
+//     <div style="width: 100%; height: 100%" id="map"></div>
+// </div>
+
 ////////// Location MAP (end) //////////
 
