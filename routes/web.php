@@ -56,8 +56,11 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         // Account
         Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
-
     });
 
+    // test
+    Route::get('test', function () {
+        return view('address');
 
+    })->name('test');
 });

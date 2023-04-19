@@ -433,3 +433,42 @@ const closeToast = (element) => {
 
 
 ////////// TOAST MSG (end) //////////
+
+
+////////// Location MAP (start) //////////
+window.onload = function () {
+    if (!navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                var latlng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                console.log(latlng);
+            },
+            () => {
+                console.log("Error: The Geolocation service failed.");
+            }
+        );
+    } else {
+        var latlng = new google.maps.LatLng(21.5762, 39.1505);
+    };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: 'Set lat/lon values for this property',
+        draggable: true
+    });
+    google.maps.event.addListener(marker, 'dragend', function (a) {
+        // console.log(a);
+        var address = a.latLng.lat().toFixed(4) + ', ' + a.latLng.lng().toFixed(4);
+        console.log(address);
+    });
+};
+////////// Location MAP (end) //////////
+
