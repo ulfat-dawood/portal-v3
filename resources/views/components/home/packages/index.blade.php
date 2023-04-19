@@ -19,9 +19,8 @@
                             @if ($key > 5)
                             @break
                         @endif
-
                         <div class="swiper-slide">
-                            <a href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+                            <a href="{{ route('getPackage', ['locale' => session('locale'), 'packageId' => $package['PKG_ID'] ]) }}">
 
                                 <div class="rounded overflow-hidden shadow mx-2 mb-2 mt-2 py-2 relative text-center bg-white">
                                     {{-- <div class="bg-main-100 h-32 rounded-lg overflow-hidden relative">
@@ -31,7 +30,7 @@
                                         <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white" class="isTrue:line-through">@lang('Before') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>                                        @if ($package['PKG_PRICE'] != null)
                                             <h3 class="relative inline-block bg-secondary-300 rounded-full px-4 ms-8 mt-2 text-md text-white">@lang('After') {{ $package['PKG_PRICE'] }} @lang('SR')</h3>
                                         @endif
-                                    </div> --}}
+                                    </div> --}} 
 
                                     <h1 class="text-md font-bold px-3 my-2">{{ $package['PKG_NAME'] }}</h1>
 
@@ -79,7 +78,7 @@
                 <div class="card w-10/12 mx-auto flex flex-col flex-wrap justify-center">
                     @if (isset($packages))
                         @foreach ($packages as $key => $package)
-                            <a class="hover:bg-gray-100" href="{{ route('getPackages', ['locale' => session('locale'), 'packageId' => $key]) }}">
+                            <a class="hover:bg-gray-100" href="{{ route('getPackage', ['locale' => session('locale'), 'packageId' => $key]) }}">
 
                                 <div class="flex-grow p-1 relative">
                                     <div class="flex felx-row rounded overflow-hidden shadow-lg mx-1 mb-1 mt-1 py-2 static bg-white">

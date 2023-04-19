@@ -21,6 +21,10 @@
       @apply text-center cursor-pointer py-2 px-4 bg-main-200 text-main-600 font-semibold rounded-lg hover:bg-main-300 text-xs transition-all
       focus:bg-main-300 focus:ring-2 focus:outline-none focus:ring-main-200;
     }
+    .btn-secondary {
+      @apply text-center cursor-pointer py-2 px-4 bg-secondary-100 text-secondary-400 font-semibold rounded-lg hover:bg-secondary-200 text-xs transition-all
+      focus:bg-secondary-200 focus:ring-2 focus:outline-none focus:ring-secondary-100;
+    }
     .box {
         @apply bg-white border border-grey-border1 rounded-lg shadow;
     }

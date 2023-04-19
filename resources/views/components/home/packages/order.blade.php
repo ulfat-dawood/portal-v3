@@ -1,11 +1,11 @@
 @extends('layout.master')
-@section('title', __('Packages'))
+@section('title', __('Order package'))
 
 @section('content')
 
     <div class="container xl:px-[9vw]">
 
-        <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $package['PKG_ID'] }}" />
+        <x-master.breadcrumbs path="{{ __('Order package') }}" current="{{ $package['PKG_ID'] }}" />
         <div class="container">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
                 <div class="flex-grow flex flex-col gap-5 min-h-0 min-w-0 lg:basis-3/4 lg:w-3/4 lg:flex-grow-0 ">
@@ -94,17 +94,25 @@
 
                     <div class="box p-4 space-y-2">
 
-                        <h3 class="font-bold text-sm">@lang('Package confirmation')</h3>
+                        <h3 class="font-bold text-sm">@lang('Confirm Payment')</h3>
 
                         <p class="my-4 text-sm text-grey-text1">
-                            @lang('Order the package by clicking below')
+                            @lang('Continue to payment by clicking below')
                         </p>
 
-                        <form method="GET"
-                        action="{{ route('package.order', ['locale' => session('locale'), 'packageId' => $package['PKG_ID']]) }}" class="space-y-2">
+                        <form method="POST"
+                        action="{{ route('package.checkout', ['locale' => session('locale')]) }}" class="space-y-2">
+                            @csrf
+                            <input type="hidden" value="{{ $package['PKG_ID']  }}" name="package_id">
+                            <input type="hidden" value="1" name="quantity">
+
 
                             <button type="submit" class="btn-primary w-full">
-                                @lang('Order the packages')
+                                @lang('Pay now')
+                                <span class="text-xs text-inherit ps-2">
+                                    {{ $package['SRVC_PRICE']  }} @lang('SR')
+                                    <span class="line-through">{{ $package['PKG_PRICE']  }}</span>
+                                </span>
                             </button>
 
                         </form>
