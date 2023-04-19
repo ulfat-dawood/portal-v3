@@ -437,7 +437,7 @@ const closeToast = (element) => {
 
 ////////// Location MAP (start) //////////
 window.onload = function () {
-    if (navigator.geolocation) {
+    if (!navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 var latlng = {
