@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -39,19 +40,8 @@ class SlotController extends Controller
     public function getSlot(Request $request)
     {
         //validate
-        if (!$request->slotId) {
-            return redirect()->back();
-        }
-
-        try {
-            $responseSlot = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slot/' . $request->slotId);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($responseSlot->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$responseSlot->json()['status']) return redirect()->back()->with('warning', $responseSlot->json()['msg']);
-        return view('slot', [
-            'slot' => $responseSlot['data'][0],
-        ]);
+        if (!$request->slotId) return redirect()->back()->with('error', __('Not Found'));
+        $response = FeachPortalAPI::feach('/slot/' . $request->slotId);
+        return view('slot', ['slot' => $response['data'][0]]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+// use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -212,6 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'FeachPortalAPI' => App\Http\FeachPortalAPI::class,
     ])->toArray(),
 
 ];

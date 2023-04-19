@@ -14,10 +14,17 @@ class PaymentController extends Controller
     public function checkout()
     {
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
-
         $data = session('checkout');
         if ($data['payOnArrival']) {
-            return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+            //reserve the appointment
+            dump($data);
+            // patient_id:1196460
+            // firstName:Ahmed Elmahdy
+            // accountId:5
+            // centerId:42
+            // mobile:555
+            // slotId:1183984
+            // return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
@@ -78,6 +85,7 @@ class PaymentController extends Controller
      */
     public function failed(Request $request) //callback
     {
+        //  cancel the appointment
         return view('payment.failed');
     }
 }

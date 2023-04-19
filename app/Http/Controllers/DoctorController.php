@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -16,19 +17,13 @@ class DoctorController extends Controller
 
 
         ]);
-        try {
-            $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/doctors/search', [
-                'pageNo' => '',
-                'perPage' => $request->perpage ? $request->perpage : 20,
-                'cityId' =>  $request->cityId,
-                'clinicId' =>  $request->clinicId,
-                'allowCache' => 0 , 
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
+        $response = FeachPortalAPI::feach('/doctors/search', [
+            'pageNo' => '',
+            'perPage' => $request->perpage ? $request->perpage : 20,
+            'cityId' =>  $request->cityId,
+            'clinicId' =>  $request->clinicId,
+            'allowCache' => 0,
+        ]);
 
         return view('doctors', [
             'totalePages' => $response->json()['data']['totalPages'],
