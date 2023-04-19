@@ -437,7 +437,7 @@ const closeToast = (element) => {
 
 ////////// Location MAP (start) //////////
 window.onload = function () {
-    if (!navigator.geolocation) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 var latlng = {
@@ -455,7 +455,7 @@ window.onload = function () {
     };
     var map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
-        zoom: 11,
+        zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     var marker = new google.maps.Marker({
@@ -466,7 +466,7 @@ window.onload = function () {
     });
     google.maps.event.addListener(marker, 'dragend', function (a) {
         // console.log(a);
-        var address = a.latLng.lat().toFixed(4) + ', ' + a.latLng.lng().toFixed(4);
+        var address = a.latLng.lat() + ', ' + a.latLng.lng();
         console.log(address);
     });
 };
