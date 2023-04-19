@@ -42,7 +42,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     //Slots
     Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
 
-    Route::get('/package/{packageId}', [PackageController::class, 'getPackages'])->name('getPackages');
+    Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
 
     // payment
     Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
@@ -56,6 +56,10 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         // Account
         Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
+        Route::get('/packages/order/{packageId?}', [PackageController::class, 'orderPackage'])->name('package.order');
+        Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
+
+
     });
 
     // test
