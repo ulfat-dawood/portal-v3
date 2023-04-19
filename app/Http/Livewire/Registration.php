@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -35,17 +36,13 @@ class Registration extends Component
         ]);
 
         // Validation successful> send OTP
-        $response = Http::post(
-            env('API_URL') . '/' . app()->getLocale() . '/account/register',
-            [
-                'mobile' =>  '966' . substr($this->mobile, -9),
-                "name" => $this->name,
-                "email" => $this->email,
-                "password" => $this->password,
-            ]
-        );
-        if ($response->failed()) return redirect()->route('register', ['locale' => session('locale')])->with('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return redirect()->route('register', ['locale' => session('locale')])->with('warning', $response->json()['msg']);
+        $response = FeachPortalAPI::feach('/account/register', [
+            'mobile' =>  '966' . substr($this->mobile, -9),
+            "name" => $this->name,
+            "email" => $this->email,
+            "password" => $this->password,
+        ], 'post');
+
 
         // OTP sent successfully
         $this->isOtpSent = true;
@@ -56,21 +53,17 @@ class Registration extends Component
         $this->validate(['otp' => 'required']);
 
         // Validation successful> try to register user
-        try {
-            $responseRegister = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/registerOtp', [
-                'otp' => $this->otp,
-                'mobile' => $this->mobile,
-                'password' => $this->password,
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($responseRegister->failed()) return  $this->msg = __('Error occured, please try again.');
-        if (!$responseRegister->json()['status']) {
-            $this->msg = $responseRegister->json()['msg'];
+        $response = FeachPortalAPI::feach('/account/registerOtp', [
+            'otp' => $this->otp,
+            'mobile' =>  '966' . substr($this->mobile, -9),
+            "password" => $this->password,
+        ], 'post');
+
+        if (!$response->json()['status']) {
+            $this->msg = $response->json()['msg'];
         } else {
             // Registration succesful
-            session(['user' => $responseRegister->json()['data']]);
+            session(['user' => $response->json()['data']]);
             // Registration succesful
             if (session()->has('url')) {
                 $url = session('url');

@@ -2,26 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\FeachPortalAPI;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterOtpRequest;
-use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
 
     public function login(LoginRequest $request)
     {
-        try {
-            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/login', [
-                'mobile' =>  $request->loginMobile,
-                'password' =>  $request->loginPassword,
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
+        $request->validate(['loginMobile' => 'required|min:9', 'loginPassword' => 'required|min:6']);
+        $response = FeachPortalAPI::feach('/account/login', ['mobile' =>  $request->loginMobile, 'password' =>  $request->loginPassword], 'post');
+
         // user successfully logged
         session(['user' => $response->json()['data']]);
 
@@ -55,57 +46,4 @@ class AccountController extends Controller
     }
 
 
-
-    public function registrationOtp(RegisterRequest $request)
-    {
-        // Send OTP to user
-        $response = Http::post(
-            env('API_URL') . '/' . app()->getLocale() . '/account/register',
-            [
-                'mobile' =>  '966' . substr($request->mobile, -9),
-                "name" => $request->name,
-                "email" => $request->email,
-                "password" => $request->password,
-            ]
-        );
-        if ($response->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return redirect()->back()->with('warning', $response->json()['msg']);
-
-        return view('registration-otp', [
-            'data' => [
-                'mobile' => $request->mobile,
-                'password' => $request->password
-            ]
-        ]);
-    }
-
-    public function register(RegisterOtpRequest $request)
-    {
-
-        try {
-            $responseRegister = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/registerOtp', [
-                'otp' => $request->otp,
-                'mobile' => $request->mobile,
-                'password' => $request->password,
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($responseRegister->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$responseRegister->json()['status']) return redirect()->back()->with('warning', $responseRegister->json()['msg']);
-
-        // Registration succesful
-        if (session()->has('url')) {
-            $url = session('url');
-            session()->forget('url');
-            return redirect($url);
-        }
-
-        return redirect()->route('home', ['locale' => session('locale')])->with('success', __('Accout crated succesfully, please login'));
-    }
-
-    public function getProfile()
-    {
-        return view('profile'); 
-    }
 }

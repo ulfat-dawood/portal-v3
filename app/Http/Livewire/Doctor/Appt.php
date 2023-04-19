@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Doctor;
 
+use App\Http\Helpers\FeachPortalAPI;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -29,18 +30,7 @@ class Appt extends Component
 
     public function updatedSelectedDay()
     {
-        try {
-            $response = Http::get(
-                env('API_URL') . '/' . app()->getLocale() . '/slots/'
-                    . $this->param['DoctorId'] . '/'
-                    . $this->param['CenterId'] . '/'
-                    . $this->param['ClinicID'] . '/'
-                    . $this->selectedDay
-            );
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
+        $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay);
         if (!$response->json()['status']) {
             $this->msg = $response->json()['msg'];
         } else {
@@ -50,11 +40,10 @@ class Appt extends Component
 
     public function getSlot($slotId)
     {
-        if(!Account::isLoggedin()){
+        if (!Account::isLoggedin()) {
             $previousUrl = route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);
-            session(['slot-url' => $previousUrl ]);
+            session(['slot-url' => $previousUrl]);
             return redirect()->route('login', ['locale' => session('locale')])->with('warning', __('Please login first'));
-
         }
         //is user logged?  login> has register btn
         return redirect()->route('slot', ['slotId' => $slotId, 'locale' => session('locale')]);

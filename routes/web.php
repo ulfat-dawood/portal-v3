@@ -28,9 +28,9 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     // Account
     Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
     Route::post('/login', [AccountController::class, 'login'])->name('login');
-    Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
-    Route::post('/register/otp', [AccountController::class, 'registrationOtp'])->name('register-otp');
-    Route::post('/register', [AccountController::class, 'register'])->name('register');
+    Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn')->name('register');
+    // Route::post('/register/otp', [AccountController::class, 'registrationOtp'])->name('register-otp');
+    // Route::post('/register', [AccountController::class, 'register']);
     // Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
     // Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
 
