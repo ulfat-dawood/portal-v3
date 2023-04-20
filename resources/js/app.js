@@ -445,6 +445,8 @@ window.onload = function () {
                     lng: position.coords.longitude,
                 };
                 console.log(latlng);
+                // var address = (position.coords.latitude, position.coords.longitude);
+                // console.log(address);
             },
             () => {
                 console.log("Error: The Geolocation service failed.");
