@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,21 +12,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        try {
-            $response = Http::pool(fn (Pool $pool) => [
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/cities'),
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/clinics'),
-                $pool->get(env('API_URL') . '/' . app()->getLocale() . '/packages')
-            ]);
-
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response[0]->failed() && $response[1]->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
-        if (!$response[0]->json()['status']) return redirect()->back()->with('warning', $response[0]->json()['msg']);
-        if (!$response[1]->json()['status']) return redirect()->back()->with('warning', $response[1]->json()['msg']);
-
-
+        $response = FeachPortalAPI::pool(['/cities', '/clinics', '/packages']);
+        if (!$response[0]) return redirect()->route('failed')->with($response[1], $response[2]);
+        $response = $response[0];
         return  view('index', [
             'cities' => $response[0]['data'],
             'clinics' => $response[1]['data'],

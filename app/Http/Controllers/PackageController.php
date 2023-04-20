@@ -11,7 +11,8 @@ class PackageController extends Controller
     {
         if (!$request->packageId) redirect()->back()->with('error', __('Not Found'));
         $response = FeachPortalAPI::feach('/package/' . $request->packageId);
-        if (!$response->json()['data']) return redirect()->back()->with('error', __('Not Found'));
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         return  view('components.home.packages.show', ['package' => $response->json()['data'][0]]);
     }
 
@@ -19,7 +20,8 @@ class PackageController extends Controller
     {
         if (!$request->packageId) redirect()->back()->with('error', __('Not Found'));
         $response = FeachPortalAPI::feach('/package/' . $request->packageId);
-        if (!$response->json()['data']) return redirect()->back()->with('error', __('Not Found'));
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         return  view('components.home.packages.order', ['package' => $response->json()['data'][0]]);
     }
 

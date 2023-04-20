@@ -31,9 +31,10 @@ class Appt extends Component
     public function updatedSelectedDay()
     {
         $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay);
-        if (!$response->json()['status']) {
-            $this->msg = $response->json()['msg'];
+        if (!$response[0]) {
+            $this->msg = $response[2];
         } else {
+            $response = $response[0];
             $this->slots = $this->refineSlots($response->json()['data']);
         }
     }

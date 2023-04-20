@@ -29,6 +29,8 @@ class ConfirmAppt extends Component
             'hospital_id' => $this->slot['HOSPITAL_ID']
         ], 'post');
 
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         $this->patients = $response->json()['data'];
     }
 
