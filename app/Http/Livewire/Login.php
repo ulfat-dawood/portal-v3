@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -14,50 +15,45 @@ class Login extends Component
     public $msg;
     public $otp;
     public $newPassword;
-    public $newPassword_confirmation; 
+    public $newPassword_confirmation;
 
-    public function showModal($showModal){
+    public function showModal($showModal)
+    {
         $this->showModal = $showModal;
     }
 
-    public function sendOtp(){
+    public function sendOtp()
+    {
         $this->validate(['mobile' => 'required']);
-
-        try {
-            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/forgotpassword', [
-                'mobile' => $this->mobile,
-            ]);
-        } catch (\Throwable $th) {
-            return  $this->msg = __('Server error: coudn\'t connect. Please try again');
-        }
-        if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
-        if (!$response->json()['status']) { $this->msg = $response->json()['msg']; }
-        else {
+        $response = FeachPortalAPI::feach('/account/forgotpasswordx', ['mobile' => $this->mobile,], 'post');
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
+        if (!$response->json()['status']) {
+            $this->msg = $response->json()['msg'];
+        } else {
             // OTP sent succesfully
             $this->msg = __('OTP has been sent');
             $this->isOtpSent = true;
         }
     }
 
-    public function resetPassword(){
+    public function resetPassword()
+    {
         $this->validate([
             'otp' => 'required',
             'newPassword' => 'required|confirmed|min:6'
         ]);
 
-
-        try {
-            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/forgotpasswordcompletion', [
-                'mobile' => $this->mobile,
-                'password' => $this->newPassword,
-                'otp' => $this->otp,
-            ]);
-        } catch (\Throwable $th) {
-            return  $this->msg = __('Server error: coudn\'t connect. Please try again');
-        }
-        if ($response->failed()) return  $this->msg = __('Error occured, please try again.');
-        if (!$response->json()['status']) { $this->msg = $response->json()['msg']; }
-        else {
+        $response = FeachPortalAPI::feach('/account/forgotpasswordcompletion', [
+            'mobile' => $this->mobile,
+            'password' => $this->newPassword,
+            'otp' => $this->otp,
+        ], 'post');
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
+        if (!$response->json()['status']) {
+            $this->msg = $response->json()['msg'];
+        } else {
             // Password reset successfully
             $this->msg = false;
             $this->isPasswordReset = true;

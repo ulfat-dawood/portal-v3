@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Account;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -13,31 +14,18 @@ class ManageAddresses extends Component
     protected $listeners = ['toggleModal'];
 
     public function mount(){
-
-        try {
-            $response = Http::get(env('API_URL') . '/' . app()->getLocale() . '/account/locations/'. session('user')['id']);
-        } catch (\Throwable $th) {
-            return   session()->flash('error', __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return  session()->flash('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return session()->flash('warning', $response->json()['msg']);
-
+        $response = FeachPortalAPI::feach( '/account/locations/'. session('user')['id']);
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         // addresses retreived successfully
         $this->addresses = $response->json()['data'];
     }
 
     public function delete($locationId){
         // Cancel the Appt
-        try {
-            $response = Http::post(env('API_URL') . '/' . app()->getLocale() . '/account/location/delete', [
-                'accountId' => session('user')['id'],
-                'locationId' => $locationId,
-            ]);
-        } catch (\Throwable $th) {
-            return  session()->flash('error',  __('Server error: coudn\'t connect. Please try again'));
-        }
-        if ($response->failed()) return  session()->flash('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return session()->flash('warning', $response->json()['msg']);
+        $response = FeachPortalAPI::feach('/account/location/delete', ['accountId' => session('user')['id'],'locationId' => $locationId,], 'post');
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
 
         // If delete is successful: update addresses array
         foreach($this->addresses as $key => $address){

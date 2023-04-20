@@ -28,12 +28,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     // Account
     Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
     Route::post('/login', [AccountController::class, 'login'])->name('login');
-    Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
-    Route::post('/register/otp', [AccountController::class, 'registrationOtp'])->name('register-otp');
-    Route::post('/register', [AccountController::class, 'register'])->name('register');
-    // Route::view('/registrationOtp', 'registration-otp')->name('registratio-otp-page');
-    // Route::post('/registrationOtp', [AccountController::class, 'verifyRegistrationOtp'])->name('registration-otp');
-
+    Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn')->name('register');
 
     //Doctor
     Route::get('doctors', [DoctorController::class, 'getDoctors'])->name('getDoctors');
@@ -60,13 +55,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
         Route::get('/packages/order/{packageId?}', [PackageController::class, 'orderPackage'])->name('package.order');
         Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
-
-
     });
-
-    // test
-    Route::get('test', function () {
-        return view('address');
-
-    })->name('test');
+    // failed to load first page
+    Route::view('failed', 'errors.failed')->name('failed');
 });
