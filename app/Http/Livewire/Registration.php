@@ -42,7 +42,7 @@ class Registration extends Component
             "email" => $this->email,
             "password" => $this->password,
         ], 'post');
-
+        $response = $response[0];
 
         // OTP sent successfully
         $this->isOtpSent = true;
@@ -59,9 +59,10 @@ class Registration extends Component
             "password" => $this->password,
         ], 'post');
 
-        if (!$response->json()['status']) {
-            $this->msg = $response->json()['msg'];
+        if (!$response[0]) {
+            $this->msg = $response[2];
         } else {
+            $response = $response[0];
             // Registration succesful
             session(['user' => $response->json()['data']]);
             // Registration succesful

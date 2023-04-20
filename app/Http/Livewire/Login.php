@@ -25,8 +25,9 @@ class Login extends Component
     public function sendOtp()
     {
         $this->validate(['mobile' => 'required']);
-        $response = FeachPortalAPI::feach('/account/forgotpassword', ['mobile' => $this->mobile,], 'post');
-
+        $response = FeachPortalAPI::feach('/account/forgotpasswordx', ['mobile' => $this->mobile,], 'post');
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         if (!$response->json()['status']) {
             $this->msg = $response->json()['msg'];
         } else {
@@ -48,7 +49,8 @@ class Login extends Component
             'password' => $this->newPassword,
             'otp' => $this->otp,
         ], 'post');
-
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
         if (!$response->json()['status']) {
             $this->msg = $response->json()['msg'];
         } else {
