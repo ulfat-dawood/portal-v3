@@ -10,7 +10,10 @@ class ManageAddresses extends Component
     public $addresses;
     public $showModal = 0;
 
-    protected $listeners = ['toggleModal'];
+    protected $listeners = [
+        'toggleModal',
+        'refreshAddresses'
+    ];
 
     public function mount(){
 
@@ -23,7 +26,7 @@ class ManageAddresses extends Component
         if (!$response->json()['status']) return session()->flash('warning', $response->json()['msg']);
 
         // addresses retreived successfully
-        $this->addresses = $response->json()['data'];
+        $this->addresses = array_reverse($response->json()['data']);
     }
 
     public function delete($locationId){
@@ -50,6 +53,11 @@ class ManageAddresses extends Component
     public function toggleModal($showModal){
         $this->showModal = $showModal;
     }
+
+    public function refreshAddresses(){
+        $this->mount();
+    }
+
 
     public function render()
     {

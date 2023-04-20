@@ -43,6 +43,19 @@ class SlotController extends Controller
             return redirect()->back();
         }
 
+        // Lock the slot if is not locked:
+        try {
+            $responseSlot = Http::get(env('API_URL') . '/' . app()->getLocale() . 'slot/locksingleslot' ,[
+                'account_id'=> session('user')['id'],
+                'slot_id' => $request->slotId
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', __('Server error: coudn\'t connect. Please try again'));
+        }
+        if ($responseSlot->failed()) return redirect()->back()->with('error', __('Error occured, please try again.'));
+        if (!$responseSlot->json()['status']) return redirect()->back()->with('warning', $responseSlot->json()['msg']);
+
+        // The slot is available and is not locked:
         try {
             $responseSlot = Http::get(env('API_URL') . '/' . app()->getLocale() . '/slot/' . $request->slotId);
         } catch (\Throwable $th) {
