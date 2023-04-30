@@ -1,6 +1,6 @@
 <div>
     @include('layout.flash-messages')
-    
+
     <div>
         @if ($showModal)
             <div>
@@ -9,10 +9,15 @@
         @endif
     </div>
 
-    <div class="flex flex-col gap-4 ">
-        <div wire:click="toggleModal(1)" class="flex justify-start items-center self-center py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
-            <i class="icofont-ui-add text-xs text-main-600"></i>
-            <div class="text-main-600 text-sm">@lang('Add address')</div>
+    <div class="flex flex-col gap-4">
+        <div class="flex justify-center">
+            <div wire:click="toggleModal(1)" class="flex justify-start items-center self-center py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
+                <i class="icofont-ui-add text-xs text-main-600"></i>
+                <div class="text-main-600 text-sm">@lang('Add address')</div>
+            </div>
+            <div wire:click="refreshAddresses" class="py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
+                <i class="icofont-refresh text-main-600"></i>
+            </div>
         </div>
         @forelse ($addresses as $address)
 

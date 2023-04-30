@@ -11,14 +11,17 @@ class ManageAddresses extends Component
     public $addresses;
     public $showModal = 0;
 
-    protected $listeners = ['toggleModal'];
+    protected $listeners = [
+        'toggleModal',
+        'refreshAddresses'
+    ];
 
     public function mount(){
         $response = FeachPortalAPI::feach( '/account/locations/'. session('user')['id']);
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
         // addresses retreived successfully
-        $this->addresses = $response->json()['data'];
+        $this->addresses = array_reverse($response->json()['data']);
     }
 
     public function delete($locationId){
@@ -38,6 +41,11 @@ class ManageAddresses extends Component
     public function toggleModal($showModal){
         $this->showModal = $showModal;
     }
+
+    public function refreshAddresses(){
+        $this->mount();
+    }
+
 
     public function render()
     {
