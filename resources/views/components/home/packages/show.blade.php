@@ -77,18 +77,12 @@
                                 <div class="my-3 mx-6">
                                     @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
                                         <div class="mr-6 text-sm">
-                                            <p class="inline-block w-10/12">@lang('price before discount')</p>
+                                            <p class="inline-block w-11/12">@lang('price before discount')</p>
                                             <h2 class="inline-block line-through">{{ $package['PKG_PRICE'] }}
                                                 @lang('SR')</h2>
                                         </div>
                                         <div class="mr-6 text-sm">
-                                            <p class="inline-block w-10/12">@lang('discount')</p>
-                                            <h2 class="inline-block">
-                                                {{ (($package['PKG_PRICE']-$package['SRVC_PRICE'])/$package['PKG_PRICE']) *100 }}%
-                                            </h2>
-                                        </div>
-                                        <div class="mr-6 text-sm">
-                                            <p class="inline-block w-10/12">@lang('total')</p>
+                                            <p class="inline-block w-11/12">@lang('total')</p>
                                             <h2 class="inline-block">{{ $package['SRVC_PRICE'] }} @lang('SR')</h2>
                                         </div>
                                     @else
