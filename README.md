@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+view singl packge 
+complete package sammary page and send data to checkout
+request to update  packages to add pagination
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+lock slot on appointmentt page sammary
+unlock on payment failed
 
-## About Laravel
+home appointment 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<h1 align="center"># Welcome to Patient Portal, Your Medical Home on the Web</h1>
+## With Patient Portal, you can connect with your doctor through a convenient, safe and secure environment.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 7 essential features for EHR patient portals
+If you are looking for a new EHR for your medical practice, learning what their patient portal is capable of is a necessary part of the search. The right patient portal can drastically improve your patient engagement and streamline practice management. When examining different EHR vendors, look for the following features to ensure you know what should be in a patient portal.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# 1. HIPAA and Cures Act compliance
+Because you will be sharing protected health information (PHI) through your patient portal, it must be compliant with the Health Insurance Portability and Accountability Act (HIPAA). Providers will use this platform to message patients as well, so the platform has to be secure to protect your patients’ information.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The portal also has to meet the standards laid out in the 21st Century Cures Act. Specifically, your patient portal needs to be OpenNotes compliant. This mandate states that patients need to be able to access these eight kinds of clinical notes at no cost:
 
-## Laravel Sponsors
+Consultation notes
+Discharge summary notes
+History and physical
+Imaging narratives
+Laboratory report narratives
+Pathology report narratives
+Procedure notes
+Progress reports
+Patients often wonder how to get their medical records online for free. With a well-built patient portal, you can seamlessly and quickly provide this information to patients. This can be accomplished easily if your portal was built with a Fast Healthcare Interoperability Resources (FHIR) API.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+This API standard has become increasingly popular in the healthcare industry because it allows for safe patient access to medical records online. Ask any potential EHR vendor how their patient portal makes it easier for your patients to receive their health information.
 
-### Premium Partners
+ehr patient portal
+Healthcare providers can send messages and educational materials to patients through an EHR’s patient portal.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# 2. Secure messaging
+The EHR patient portal is a powerful patient engagement tool in large part due to the patient messaging features. Providers can send and receive HIPAA-compliant messages in the portal, and this is an excellent way to communicate requirements or answer questions as they arise.
 
-## Contributing
+Beyond those interactions, providers can also send educational materials to their patients. For example, physical therapists can send exercise videos to patients, so that they can properly perform the prescribed techniques at home.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 3. Minimal patient onboarding
+Since the patient portal is crucial to sharing information with patients, onboarding has to be simple. Patients should be able to access this portal from a website and mobile application. On the provider end, the EHR will have an option to invite patients to access their patient portal from a web link sent to their email.
 
-## Code of Conduct
+After your patient has received this link, they will be able to set up their account in the patient portal. This step will likely require them to input some personal information like their name, email address, and phone number. Once their account setup is complete, they will be able to use the portal to access their health information.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 4. Easy appointment scheduling
+Online appointment scheduling eliminates a significant amount of front desk work for your staff while saving your patients from long phone queues. An appointment calendar in the patient portal makes it easy for patients to book an appointment in your schedule.
 
-## Security Vulnerabilities
+However, the process shouldn’t end at the calendar. No-shows are a frustrating inconvenience for medical practices, but they can be reduced dramatically if your EHR patient portal automatically sends appointment reminders to patients.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+ehr patient portal telehealth appointment
+If your medical practice offers virtual appointments, look for an EHR that supports HIPAA-compliant telehealth services.
 
-## License
+# 5. Intake forms
+Another practice management feature to prioritize in patient portals is online accessible intake and consent forms. Save paper by allowing your patients to complete their necessary check-in paperwork before they even step foot in your office. This will also cut down on wait times at your practice which translates to a better overall patient experience.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 6. Payment processing
+Patients ought to be able to pay for healthcare services online through their EHR patient portal. This makes it easier to pay for their appointments and other associated fees. To improve the payment process, the portal should also allow credit card information to be saved if the patient is comfortable with that.
+
+# 7. Telehealth
+Finally, if your practice conducts telehealth appointments, your patient portal will likely play a role in those encounters. Patients will likely access those appointments from their patient portal, and they should be able to do this from their iPhone, iPad, or desktop browser. As with regular in-person appointments, online scheduling for telehealth should be simple in the patient portal. Telehealth has specific requirements for HIPAA compliance, so be sure to check that your patient portal meets those standards as well.
+
+# The bottom line
+If your patient portal has these features, make sure that your practice is taking advantage of them! They will streamline your practice management workflows and improve patient engagement. As a patient, if you were wondering how to check your health records online, ask your healthcare provider to invite you to access your EHR patient portal.
