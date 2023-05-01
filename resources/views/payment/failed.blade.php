@@ -8,8 +8,7 @@
         <div class="flex items-start gap-10 flex-col lg:flex-row">
 
             <!-- start section  -->
-            <div
-                class="basis-full w-full flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-4/4 lg:w-4/4 lg:flex-grow-0 ">
+            <div class="basis-full w-full flex-grow flex flex-col gap-5 flex-shrink-0 min-h-0 min-w-0 lg:basis-4/4 lg:w-4/4 lg:flex-grow-0 ">
                 <div class="box p-4 space-y-2">
 
                     <div class="card">
@@ -21,14 +20,13 @@
                             </svg>
 
                             <div class="text-center">
-                                <h1 class="font-bold text-xl my-7">@lang('Payment Cancelled')!</h1>
-                                <p class="text-gray-400 mt-4 mb-14">@lang('We are unable to process your payment. Please contact customer support.')</p>
+                                <h1 class="font-bold text-xl my-7">@lang('There was a problem executing the action.')!</h1>
+                                <p class="text-gray-400 mt-4 mb-14">{{ Session::get('error') }}</p>
+                                <p class="text-gray-400 mt-4 mb-14">{{ Session::get('warning') }}</p>
 
-                                <a href="javascript:javascript:history.back()"
-                                    class="button rounded-md px-12 py-3 bg-main-500 text-white">@lang('Go back')
+                                <a href="javascript:javascript:history.back()" class="button rounded-md px-12 py-3 bg-main-500 text-white">@lang('Go back')
                                 </a>
-                                <a href="{{ route('home') }}"
-                                    class="button rounded-md px-12 py-3 mx-4 bg-main-500 text-white">@lang('Home page')
+                                <a href="{{ route('home') }}" class="button rounded-md px-12 py-3 mx-4 bg-main-500 text-white">@lang('Home page')
                                 </a>
                             </div>
                         </div>
