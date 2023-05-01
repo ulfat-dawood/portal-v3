@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('test', function () {
+    dd(session('user'));
+});
+
 Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], function () {
 
     Route::get('', [HomeController::class, 'index'])->name('home');

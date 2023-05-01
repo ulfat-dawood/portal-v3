@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Account;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -25,24 +26,20 @@ class AddAddress extends Component
         ]);
 
         // Validation successful> Add address
-        try {
-            $response = Http::post(
-                env('API_URL') . '/' . app()->getLocale() . '/account/location/add',
-                [
-                    'accountId' =>  session('user')['id'],
-                    "latitude" => $this->latitude,
-                    "longitude" => $this->longitude,
-                    "label" => $this->label,
-                    "address" => $this->address,
-                    "buildingType" => '0',
-                ]
-            );
-        } catch (\Throwable $th) {
-            return  session()->flash('error',  __('Server error: coudn\'t connect. Please try again'));
+        $response = FeachPortalAPI::feach('/account/location/add', [
+            'accountId' =>  session('user')['id'],
+            "latitude" => $this->latitude,
+            "longitude" => $this->longitude,
+            "label" => $this->label,
+            "address" => $this->address,
+            "buildingType" => '0',
+        ], 'post');
+        if (!$response[0]) {
+            $this->msg = $response[2];
+            return  session()->flash($response[1], $response[2]);
+        } else {
+            $this->msg = __('Address added successfully');
         }
-        if ($response->failed()) return  session()->flash('error', __('Error occured, please try again.'));
-        if (!$response->json()['status']) return session()->flash('warning', $response->json()['msg']);
-
         // Address added succefully
         // $this->emitUp('refreshAddresses');
         $this->emitUp('toggleModal', 0);

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Http\Request;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
 class PaymentController extends Controller
 {
     /**
-     * check out payment page for displaying credit card payment information
+     * check payment type
+     * reserve the appointment if pay on arraive
+     * or check out payment page for displaying credit card payment information
      * @param array appointment data from session
      */
     public function checkout()
@@ -17,14 +20,17 @@ class PaymentController extends Controller
         $data = session('checkout');
         if ($data['payOnArrival']) {
             //reserve the appointment
-            dump($data);
-            // patient_id:1196460
-            // firstName:Ahmed Elmahdy
-            // accountId:5
-            // centerId:42
-            // mobile:555
-            // slotId:1183984
-            // return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+            $response = FeachPortalAPI::feach('/slot/create', [
+                'firstName' => $data['firstName'],
+                'centerId' => $data['slot']['CENTER_ID'],
+                'mobile' => $data['mobile'],
+                'slotId' => $data['slot']['CLIN_APPT_SLOT_ID'],
+                'accountId' => $data['accountId'],
+                'patient_id' => $data['patient_id'],
+            ], 'post');
+            if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
+
+            return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
@@ -68,23 +74,29 @@ class PaymentController extends Controller
 
     /**
      * success page
+     * clearing session data
      *
      * @param Request $request
      * @return view
      */
     public function success(Request $request) //callback
     {
+        session()->forget('checkout');
         return view('payment.success');
     }
 
     /**
      * failed payment page
+     * unlock slote if locked & clear session data
      *
      * @param Request $request
      * @return view
      */
     public function failed(Request $request) //callback
     {
+        //unlock the appointment
+        FeachPortalAPI::feach('/slot/unlocksingleslot', ["account_id" => session('user')['id'], "slot_id" => session('checkout')['slot']['CENTER_ID']], 'post');
+        session()->forget('checkout');
         //  cancel the appointment
         return view('payment.failed');
     }

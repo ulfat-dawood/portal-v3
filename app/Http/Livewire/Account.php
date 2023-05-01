@@ -12,7 +12,7 @@ class Account extends Component
     public function mount($tabNo = 1)
     {
         //validate URI param is btw 1-7:
-        $tabsRange = [1,2,3,4,5,6,7];
+        $tabsRange = [1,2,3,4];
         $this->selectedTab= in_array($tabNo, $tabsRange) ? $tabNo : 1;
 
         $this->tabs = [

@@ -15,9 +15,6 @@
                 <i class="icofont-ui-add text-xs text-main-600"></i>
                 <div class="text-main-600 text-sm">@lang('Add address')</div>
             </div>
-            <div wire:click="refreshAddresses" class="py-2 px-4 ms-4 gap-2 rounded-full bg-main-100 cursor-pointer hover:bg-main-200 w-fit">
-                <i class="icofont-refresh text-main-600"></i>
-            </div>
         </div>
         @forelse ($addresses as $address)
 
