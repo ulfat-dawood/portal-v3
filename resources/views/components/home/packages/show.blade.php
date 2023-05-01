@@ -5,10 +5,10 @@
 
     <div class="container xl:px-[9vw]">
 
-        <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $package['PKG_ID'] }}" />
+        <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $package['PKG_NAME'] }}" />
         <div class="container">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
-                <div class="flex-grow flex flex-col gap-5 min-h-0 min-w-0 lg:basis-3/4 lg:w-3/4 lg:flex-grow-0 ">
+                <div class="flex-grow flex flex-col gap-5 min-h-0 min-w-0 my-4">
                     <div class="box p-4 space-y-2">
 
                         <h3 class="font-bold text-sm">@lang('Package details')</h3>
@@ -24,34 +24,11 @@
                                 </div> --}}
 
                                 <div class="space-y-2 flex-grow">
-                                    <div class="text-sm ps-2">
+                                    <div class="text-md font-semibold ps-2">
                                         {{ $package['PKG_NAME'] }}
                                     </div>
                                     <div class="bg-white rounded-md p-2 text-sm w-full flex-wrap">
                                         <i class="text-sm">{{ $package['PKG_DESC'] }}</i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- appointment info  --}}
-                            <div class="flex bg-grey-bg2 p-1 rounded-lg">
-                                <div class="flex-grow gap-2 h-full">
-                                    <div class="flex-none bg-white rounded-md text-xs text-center">
-                                        <div class="text-xs p-2 px-2">@lang('Package Price')</div>
-                                        <i class="icofont-bill-alt"></i>
-                                        @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
-                                            <div class="text-grey-border3 text-sm line-through">
-                                                {{ $package['PKG_PRICE'] }}
-                                            </div>
-                                            <div class="text-sm">
-                                                {{ $package['SRVC_PRICE'] }}
-                                            </div>
-                                        @else
-                                            <div class="text-xs">
-                                                {{ $package['PKG_PRICE'] }}
-                                            </div>
-                                        @endif
-                                        <label>@lang('SR')</label>
                                     </div>
                                 </div>
                             </div>
@@ -68,8 +45,7 @@
                             <div class="bg-main-100 w-14 rounded-lg overflow-hidden relative">
                                 <figure class="absolute left-0 right-0 top-0 bottom-0 ">
                                     @if (file_exists(public_path('storage/Logo/')))
-                                        <img class=" object-cover"
-                                            src="#" alt="">
+                                        <img class=" object-cover" src="#" alt="">
                                     @else
                                         <img class="h-full w-full object-cover"
                                             src="{{ asset('assets/images/athir_logo.png') }}" alt="">
@@ -88,26 +64,47 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- end section  -->
-                <div class="basis-1/4 flex-grow flex-shrink-0 lg:flex-grow-0 ">
+                    <!-- end section  -->
+                    <div class="basis-1/4 flex-grow flex-shrink-0 lg:flex-grow-0 ">
 
-                    <div class="box p-4 space-y-2">
+                        <div class="box p-4 space-y-2">
+                            {{-- appointment info  --}}
+                            <h3 class="font-bold text-sm inlin">@lang('Package confirmation')</h3>
+                            <p class="my-4 text-sm text-grey-text1">
+                                @lang('Order the package by clicking below')
+                            </p>
+                            <div class="flex-grow gap-2 h-full">
+                                <div class="my-3 mx-6">
+                                    @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
+                                        <div class="mr-6 text-sm">
+                                            <p class="inline-block w-11/12">@lang('price before discount')</p>
+                                            <h2 class="inline-block line-through">{{ $package['PKG_PRICE'] }}
+                                                @lang('SR')</h2>
+                                        </div>
+                                        <div class="mr-6 text-sm">
+                                            <p class="inline-block w-11/12">@lang('total')</p>
+                                            <h2 class="inline-block">{{ $package['SRVC_PRICE'] }} @lang('SR')</h2>
+                                        </div>
+                                    @else
+                                        <div class="mr-6 text-sm">
+                                            <p class="inline-block w-11/12">@lang('total')</p>
+                                            <h2 class="inline-block">{{ $package['PKG_PRICE'] }} @lang('SR')</h2>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
 
-                        <h3 class="font-bold text-sm">@lang('Package confirmation')</h3>
 
-                        <p class="my-4 text-sm text-grey-text1">
-                            @lang('Order the package by clicking below')
-                        </p>
+                            <form method="GET"
+                                action="{{ route('package.order', ['locale' => session('locale'), 'packageId' => $package['PKG_ID']]) }}"
+                                class="space-y-2">
 
-                        <form method="GET"
-                        action="{{ route('package.order', ['locale' => session('locale'), 'packageId' => $package['PKG_ID']]) }}" class="space-y-2">
+                                <button type="submit" class="btn-primary w-full">
+                                    @lang('Order the packages')
+                                </button>
 
-                            <button type="submit" class="btn-primary w-full">
-                                @lang('Order the packages')
-                            </button>
-
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
