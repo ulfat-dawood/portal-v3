@@ -18,13 +18,13 @@
             </div>
 
 
-            <div data-open-modal='#medical-file'
+            {{-- <div data-open-modal='#medical-file'
             class="
             @if (Route::current()->getName() == 'medical-file') bg-main-600 @endif
             flex flex-col items-center px-2 rounded-lg hover:bg-main-600">
                <div><i class="icofont-ui-folder text-main-200 text-lg"></i></div>
                <div class="text-main-200 text-xs">@lang('MEDICAL FILE')</div>
-            </div>
+            </div> --}}
 
             <div data-open-modal='#profile'
             class="
