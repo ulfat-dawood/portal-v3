@@ -1,6 +1,6 @@
 <section id="banner" class="">
-    <div class="banner-wrapper" style="background-image: url({{ asset('assets/images/banner.jpg') }})">
-        <div class="m-auto flex  flex-col-reverse  pb-10  w-12/12  lg:flex-row lg:w-11/12 2xl:w-10/12">
+    <div class="pb-20 banner-wrapper" style="background-image: url({{ asset('assets/images/banner.jpg') }})">
+        <div class="m-auto flex  flex-col-reverse pb-20 w-12/12  lg:flex-row lg:w-11/12 2xl:w-10/12">
 
             {{-- START SECTION  --}}
             <div class=" w-1/3 hidden items-center justify-end lg:flex">
