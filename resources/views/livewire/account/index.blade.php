@@ -1,5 +1,7 @@
 <div class="container xl:px-[9vw]">
-    <div class="" wire:loading>@lang('Loading') ...</div>
+    <div class="absolute  top-[40%] left-[50%] z-50" wire:loading>
+        <img src="{{ asset('assets/images/spinner.gif') }}" alt="spinner" />
+    </div>
     <div class="flex gap-10 my-5 items-stretch h-[75vh] lg:my-10 lg:h-auto" style="min-height:75vh; ">
         <!-- MF - MENU  -->
         <div class="basis-4/12 box hidden lg:block">
