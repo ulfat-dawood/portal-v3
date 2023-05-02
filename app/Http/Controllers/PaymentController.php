@@ -18,14 +18,6 @@ class PaymentController extends Controller
     {
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
         $data = session('checkout');
-        dump([
-            'firstName' => $data['firstName'],
-            'centerId' => $data['slot']['CENTER_ID'],
-            'mobile' => $data['mobile'],
-            'slotId' => $data['slot']['CLIN_APPT_SLOT_ID'],
-            'accountId' => $data['accountId'],
-            'patient_id' => $data['patient_id'],
-        ]);
         if ($data['payOnArrival']) {
             //reserve the appointment
             $response = FeachPortalAPI::feach('/slot/create', [
@@ -36,9 +28,8 @@ class PaymentController extends Controller
                 'accountId' => $data['accountId'],
                 'patient_id' => $data['patient_id'],
             ], 'post');
-            if (!$response[0]); # return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
-            dump($response); # return
-            dd($response[0]); # return
+            if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
+
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
