@@ -4,11 +4,7 @@ namespace App\Http\Livewire\Doctor;
 
 use App\Http\Helpers\FeachPortalAPI;
 use App\Models\Account;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\URL as FacadesURL;
 use Livewire\Component;
-use RalphJSmit\Livewire\Urls\Facades\Url;
 
 
 class Appt extends Component

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Account;
 
 use App\Http\Helpers\FeachPortalAPI;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class ManageAddresses extends Component
