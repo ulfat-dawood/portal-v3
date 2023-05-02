@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\FeachPortalAPI;
-use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class DoctorController extends Controller
 {
