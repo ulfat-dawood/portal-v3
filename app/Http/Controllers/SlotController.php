@@ -14,6 +14,7 @@ class SlotController extends Controller
         $response = FeachPortalAPI::feach('/slot/' . $request->slotId);
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
+        //lock slot while checkout
         $lockSlote = FeachPortalAPI::feach('/slot/locksingleslot', ["account_id" => session('user')['id'], "slot_id" => $request->slotId], 'post');
         if (!$lockSlote[0])  return redirect()->back()->with($lockSlote[1], $lockSlote[2]);
         return view('slot', ['slot' => $response['data'][0]]);
