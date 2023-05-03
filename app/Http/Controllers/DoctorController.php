@@ -12,8 +12,6 @@ class DoctorController extends Controller
         $request->validate([
             'cityId' => 'required',
             'clinicId' => 'required',
-
-
         ]);
         $response = FeachPortalAPI::feach('/doctors/search', [
             'pageNo' => '',
@@ -21,6 +19,7 @@ class DoctorController extends Controller
             'cityId' =>  $request->cityId,
             'clinicId' =>  $request->clinicId,
             'allowCache' => 0,
+            'appt_type_in' => $request->appt_type_in ? $request->appt_type_in : 225,
         ]);
 
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
@@ -30,6 +29,8 @@ class DoctorController extends Controller
             'totalePages' => $response->json()['data']['totalPages'],
             'pageNo' => $response->json()['data']['pageNo'],
             'doctors' => $response->json()['data']['doctors'],
+            'appt_type_in' => $request->appt_type_in ? $request->appt_type_in : 225,
+
         ]);
     }
 
@@ -39,12 +40,13 @@ class DoctorController extends Controller
             'DoctorId' => $request->doctorId,
             'CenterId' => $request->centerId,
             'ClinicID' => $request->clinicId,
+            'appt_type' => $request->appt_type_in,
         ];
 
         // Make request:
         $response = FeachPortalAPI::pool([
             '/doctor/' . $request->doctorId . '/' . $request->centerId . '/' . $request->clinicId,
-            '/doctor/days/' . $request->doctorId . '/' . $request->centerId . '/' . $request->clinicId
+            '/doctor/days/' . $request->doctorId . '/' . $request->centerId . '/' . $request->clinicId . '/' . $parameters['appt_type']
         ]);
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
