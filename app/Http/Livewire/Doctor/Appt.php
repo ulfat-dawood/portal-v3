@@ -26,7 +26,7 @@ class Appt extends Component
 
     public function updatedSelectedDay()
     {
-        $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay) . '/' . $this->param['appt_type'];
+        $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay . '/' . $this->param['appt_type']);
         if (!$response[0]) {
             $this->msg = $response[2];
         } else {

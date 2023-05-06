@@ -13,7 +13,8 @@ class PackageController extends Controller
         $response = FeachPortalAPI::feach('/package/' . $request->packageId);
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
-        return  view('components.home.packages.show', ['package' => $response->json()['data'][0]]);
+        // dump($response->json()['data']);
+        return  view('components.home.packages.show', ['package' => $response->json()['data']]);
     }
 
     public function getPackages()
