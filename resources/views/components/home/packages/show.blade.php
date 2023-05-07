@@ -10,15 +10,15 @@
             <div class="flex items-start gap-10 flex-col lg:flex-row">
                 <div class="flex items-start gap-10 flex-col lg:flex-row">
 
-                    <div class="basis-1/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 box">
-                        <div class="flex gap-4 flex-col md:flex-row">
+                    <div class="basis-1/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 box rounded-lg overflow-hidden">
+                        <div class="flex gap-4 flex-col md:flex-row h-auto md:h-72">
                             <img src="{{ asset('assets/images/packages-show.jpg') }}" alt="{{ $package[0]['PKG_NAME'] }}">
                         </div>
                         <div class="bg-main-600">
                             <h3 class="font-bold text-center text-white p-5">{{ $package[0]['PKG_NAME'] }}</h3>
                         </div>
                     </div>
-                    <div class="basis-3/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 ">
+                    <div class="basis-3/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 space-y-5">
                         <div class="box p-4 space-y-2 ">
                             <h3 class="font-bold text-sm">@lang('Package details')</h3>
 

@@ -33,28 +33,6 @@
                                 </div>
                             </div>
 
-                            {{-- appointment info  --}}
-                            <div class="flex bg-grey-bg2 p-1 rounded-lg">
-                                <div class="flex-grow gap-2 h-full">
-                                    <div class="flex-none bg-white rounded-md text-xs text-center">
-                                        <div class="text-xs p-2 px-2">@lang('Package Price')</div>
-                                        <i class="icofont-bill-alt"></i>
-                                        @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
-                                            <div class="text-grey-border3 text-sm line-through">
-                                                {{ $package['PKG_PRICE'] }}
-                                            </div>
-                                            <div class="text-sm">
-                                                {{ $package['SRVC_PRICE'] }}
-                                            </div>
-                                        @else
-                                            <div class="text-xs">
-                                                {{ $package['PKG_PRICE'] }}
-                                            </div>
-                                        @endif
-                                        <label>@lang('SR')</label>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
