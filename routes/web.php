@@ -36,7 +36,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     //Doctor
     Route::get('doctors', [DoctorController::class, 'getDoctors'])->name('getDoctors');
-    Route::get('doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}', [DoctorController::class, 'getDoctor'])->name('doctor');
+    Route::get('doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}/{appt_type_in?}', [DoctorController::class, 'getDoctor'])->name('doctor');
 
     //Slots
     Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');

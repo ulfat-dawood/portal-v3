@@ -11,14 +11,17 @@ class ClinicAppt extends Component
     public $clinics;
     public $cityId;
     public $clinicId;
+    public $appt_type_in = 225;
 
-    public function mount($cities , $clinics){
+    public function mount($cities, $clinics)
+    {
         $this->cities = $cities;
         $this->clinics = $clinics;
         $this->cityId = 3174;
     }
 
-    public function loadSearchResults(){
+    public function loadSearchResults()
+    {
         $this->validate([
             'cityId' => 'required',
             'clinicId' => 'required',
@@ -27,6 +30,8 @@ class ClinicAppt extends Component
         return redirect()->route('getDoctors', [
             'cityId' => $this->cityId,
             'clinicId' => $this->clinicId,
+            'appt_type_in' => $this->appt_type_in,
+
         ]);
     }
 

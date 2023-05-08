@@ -1,7 +1,6 @@
 <div>
     <div class="h-[272px]">
 
-
         <div class="error-messages pt-5">
 
             @error('cityId')
@@ -12,47 +11,33 @@
             @enderror
         </div>
 
-
         <div class="flex flex-col pt-5 gap-5" wire:ignore>
             {{-- CITY DROPDOWN   --}}
-            <select name="cityId" wire:model.lazy="cityId" data-placeholder="@lang('Select city')"
-                class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
+            <select name="cityId" wire:model.lazy="cityId" data-placeholder="@lang('Select city')" class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select city')</option>
                 @foreach ($cities as $city)
-                    <option @if ($city['CITY_ID'] == '3174') selected @endif value="{{ $city['CITY_ID'] }}"
-                        data-display="{{ $city['CITY_NAME'] }}">
+                    <option @if ($city['CITY_ID'] == '3174') selected @endif value="{{ $city['CITY_ID'] }}" data-display="{{ $city['CITY_NAME'] }}">
                         {{ $city['CITY_NAME'] }}
-
                     </option>
                 @endforeach
-
             </select>
-
-
             {{-- CLINIC DROPDOWN   --}}
-            <select name="clinicId" wire:model.lazy="clinicId" data-placeholder="@lang('Select speciality')"
-                class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
+            <select name="clinicId" wire:model.lazy="clinicId" data-placeholder="@lang('Select speciality')" class="search-dropdown-clinic-appt rounded-b-lg flex-grow bg-grey-bg2 rounded-lg py-2 px-3">
                 {{-- placeholder --}}
                 <option value="">@lang('Select speciality')</option>
                 @foreach ($clinics as $clinic)
                     <option value="{{ $clinic['CLINIC_ID'] }}" data-display="{{ $clinic['CLINIC_NAME'] }}">
                         {{ $clinic['CLINIC_NAME'] }}
-
                     </option>
                 @endforeach
-
             </select>
-
-            <button wire:click="loadSearchResults"
-                class=" self-center bg-main-600 py-2 px-5 mt-3 rounded-lg text-grey-bg2 hover:bg-main-500">
+            <button wire:click="loadSearchResults" class=" self-center bg-main-600 py-2 px-5 mt-3 rounded-lg text-grey-bg2 hover:bg-main-500">
                 @lang('Book appoointment at the clinic')
                 <i class="icofont-search-1 text-grey-bg2 me-3"></i>
             </button>
         </div>
     </div>
-
-
 
     <!-- Tom Select  -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>

@@ -15,7 +15,7 @@ class Appt extends Component
     public $doctorInfo = ['doctorId' => '', 'centerId' => '', 'clinicId' => ''];
     public $param;
     public $msg;
-
+    public  $appt_type;
     public function mount()
     {
         if (count($this->days)) { //if days available
@@ -26,7 +26,7 @@ class Appt extends Component
 
     public function updatedSelectedDay()
     {
-        $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay);
+        $response = FeachPortalAPI::feach('/slots/' . $this->param['DoctorId'] . '/' . $this->param['CenterId'] . '/' . $this->param['ClinicID'] . '/' . $this->selectedDay . '/' . $this->param['appt_type']);
         if (!$response[0]) {
             $this->msg = $response[2];
         } else {

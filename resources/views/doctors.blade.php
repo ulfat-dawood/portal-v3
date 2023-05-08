@@ -3,17 +3,17 @@
 
 @section('content')
 
-<div class="container xl:px-[15vw]">
+    <div class="container xl:px-[15vw]">
 
-    {{-- <x-master.breadcrumbs  path="{{__('doctors')}}" current="{{$breadcrumb}}"/> --}}
+        {{-- <x-master.breadcrumbs  path="{{__('doctors')}}" current="{{$breadcrumb}}"/> --}}
 
-    <div class="flex gap-10 items-start my-10">
-        {{-- <x-doctors.filter/> --}}
-        <x-doctors.cards :doctors="$doctors" totalPages="{{$totalePages}}" pageNumber="{{$pageNo}}"/>
+        <div class="flex gap-10 items-start my-10">
+            {{-- <x-doctors.filter/> --}}
+
+            <x-doctors.cards :doctors="$doctors" apptType="{{$appt_type_in}}" totalPages="{{ $totalePages }}" pageNumber="{{ $pageNo }}" />
+
+        </div>
 
     </div>
-
-
-</div>
 
 @endsection
