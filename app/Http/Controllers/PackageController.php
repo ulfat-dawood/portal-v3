@@ -43,6 +43,6 @@ class PackageController extends Controller
             'mobile' => session('user')['phone'],
             'name' => session('user')['name']
         ]]);
-        return redirect()->route('checkout');
+        return redirect()->route('checkout'); 
     }
 }
