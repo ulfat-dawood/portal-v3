@@ -58,4 +58,7 @@
             <p class="text-center">@lang('No addresses added.')</p>
         @endforelse
     </div>
+
+    <!-- Google Maps  -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </div>

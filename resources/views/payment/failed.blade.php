@@ -23,9 +23,6 @@
                                 <h1 class="font-bold text-xl my-7">@lang('There was a problem executing the action.')!</h1>
                                 <p class="text-gray-400 mt-4 mb-14">{{ Session::get('error') }}</p>
                                 <p class="text-gray-400 mt-4 mb-14">{{ Session::get('warning') }}</p>
-
-                                <a href="javascript:javascript:history.back()" class="button rounded-md px-12 py-3 bg-main-500 text-white">@lang('Go back')
-                                </a>
                                 <a href="{{ route('home') }}" class="button rounded-md px-12 py-3 mx-4 bg-main-500 text-white">@lang('Home page')
                                 </a>
                             </div>
