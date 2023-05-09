@@ -16,6 +16,7 @@ class PaymentController extends Controller
      */
     public function checkout()
     {
+        // dd(session('checkout'));
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
         $data = session('checkout');
         if ($data['payOnArrival']) {
@@ -27,6 +28,7 @@ class PaymentController extends Controller
                 'slotId' => $data['slot']['CLIN_APPT_SLOT_ID'],
                 'accountId' => $data['accountId'],
                 'patient_id' => $data['patient_id'],
+                // 'location_id'=> $data['location_id'],
             ], 'post');
             if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
 
@@ -94,10 +96,12 @@ class PaymentController extends Controller
      */
     public function failed(Request $request) //callback
     {
-        //unlock the appointment
-        FeachPortalAPI::feach('/slot/unlocksingleslot', ["account_id" => session('user')['id'], "slot_id" => session('checkout')['slot']['CENTER_ID']], 'post');
-        session()->forget('checkout');
+        if (isset(session('checkout')['slot']['CENTER_ID'])) {
+            //unlock the appointment
+            FeachPortalAPI::feach('/slot/unlocksingleslot', ["account_id" => session('user')['id'], "slot_id" => session('checkout')['slot']['CENTER_ID']], 'post');
+        }
         //  cancel the appointment
+        session()->forget('checkout');
         return view('payment.failed');
     }
 }
