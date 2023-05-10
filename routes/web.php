@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('test', function () {
-    dd(session('user'));
+    echo env('APP_ENV');
+    echo "/n/t <br/> ";
+    echo env('APP_DEBUG');
 });
 
 Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], function () {
