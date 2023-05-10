@@ -17,7 +17,7 @@ class PaymentController extends Controller
      */
     public function checkout()
     {
-        dd(session('checkout'));
+        // dd(session('checkout'));
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
         $data = session('checkout');
         if ($data['payOnArrival']) {
