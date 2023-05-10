@@ -49,7 +49,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     // payment
     Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    Route::get('payment/response', [PaymentController::class, 'response'])->name('payment.response');
+    Route::post('payment/response', [PaymentController::class, 'response'])->name('payment.response');
     Route::post('payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
     Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
     Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
