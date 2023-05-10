@@ -59,15 +59,15 @@ class PaymentController extends Controller
     public function response(Request $request) //return
     {
         dump($request->input());
-        $signature = hash_hmac('sha256', $request->input(), env('paytabs_server_key'));
+        // $signature = hash_hmac('sha256', $request->input(), env('paytabs_server_key'));
         dump($request);
-        if (hash_equals($signature, $request->signature) === TRUE) {
-            // VALID Redirect
-            echo 'valide';
-        } else {
-            // INVALID Redirect
-            echo 'invalide';
-        }
+        // if (hash_equals($signature, $request->signature) === TRUE) {
+        //     // VALID Redirect
+        //     echo 'valide';
+        // } else {
+        //     // INVALID Redirect
+        //     echo 'invalide';
+        // }
         dd($request->query('respStatus'));
         return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
     }
