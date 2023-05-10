@@ -16,7 +16,6 @@ class PaymentController extends Controller
      */
     public function checkout()
     {
-        // dd(session('checkout'));
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
         $data = session('checkout');
         if ($data['payOnArrival']) {
@@ -44,8 +43,6 @@ class PaymentController extends Controller
             ->sendURLs(route('payment.response.api'), route('payment.callback', ['locale' => app()->getLocale()]))
             ->sendLanguage(app()->getLocale())
             ->create_pay_page();
-        // dd($pay);
-        // return $pay;
         return view('payment.checkout', ['url' => $pay]);
     }
 
@@ -59,15 +56,23 @@ class PaymentController extends Controller
     public function response(Request $request) //return
     {
         dump($request->input());
-        // $signature = hash_hmac('sha256', $request->input(), env('paytabs_server_key'));
         dump($request->segments());
-        // if (hash_equals($signature, $request->signature) === TRUE) {
-        //     // VALID Redirect
-        //     echo 'valide';
-        // } else {
-        //     // INVALID Redirect
-        //     echo 'invalide';
-        // }
+        $fields =$request->input();
+        $fields = array_filter($fields);
+        unset($fields["signature"]);
+        ksort($fields);
+
+        // Generate URL-encoded query string of Post fields except signature field.
+        $query = http_build_query($fields);
+
+        $signature = hash_hmac('sha256', $query, env('paytabs_server_key'));
+        if (hash_equals($signature, $request->signature) === TRUE) {
+            // VALID Redirect
+            echo 'valide';
+        } else {
+            // INVALID Redirect
+            echo 'invalide';
+        }
         dd($request->query('respStatus'));
         return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
     }
