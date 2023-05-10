@@ -38,9 +38,9 @@ class PaymentController extends Controller
             ->sendCart(10, $data['slot']['EXAM_PRICE'], 'Appointment number :' . $data['slot']['CLIN_APPT_SLOT_ID'])
             ->sendCustomerDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
-            // ->sendHideShipping(true)
+            ->sendHideShipping(true)
             ->sendFramed(true)
-            ->sendURLs(route('payment.response.api'), route('payment.callback', ['locale' => app()->getLocale()]))
+            ->sendURLs(route('payment.response.api'), route('payment.callback.api'))
             ->sendLanguage(app()->getLocale())
             ->create_pay_page();
         return view('payment.checkout', ['url' => $pay]);
@@ -48,6 +48,9 @@ class PaymentController extends Controller
 
     /**
      * handle payment return response from paytabs
+     * 1-check if valide signature
+     * 2- storing through API request
+     * 3- storing response as log
      * redirect to success/failed page
      *
      * @param Request $request
@@ -55,26 +58,56 @@ class PaymentController extends Controller
      */
     public function response(Request $request) //return
     {
-        dump($request->input());
-        dump($request->segments());
-        $fields =$request->input();
-        $fields = array_filter($fields);
+        if ($this->validateResponse($request->input(), $request->signature)) {
+            dd(session('checkout'));
+            //if payment successful
+            // if($paymentSuccss){
+            // $response = FeachPortalAPI::feach('/slot/payment', [
+            //     "service_type"=> 'APPT',
+            //     "amount"=> ,
+            //     "portal_discount"=> ,
+            //     "account_id"=> ,
+            //     "patient_id"=> ,
+            //     "slot_id"=> ,
+            //     "trans_type"=> ,
+            //     "hospital_id"=> ,
+            //     "center_id"=> ,
+            //     "pkg_id"=> ,
+            //     "srvc_id"=> ,
+            //     "discount"=> ,
+            //     "transaction_id"=> ,
+            //     "card_info"=> ,
+            //     "card_owner"=> ,
+            // ], 'post');
+
+            // if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
+            // $response = $response[0];
+
+            // }else{
+            //     return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+            // }
+            return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+        } else {
+            return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+        };
+    }
+    /**
+     * compare URI signatures and return boolean
+     *
+     * @param array $inputs
+     * @param string $signature
+     * @return boolean
+     */
+    private function validateResponse($inputs, $signature)
+    {
+        $fields = array_filter($inputs);
         unset($fields["signature"]);
         ksort($fields);
-
         // Generate URL-encoded query string of Post fields except signature field.
         $query = http_build_query($fields);
-
+        //hash the query string
         $signature = hash_hmac('sha256', $query, env('paytabs_server_key'));
-        if (hash_equals($signature, $request->signature) === TRUE) {
-            // VALID Redirect
-            echo 'valide';
-        } else {
-            // INVALID Redirect
-            echo 'invalide';
-        }
-        dd($request->query('respStatus'));
-        return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+        return hash_equals($signature, $signature);
     }
 
     /**
