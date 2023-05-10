@@ -40,8 +40,6 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::get('doctors', [DoctorController::class, 'getDoctors'])->name('getDoctors');
     Route::get('doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}/{appt_type_in?}', [DoctorController::class, 'getDoctor'])->name('doctor');
 
-    //Slots
-    Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
 
     //Packages
     Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
@@ -61,6 +59,8 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
         Route::get('/packages/order/{packageId?}', [PackageController::class, 'orderPackage'])->name('package.order');
         Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
+        //Slots
+        Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
     });
     // failed to load first page
     Route::view('failed', 'errors.failed')->name('failed');
