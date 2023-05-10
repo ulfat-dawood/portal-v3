@@ -58,8 +58,10 @@ class PaymentController extends Controller
      */
     public function response(Request $request) //return
     {
-        return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+        dump($request->input());
+        dump($request->all());
         dd($request->query('respStatus'));
+        return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
     }
 
     /**
