@@ -95,3 +95,40 @@ If your patient portal has these features, make sure that your practice is takin
     "token" => null
     "tranRef" => "PTS2313024586276"
     ]
+
+
+# accoiunt session
+array:7 [▼ // app\Http\Controllers\PaymentController.php:20
+  "payOnArrival" => 0
+  "firstName" => "حمد"
+  "mobile" => "0596003003"
+  "slot" => array:24 [▼
+    "CLIN_APPT_SLOT_ID" => 1241144
+    "slot_day" => "2023-05-10"
+    "slot_time" => "17:40:00"
+    "DOCTOR_ID" => 1103
+    "DOCTOR_NAME_1" => "شروق"
+    "DOCTOR_NAME_2" => "يوسف"
+    "DOCTOR_NAME_3" => ""
+    "DOCTOR_NAME_FAMILY" => "شلدان"
+    "EXAM_PRICE" => 1
+    "discount_percent" => 0
+    "DISCOUNT_CASH" => 0
+    "DISCOUNT_CODE" => "."
+    "SEX" => "F"
+    "CLINIC_ID" => 1
+    "CLINIC_NAME" => "الطب العام"
+    "CENTER_ID" => 42
+    "CENTER_NAME" => "فاطمة ا"
+    "ADDRESS" => "بوابة صاري، مبنى B، الدور الثاني، شركة أثير"
+    "CENTER_LAT" => "21.558665838061895"
+    "CENTER_LONG" => "39.1235656401272"
+    "LOGO" => "202301301211280000002.jpg"
+    "HOSPITAL_ID" => 19
+    "HOSPITAL_NAME" => "مجمع عيادات فاطمة التخصصية"
+    "APPT_TYPE_ID" => 225
+  ]
+  "accountId" => 91
+  "patient_id" => 1196432
+  "location_id" => null
+]

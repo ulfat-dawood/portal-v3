@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\FeachPortalAPI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
 class PaymentController extends Controller
@@ -16,6 +17,7 @@ class PaymentController extends Controller
      */
     public function checkout()
     {
+        dd(session('checkout'));
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
         $data = session('checkout');
         if ($data['payOnArrival']) {
@@ -50,7 +52,6 @@ class PaymentController extends Controller
      * handle payment return response from paytabs
      * 1-check if valide signature
      * 2- storing through API request
-     * 3- storing response as log
      * redirect to success/failed page
      *
      * @param Request $request
@@ -59,34 +60,33 @@ class PaymentController extends Controller
     public function response(Request $request) //return
     {
         if ($this->validateResponse($request->input(), $request->signature)) {
-            dd(session('checkout'));
-            //if payment successful
-            // if($paymentSuccss){
-            // $response = FeachPortalAPI::feach('/slot/payment', [
-            //     "service_type"=> 'APPT',
-            //     "amount"=> ,
-            //     "portal_discount"=> ,
-            //     "account_id"=> ,
-            //     "patient_id"=> ,
-            //     "slot_id"=> ,
-            //     "trans_type"=> ,
-            //     "hospital_id"=> ,
-            //     "center_id"=> ,
-            //     "pkg_id"=> ,
-            //     "srvc_id"=> ,
-            //     "discount"=> ,
-            //     "transaction_id"=> ,
-            //     "card_info"=> ,
-            //     "card_owner"=> ,
-            // ], 'post');
+            $data = session('checkout');
+            // if payment successful
+            if ($request->respStatus == 'A') {
+                $response = FeachPortalAPI::feach('/slot/payment', [
+                    "service_type" => 'APPT',
+                    "amount" => $data['slot']['EXAM_PRICE'],
+                    "portal_discount" => 0,
+                    "account_id" => $data['accountId'],
+                    "patient_id" => $data['patient_id'],
+                    "slot_id" => $data['slot']['CLIN_APPT_SLOT_ID'],
+                    "trans_type" => 'in',
+                    "hospital_id" => $data['slot']['HOSPITAL_ID'],
+                    "center_id" => $data['slot']['CENTER_ID'],
+                    "pkg_id" => null,
+                    "srvc_id" => null,
+                    "discount" => $data['slot']['DISCOUNT_CASH'],
+                    "transaction_id" => $request->tranRef,
+                    "card_info" => $request->cartId,
+                    "card_owner" => $data['firstName'],
+                ], 'post');
 
-            // if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
-            // $response = $response[0];
-
-            // }else{
-            //     return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
-            // }
-            return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+                if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
+                $response = $response[0];
+                return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+            } else {
+                return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+            }
         } else {
             return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
         };
@@ -119,7 +119,7 @@ class PaymentController extends Controller
      */
     public function callback(Request $request) //callback
     {
-        dd($request->query());
+        Storage::put('payment.txt', json_encode($request->query()));
     }
 
     /**
