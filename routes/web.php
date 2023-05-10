@@ -45,12 +45,6 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
     Route::get('/packages', [PackageController::class, 'getPackages'])->name('getPackages');
 
-    // payment
-    Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    Route::any('payment/response/{_token?}', [PaymentController::class, 'response'])->name('payment.response');
-    Route::post('payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
-    Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
 
 
     Route::middleware('AccountAuth')->group(function () {
@@ -61,6 +55,11 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
         //Slots
         Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
+        // payment
+        Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
+        Route::post('payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+        Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
+        Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
     });
     // failed to load first page
     Route::view('failed', 'errors.failed')->name('failed');
