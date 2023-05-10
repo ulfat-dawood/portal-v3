@@ -41,7 +41,7 @@ class PaymentController extends Controller
             ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             // ->sendHideShipping(true)
             ->sendFramed(true)
-            ->sendURLs(route('payment.response', ['locale' => app()->getLocale(), '_token' => csrf_token()]), route('payment.callback', ['locale' => app()->getLocale()]))
+            ->sendURLs(route('payment.response.api'), route('payment.callback', ['locale' => app()->getLocale()]))
             ->sendLanguage(app()->getLocale())
             ->create_pay_page();
         // dd($pay);
