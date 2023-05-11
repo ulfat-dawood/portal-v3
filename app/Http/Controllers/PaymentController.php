@@ -124,7 +124,7 @@ class PaymentController extends Controller
      */
     public function callback(Request $request) //callback
     {
-        Storage::put('payment.txt', json_encode($request->query()));
+        LogPayment::create(['title' => 'Payment1', 'data' => $request->input()]);
     }
 
     /**
