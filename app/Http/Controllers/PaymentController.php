@@ -37,7 +37,7 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
-        $data['EXAM_PRICE'] = .25;
+        // $data['EXAM_PRICE'] = .25;
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
             ->sendCart($data['CLIN_APPT_SLOT_ID'], $data['EXAM_PRICE'], 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
@@ -88,12 +88,14 @@ class PaymentController extends Controller
 
                 if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
                 $response = $response[0];
-                // return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+                session('success', __('Appointment booked successfully'));
                 return '<script>window.parent.location.href = "' . route('payment.success', ['locale' => app()->getLocale()]) . '";</script>';
             } else {
+                session('error', __('Appointment book failed'));
                 return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
             }
         } else {
+            session('error', __('Appointment book failed'));
             return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
         };
     }
