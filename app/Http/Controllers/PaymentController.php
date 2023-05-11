@@ -6,7 +6,6 @@ use App\Http\Helpers\FeachPortalAPI;
 use App\Models\Checkout;
 use App\Models\LogPayment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
 class PaymentController extends Controller
@@ -38,7 +37,7 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
-        $data['EXAM_PRICE'] =.25;
+        $data['EXAM_PRICE'] = .25;
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
             ->sendCart($data['CLIN_APPT_SLOT_ID'], $data['EXAM_PRICE'], 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
@@ -89,7 +88,8 @@ class PaymentController extends Controller
 
                 if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
                 $response = $response[0];
-                return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+                // return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
+                return '<script>window.parent.location.href = "' . route('payment.success', ['locale' => app()->getLocale()]) . '";</script>';
             } else {
                 return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
             }
