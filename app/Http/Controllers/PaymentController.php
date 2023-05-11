@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\FeachPortalAPI;
+use App\Models\Checkout;
+use App\Models\LogPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
@@ -19,14 +21,15 @@ class PaymentController extends Controller
     {
         // dd(session('checkout'));
         if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
-        $data = session('checkout');
+        $data = Checkout::where(['CLIN_APPT_SLOT_ID' => session('checkout')])->latest()->first();
+
         if ($data['payOnArrival']) {
             //reserve the appointment
             $response = FeachPortalAPI::feach('/slot/create', [
                 'firstName' => $data['firstName'],
-                'centerId' => $data['slot']['CENTER_ID'],
+                'centerId' => $data['CENTER_ID'],
                 'mobile' => $data['mobile'],
-                'slotId' => $data['slot']['CLIN_APPT_SLOT_ID'],
+                'slotId' => $data['CLIN_APPT_SLOT_ID'],
                 'accountId' => $data['accountId'],
                 'patient_id' => $data['patient_id'],
                 // 'location_id'=> $data['location_id'],
@@ -37,7 +40,7 @@ class PaymentController extends Controller
         }
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
-            ->sendCart(10, $data['slot']['EXAM_PRICE'], 'Appointment number :' . $data['slot']['CLIN_APPT_SLOT_ID'])
+            ->sendCart($data['CLIN_APPT_SLOT_ID'], $data['EXAM_PRICE'], 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
             ->sendCustomerDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendHideShipping(true)
@@ -60,22 +63,24 @@ class PaymentController extends Controller
     public function response(Request $request) //return
     {
         if ($this->validateResponse($request->input(), $request->signature)) {
-            $data = session('checkout');
+            // log response to DB
+            LogPayment::create(['title' => $request->cartId, 'data' => json_encode($request->input())]);
             // if payment successful
             if ($request->respStatus == 'A') {
+                $data = Checkout::where(['CLIN_APPT_SLOT_ID' => $request->cartId])->latest()->first();
                 $response = FeachPortalAPI::feach('/slot/payment', [
                     "service_type" => 'APPT',
-                    "amount" => $data['slot']['EXAM_PRICE'],
-                    "portal_discount" => 0,
+                    "amount" => $data['EXAM_PRICE'],
+                    "portal_discount" =>  $data['PORTAL_DISCOUNT'],
                     "account_id" => $data['accountId'],
                     "patient_id" => $data['patient_id'],
-                    "slot_id" => $data['slot']['CLIN_APPT_SLOT_ID'],
+                    "slot_id" => $data['CLIN_APPT_SLOT_ID'],
                     "trans_type" => 'in',
-                    "hospital_id" => $data['slot']['HOSPITAL_ID'],
-                    "center_id" => $data['slot']['CENTER_ID'],
+                    "hospital_id" => $data['HOSPITAL_ID'],
+                    "center_id" => $data['CENTER_ID'],
                     "pkg_id" => null,
                     "srvc_id" => null,
-                    "discount" => $data['slot']['DISCOUNT_CASH'],
+                    "discount" => $data['DISCOUNT_CASH'],
                     "transaction_id" => $request->tranRef,
                     "card_info" => $request->cartId,
                     "card_owner" => $data['firstName'],

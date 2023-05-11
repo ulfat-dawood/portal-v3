@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Http\Helpers\FeachPortalAPI;
+use App\Models\Checkout;
 use Livewire\Component;
 
 class ConfirmAppt extends Component
@@ -22,7 +23,7 @@ class ConfirmAppt extends Component
     public $addresses;
     public $location_id;
     public $showModal = 0;
-    public $slotType ;
+    public $slotType;
     protected $listeners = ['toggleModal',];
 
     public function mount()
@@ -78,17 +79,15 @@ class ConfirmAppt extends Component
             'patient_id' => 'required',
             'location_id' => 'required_with:slotType',
         ]);
-
-        session(['checkout' => [
+        Checkout::create(array_merge($this->slot, [
             'payOnArrival' => $payOnArrival,
             'firstName' => $this->firstName,
             'mobile' =>  $this->mobile,
-            'slot' => $this->slot,
             'accountId' => session('user')['id'],
             'patient_id' => $this->patient_id,
             'location_id' => $this->location_id
-        ]]);
-
+        ]));
+        session(['checkout'=>$this->slot['CLIN_APPT_SLOT_ID']]);
         return redirect()->route('checkout');
     }
 
