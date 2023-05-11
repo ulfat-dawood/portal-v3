@@ -38,6 +38,7 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
+        $data['EXAM_PRICE'] =.01;
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
             ->sendCart($data['CLIN_APPT_SLOT_ID'], $data['EXAM_PRICE'], 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
