@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class LogPayment extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }
