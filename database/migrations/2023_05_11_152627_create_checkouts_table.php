@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("CLIN_APPT_SLOT_ID")->nullable();
+            $table->bigInteger("package_id")->nullable();
+            $table->integer("quantity")->nullable();
             $table->string("slot_day")->nullable();
             $table->string("slot_time")->nullable();
             $table->bigInteger("DOCTOR_ID")->nullable();

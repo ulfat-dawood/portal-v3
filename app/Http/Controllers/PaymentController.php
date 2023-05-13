@@ -51,6 +51,24 @@ class PaymentController extends Controller
         return view('payment.checkout', ['url' => $pay]);
     }
 
+    public function packageCheckot()
+    {
+        if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
+        $data = Checkout::where(['package_id' => session('checkout')])->latest()->first();
+
+        $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
+            ->sendTransaction('sale')
+            ->sendCart($data['package_id'], $data['EXAM_PRICE'], 'Appointment number :' . $data['package_id'])
+            ->sendCustomerDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
+            ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
+            ->sendHideShipping(true)
+            ->sendFramed(true)
+            ->sendURLs(route('payment.package.response.api'), route('payment.callback.api'))
+            ->sendLanguage(app()->getLocale())
+            ->create_pay_page();
+        return view('payment.checkout', ['url' => $pay]);
+    }
+
     /**
      * handle payment return response from paytabs
      * 1-check if valide signature
@@ -99,6 +117,50 @@ class PaymentController extends Controller
             return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
         };
     }
+
+    public function responsePackage(Request $request)
+    {
+        if ($this->validateResponse($request->input(), $request->signature)) {
+            // log response to DB
+            LogPayment::create(['title' => $request->cartId, 'data' => json_encode($request->input())]);
+            // if payment successful
+            if ($request->respStatus == 'A') {
+                $data = Checkout::where(['package_id' => $request->cartId])->latest()->first();
+
+                $response = FeachPortalAPI::feach('/slot/payment', [
+                    "service_type" => 'PKG',
+                    "amount" => $data['EXAM_PRICE'],
+                    "portal_discount" =>  null,
+                    "account_id" => $data['accountId'],
+                    "patient_id" => null,
+                    "slot_id" => null,
+                    "trans_type" => 'in',
+                    "hospital_id" => $data['HOSPITAL_ID'],
+                    "center_id" => null,
+                    "pkg_id" => $data['package_id'],
+                    "srvc_id" => null,
+                    "discount" => null,
+                    "transaction_id" => $request->tranRef,
+                    "card_info" => $request->cartId,
+                    "card_owner" => $data['firstName'],
+                ], 'post');
+
+                if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
+                $response = $response[0];
+                session('success', __('Package ordered successfully'));
+                return '<script>window.parent.location.href = "' . route('payment.success', ['locale' => app()->getLocale()]) . '";</script>';
+            } else {
+                session('error', __('Package ordered failed'));
+                return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+            }
+        } else {
+            session('error', __('Package ordered failed'));
+            return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
+        };
+    }
+    //
+
+
     /**
      * compare URI signatures and return boolean
      *

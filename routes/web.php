@@ -51,12 +51,13 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         // Account
         Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
-        Route::get('/packages/order/{packageId?}', [PackageController::class, 'orderPackage'])->name('package.order');
-        Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
+        Route::post('/packages/order/{packageId}', [PackageController::class, 'orderPackage'])->name('package.order');
+        // Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
         //Slots
         Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
         // payment
         Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
+        Route::get('checkout/package', [PaymentController::class, 'packageCheckot'])->name('checkout.package');
         Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
         Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
     });
