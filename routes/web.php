@@ -57,7 +57,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
         // payment
         Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
-        Route::get('checkout/package', [PaymentController::class, 'packageCheckot'])->name('checkout.package');
+        Route::get('checkout/package/{package_id}', [PaymentController::class, 'packageCheckout'])->name('checkout.package');
         Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
         Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
     });

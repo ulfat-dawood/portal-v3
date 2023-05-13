@@ -51,14 +51,14 @@ class PaymentController extends Controller
         return view('payment.checkout', ['url' => $pay]);
     }
 
-    public function packageCheckot()
+    public function packageCheckout(Request $request)
     {
-        if (!session()->has('checkout')) return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Sorry, your session has expired.'));
-        $data = Checkout::where(['package_id' => session('checkout')])->latest()->first();
+        if (!$data = Checkout::where(['package_id' => $request->package_id])->latest()->first())
+            return redirect()->route('home', ['locale' => app()->getLocale()])->with('error', __('Not Found'));
 
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
-            ->sendCart($data['package_id'], $data['EXAM_PRICE'], 'Appointment number :' . $data['package_id'])
+            ->sendCart($data['package_id'], $data['PKG_PRICE'], 'Appointment number :' . $data['package_id'])
             ->sendCustomerDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendHideShipping(true)

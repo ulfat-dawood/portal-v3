@@ -49,7 +49,7 @@ class PackageController extends Controller
             'email' => session('user')['phone'] . '@athir.com.sa',
             'HOSPITAL_ID' => $response['HOSPITAL_ID']
         ]);
-        return redirect()->route('checkout.package');
+        return redirect()->route('checkout.package', ['package_id' => $response['PKG_ID'],'locale' => app()->getLocale()]);
     }
 
     public function checkout(Request $request)
