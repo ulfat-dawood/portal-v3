@@ -40,7 +40,7 @@ class PackageController extends Controller
             'hospital_id' => $response['HOSPITAL_ID']
         ], 'post');
 
-        Checkout::create(array_merge($response, [
+        Checkout::create([
             'package_id' => $response['PKG_ID'],
             'PKG_PRICE' => $response['PKG_PRICE'],
             'mobile' =>  session('user')['phone'],
@@ -48,7 +48,7 @@ class PackageController extends Controller
             'firstName' => session('user')['name'],
             'email' => session('user')['phone'] . '@athir.com.sa',
             'HOSPITAL_ID' => $response['HOSPITAL_ID']
-        ]));
+        ]);
         return redirect()->route('checkout.package');
     }
 
