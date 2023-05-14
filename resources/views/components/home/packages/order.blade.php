@@ -5,7 +5,7 @@
 
     <div class="container xl:px-[9vw]">
 
-        <x-master.breadcrumbs path="{{ __('Order package') }}" current="{{ $package['PKG_ID'] }}" />
+        <x-master.breadcrumbs path="{{ __('Order package') }}" current="" />
         <div class="container">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
                 <div class="flex-grow flex flex-col gap-5 min-h-0 min-w-0 lg:basis-3/4 lg:w-3/4 lg:flex-grow-0 ">
@@ -16,13 +16,6 @@
                         <div class="flex gap-4 flex-col md:flex-row">
 
                             <div class="flex-grow flex gap-2 rounded-lg bg-grey-bg2 p-2">
-                                {{-- <div class="flex-none bg-main-100 w-14 rounded-lg overflow-hidden relative">
-                                    <figure class="absolute left-0 right-0 top-0 bottom-0">
-                                        <img src="{{ $package['PKG_PHOTO'] }}" alt=""
-                                            class="w-full h-full object-cover">
-                                    </figure>
-                                </div> --}}
-
                                 <div class="space-y-2 flex-grow">
                                     <div class="text-sm ps-2">
                                         {{ $package['PKG_NAME'] }}
@@ -46,11 +39,9 @@
                             <div class="bg-main-100 w-14 rounded-lg overflow-hidden relative">
                                 <figure class="absolute left-0 right-0 top-0 bottom-0 ">
                                     @if (file_exists(public_path('storage/Logo/')))
-                                        <img class=" object-cover"
-                                            src="#" alt="">
+                                        <img class=" object-cover" src="#" alt="">
                                     @else
-                                        <img class="h-full w-full object-cover"
-                                            src="{{ asset('assets/images/athir_logo.png') }}" alt="">
+                                        <img class="h-full w-full object-cover" src="{{ asset('assets/images/athir_logo.png') }}" alt="">
                                     @endif
                                 </figure>
                             </div>
@@ -78,18 +69,15 @@
                             @lang('Continue to payment by clicking below')
                         </p>
 
-                        <form method="POST"
-                        action="{{ route('package.checkout', ['locale' => session('locale')]) }}" class="space-y-2">
+                        <form method="POST" action="{{ route('package.checkout', ['locale' => session('locale'), 'packageId' => $package[0]['PKG_ID']]) }}" class="space-y-2">
                             @csrf
-                            <input type="hidden" value="{{ $package['PKG_ID']  }}" name="package_id">
+                            <input type="hidden" value="{{ $package['PKG_ID'] }}" name="package_id">
                             <input type="hidden" value="1" name="quantity">
-
-
                             <button type="submit" class="btn-primary w-full">
                                 @lang('Pay now')
                                 <span class="text-xs text-inherit ps-2">
-                                    {{ $package['SRVC_PRICE']  }} @lang('SR')
-                                    <span class="line-through">{{ $package['PKG_PRICE']  }}</span>
+                                    {{-- {{ $package['SRVC_PRICE'] }} @lang('SR') --}}
+                                    <span class="">{{ $package['PKG_PRICE'] }}</span>
                                 </span>
                             </button>
 
@@ -99,7 +87,6 @@
 
             </div>
         </div>
-
 
     </div>
 

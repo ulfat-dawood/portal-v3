@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('test', function () {
-    dd(session('user'));
+    echo env('APP_ENV');
+    echo "/n/t <br/> ";
+    echo env('APP_DEBUG');
 });
 
 Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], function () {
@@ -38,27 +40,26 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::get('doctors', [DoctorController::class, 'getDoctors'])->name('getDoctors');
     Route::get('doctor/{doctorName?}/{doctorId}/{centerId}/{clinicId}/{appt_type_in?}', [DoctorController::class, 'getDoctor'])->name('doctor');
 
-    //Slots
-    Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
 
     //Packages
     Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
     Route::get('/packages', [PackageController::class, 'getPackages'])->name('getPackages');
 
-    // payment
-    Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    Route::get('payment/response', [PaymentController::class, 'response'])->name('payment.response');
-    Route::post('payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
-    Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
 
 
     Route::middleware('AccountAuth')->group(function () {
         // Account
         Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
         Route::get('/account/{tabNo?}', LivewireAccount::class)->name('account');
-        Route::get('/packages/order/{packageId?}', [PackageController::class, 'orderPackage'])->name('package.order');
-        Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
+        Route::post('/packages/order/{packageId}', [PackageController::class, 'orderPackage'])->name('package.order');
+        // Route::post('/package/checkout', [PackageController::class, 'checkout'])->name('package.checkout');
+        //Slots
+        Route::get('slot/{slotId}', [SlotController::class, 'getSlot'])->name('slot');
+        // payment
+        Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
+        Route::get('checkout/package/{package_id}', [PaymentController::class, 'packageCheckout'])->name('checkout.package');
+        Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
+        Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
     });
     // failed to load first page
     Route::view('failed', 'errors.failed')->name('failed');

@@ -110,7 +110,6 @@
                 </div>
                 <!-- end section  -->
                 <div class="basis-1/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 ">
-
                     <livewire:confirm-appt :slot='$slot'>
                 </div>
 
