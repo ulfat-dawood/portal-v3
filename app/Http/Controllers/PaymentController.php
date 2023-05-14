@@ -31,7 +31,7 @@ class PaymentController extends Controller
                 'slotId' => $data['CLIN_APPT_SLOT_ID'],
                 'accountId' => $data['accountId'],
                 'patient_id' => $data['patient_id'],
-                // 'location_id'=> $data['location_id'],
+                'location_id' => $data['location_id'],
             ], 'post');
             if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
 
@@ -103,7 +103,16 @@ class PaymentController extends Controller
                     "card_info" => $request->cartId,
                     "card_owner" => $data['firstName'],
                 ], 'post');
-
+                //reserve the appointment
+                $response = FeachPortalAPI::feach('/slot/create', [
+                    'firstName' => $data['firstName'],
+                    'centerId' => $data['CENTER_ID'],
+                    'mobile' => $data['mobile'],
+                    'slotId' => $data['CLIN_APPT_SLOT_ID'],
+                    'accountId' => $data['accountId'],
+                    'patient_id' => $data['patient_id'],
+                    'location_id' => $data['location_id'],
+                ], 'post');
                 if (!$response[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $response[2]);
                 $response = $response[0];
                 session('success', __('Appointment booked successfully'));
@@ -117,6 +126,7 @@ class PaymentController extends Controller
             return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
         };
     }
+
 
     public function responsePackage(Request $request)
     {
