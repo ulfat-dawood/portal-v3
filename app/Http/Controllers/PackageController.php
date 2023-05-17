@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\FeachPortalAPI;
+use App\Models\Checkout;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -28,21 +29,32 @@ class PackageController extends Controller
     public function orderPackage(Request $request)
     {
         if (!$request->packageId) redirect()->back()->with('error', __('Not Found'));
+        session(['checkout' => $request->package_id]);
         $response = FeachPortalAPI::feach('/package/' . $request->packageId);
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
-        $response = $response[0];
-        return  view('components.home.packages.order', ['package' => $response->json()['data'][0]]);
+        $response = $response[0]->json()['data'][0];
+        FeachPortalAPI::feach('/packages/order', [
+            'package_id' => $request->packageId,
+            'account_id' => session('user')['id'],
+            'quantity' => 1,
+            'hospital_id' => $response['HOSPITAL_ID']
+        ], 'post');
+
+        Checkout::create([
+            'package_id' => $response['PKG_ID'],
+            'PKG_PRICE' => $response['PKG_PRICE'],
+            'mobile' =>  session('user')['phone'],
+            'accountId' => session('user')['id'],
+            'firstName' => session('user')['name'],
+            'email' => session('user')['phone'] . '@athir.com.sa',
+            'HOSPITAL_ID' => $response['HOSPITAL_ID']
+        ]);
+        return redirect()->route('checkout.package', ['package_id' => $response['PKG_ID'],'locale' => app()->getLocale()]);
     }
 
     public function checkout(Request $request)
     {
-        session(['checkout' => [
-            'package_id' => $request->package_id,
-            'quantity' => 1,
-            'account_id' => session('user')['id'],
-            'mobile' => session('user')['phone'],
-            'name' => session('user')['name']
-        ]]);
-        return redirect()->route('checkout'); 
+        session(['checkout' => $request->package_id]);
+        return redirect()->route('checkout');
     }
 }

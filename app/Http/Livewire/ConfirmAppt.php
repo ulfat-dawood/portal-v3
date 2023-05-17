@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Http\Helpers\FeachPortalAPI;
+use App\Models\Checkout;
 use Livewire\Component;
 
 class ConfirmAppt extends Component
@@ -19,6 +20,11 @@ class ConfirmAppt extends Component
     public $patient_id;
     public $centerId;
     public $slotId;
+    public $addresses;
+    public $location_id;
+    public $showModal = 0;
+    public $slotType;
+    protected $listeners = ['toggleModal',];
 
     public function mount()
     {
@@ -28,10 +34,12 @@ class ConfirmAppt extends Component
             'mobile_no' => session('user')['phone'],
             'hospital_id' => $this->slot['HOSPITAL_ID']
         ], 'post');
-
+        $this->feachAddresses();
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
         $this->patients = $response->json()['data'];
+
+        if ($this->slot['APPT_TYPE_ID'] == 224) $this->slotType = 'home';
     }
 
     public function updatedSelectedPatient()
@@ -47,6 +55,20 @@ class ConfirmAppt extends Component
             $this->patient_id = $this->patients[$this->selectedPatient]['PATIENT_ID'];
         }
     }
+    public function feachAddresses()
+    {
+        $response = FeachPortalAPI::feach('/account/locations/' . session('user')['id']);
+        if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
+        $response = $response[0];
+        // addresses retreived successfully
+        $this->addresses = array_reverse($response->json()['data']);
+    }
+
+    public function toggleModal($showModal)
+    {
+        $this->showModal = $showModal;
+        $this->feachAddresses();
+    }
 
     public function pay($payOnArrival)
     {
@@ -55,17 +77,17 @@ class ConfirmAppt extends Component
             'firstName' => 'required',
             'mobile' => 'required',
             'patient_id' => 'required',
+            'location_id' => 'required_with:slotType',
         ]);
-
-        session(['checkout' => [
+        Checkout::create(array_merge($this->slot, [
             'payOnArrival' => $payOnArrival,
             'firstName' => $this->firstName,
             'mobile' =>  $this->mobile,
-            'slot' => $this->slot,
             'accountId' => session('user')['id'],
-            'patient_id' => $this->patient_id
-        ]]);
-
+            'patient_id' => $this->patient_id,
+            'location_id' => $this->location_id
+        ]));
+        session(['checkout'=>$this->slot['CLIN_APPT_SLOT_ID']]);
         return redirect()->route('checkout');
     }
 

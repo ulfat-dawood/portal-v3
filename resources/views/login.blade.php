@@ -5,47 +5,32 @@
     <x-common.privacy-policy />
     <x-common.service-terms />
 @endsection
-
 @section('content')
     <div class=" min-h-screen">
-        <div
-            class="my-12 flex  justify-center items-center gap-x-10  lg:items-stretch
+        <div class="my-12 flex  justify-center items-center gap-x-10  lg:items-stretch
         @if (Route::current()->getName() != 'login') flex-col-reverse lg:flex-row-reverse
-        @else
-        flex-col lg:flex-row @endif
-        ">
-            <livewire:login/>
-
+        @else flex-col lg:flex-row @endif ">
+            <livewire:login />
             <div class="hidden bg-grey-border2 w-[1px] my-14  relative lg:block">
-                <div class="absolute text-sm bg-grey-bg1 text-grey-border3"
-                    style="top:50%; left: 50%;  transform: translate(-50%, -50%);">@lang('or')</div>
+                <div class="absolute text-sm bg-grey-bg1 text-grey-border3" style="top:50%; left: 50%;  transform: translate(-50%, -50%);">@lang('or')</div>
             </div>
-
             <div class="blcok bg-grey-border2 h-[1px] my-6 w-full max-w-sm  relative lg:hidden">
-                <div class="absolute text-sm bg-grey-bg1 text-grey-border3 px-1"
-                    style="top:50%; top: 50%;left: 50%;  transform: translate(-50%, -50%);">or</div>
+                <div class="absolute text-sm bg-grey-bg1 text-grey-border3 px-1" style="top:50%; top: 50%;left: 50%;  transform: translate(-50%, -50%);">or</div>
             </div>
-
-            <livewire:registration/>
-
+            <livewire:registration />
         </div>
     </div>
-
-
 @endsection
-
 @section('script')
-
     {{-- ------------------ INPUT MASKS ------------------ --}}
     <script src="https://unpkg.com/imask"></script>
     <script>
-
         // MOBILE NUMBER LOGIN
         var loginMobileField = document.getElementById('login-mobile');
         var loginMobileOptions = {
             mask: '{9665}00000000',
             lazy: true,
-            placeholderChar : '_ '
+            placeholderChar: '_ '
         };
         var loginMobileMask = IMask(loginMobileField, loginMobileOptions);
         loginMobileField.addEventListener('focus', function() {
@@ -62,15 +47,12 @@
         //         loginMobileMask.value = '';
         //     }
         // }, true);
-
-
-
         // DOCUMENT NUMBER LOGIN
         var documentLoginField = document.getElementById('login-nationalId');
         var documentLoginFieldOptions = {
             mask: '0000000000',
             lazy: true,
-            placeholderChar : '_ '
+            placeholderChar: '_ '
         };
         var documentLoginMask = IMask(documentLoginField, documentLoginFieldOptions);
 
@@ -94,7 +76,7 @@
         var mobileOptions = {
             mask: '{966}500000000',
             lazy: true,
-            placeholderChar : '_ '
+            placeholderChar: '_ '
         };
         var mobileMask = IMask(mobileField, mobileOptions);
         mobileField.addEventListener('focus', function() {
@@ -119,7 +101,7 @@
         var yearOptions = {
             mask: '0000',
             lazy: true,
-            placeholderChar : '_ '
+            placeholderChar: '_ '
         };
         var yearMask = IMask(yearField, yearOptions);
 
@@ -149,6 +131,5 @@
             })
         });
     </script>
-
 
 @endsection

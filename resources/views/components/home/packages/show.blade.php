@@ -1,10 +1,7 @@
 @extends('layout.master')
 @section('title', __('Packages'))
-
 @section('content')
-
     <div class="container xl:px-[9vw]">
-
         <x-master.breadcrumbs path="{{ __('Packages') }}" current="{{ $package[0]['PKG_NAME'] }}" />
         <div class="container">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
@@ -12,7 +9,11 @@
 
                     <div class="basis-1/4 w-full flex-grow flex-shrink-0 lg:flex-grow-0 box rounded-lg overflow-hidden">
                         <div class="flex gap-4 flex-col md:flex-row h-auto md:h-72">
-                            <img src="{{ asset('assets/images/packages-show.jpg') }}" alt="{{ $package[0]['PKG_NAME'] }}">
+                            @if ($package[0]['PKG_PHOTO'])
+                                <img src="{{ $package[0]['PKG_PHOTO'] }}" alt="{{ $package[0]['PKG_NAME'] }}">
+                            @else
+                                <img src="{{ asset('assets/images/packages-show.jpg') }}" alt="{{ $package[0]['PKG_NAME'] }}">
+                            @endif
                         </div>
                         <div class="bg-main-600">
                             <h3 class="font-bold text-center text-white p-5">{{ $package[0]['PKG_NAME'] }}</h3>
@@ -35,11 +36,8 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="box p-4 space-y-2">
-
                             <h3 class="font-bold text-sm">@lang('Clinic details')</h3>
-
                             {{-- center info --}}
                             <div class="flex gap-2 rounded-lg bg-grey-bg2 p-2">
 
@@ -66,7 +64,6 @@
                         </div>
                         <!-- end section  -->
                         <div class="basis-1/4 flex-grow flex-shrink-0 lg:flex-grow-0 ">
-
                             <div class="box p-4 space-y-2">
                                 {{-- appointment info  --}}
                                 <h3 class="font-bold text-sm inlin">@lang('Package confirmation')</h3>
@@ -76,14 +73,14 @@
                                 <div class="flex-grow gap-2 h-full">
                                     <div class="my-3 mx-6">
                                         @if ($package[0]['PKG_PRICE'] != $package[0]['SRVC_PRICE'])
-                                            <div class="mr-6 text-sm">
+                                            {{-- <div class="mr-6 text-sm">
                                                 <p class="inline-block w-11/12">@lang('price before discount')</p>
                                                 <h2 class="inline-block line-through">{{ $package[0]['PKG_PRICE'] }}
                                                     @lang('SR')</h2>
-                                            </div>
+                                            </div> --}}
                                             <div class="mr-6 text-sm">
                                                 <p class="inline-block w-11/12">@lang('total')</p>
-                                                <h2 class="inline-block">{{ $package[0]['SRVC_PRICE'] }} @lang('SR')</h2>
+                                                <h2 class="inline-block">{{ $package[0]['PKG_PRICE'] }} @lang('SR')</h2>
                                             </div>
                                         @else
                                             <div class="mr-6 text-sm">
@@ -93,13 +90,11 @@
                                         @endif
                                     </div>
                                 </div>
-
-                                <form method="GET" action="{{ route('package.order', ['locale' => session('locale'), 'packageId' => $package[0]['PKG_ID']]) }}" class="space-y-2">
-
+                                <form method="post" action="{{ route('package.order', ['locale' => session('locale'), 'packageId' => $package[0]['PKG_ID']]) }}" class="space-y-2">
+                                    @csrf
                                     <button type="submit" class="btn-primary w-full">
                                         @lang('Order the packages')
                                     </button>
-
                                 </form>
                             </div>
                         </div>

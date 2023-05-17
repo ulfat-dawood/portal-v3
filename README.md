@@ -65,3 +65,14 @@ Finally, if your practice conducts telehealth appointments, your patient portal 
 
 # The bottom line
 If your patient portal has these features, make sure that your practice is taking advantage of them! They will streamline your practice management workflows and improve patient engagement. As a patient, if you were wondering how to check your health records online, ask your healthcare provider to invite you to access your EHR patient portal.
+
+
+{"acquirerMessage":"13:Invalid Amount"
+,"acquirerRRN":"313115312378",
+"cartId":"1240353",
+"customerEmail":"966596003003@athir.com.sa",
+"respCode":"343","respMessage":"Declined by acquirer"
+,"respStatus":"D",
+"signature":"edaa8010dbfd7516108fda10e89ff6ec0918832f43945468a204222e72b5c4c4"
+,"token":null,
+"tranRef":"PTS2313124614362"}
