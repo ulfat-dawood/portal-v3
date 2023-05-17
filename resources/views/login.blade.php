@@ -5,7 +5,7 @@
     <x-common.privacy-policy />
     <x-common.service-terms />
 @endsection
-<div>Route name {{Route::current()->getName()}}</div>
+
 @section('content')
     <div class=" min-h-screen">
         <div
