@@ -32,7 +32,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
     Route::get('', [HomeController::class, 'index'])->name('home');
 
     // Account
-    Route::get('/login', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn');
+    Route::get('/login', [AccountController::class, 'getRegistrationView'])->name('login')->middleware('RedirectIfLoggedIn');
     Route::post('/login', [AccountController::class, 'login'])->name('login');
     Route::get('/register', [AccountController::class, 'getRegistrationView'])->middleware('RedirectIfLoggedIn')->name('register');
 

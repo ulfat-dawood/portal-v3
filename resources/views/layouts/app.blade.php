@@ -72,6 +72,8 @@ dir="rtl" @endif>
 
 
     <!--------------------------- Libraries (start)  --------------------------------->
+    <!-- Google Maps  -->
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyC6iJ7uUNmDIbUWd78jEwM5vv4tW1z3Ea0&sensor=false"></script>
     <!-- Tom Select  -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
     <!-- Swiper JS  -->
