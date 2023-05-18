@@ -2,7 +2,7 @@
     <div class="box px-5 py-7">
         <h2>@lang('Create a new account')</h2>
         <div class="this-was-a-form text-left space-y-7">
-
+            <div></div>
             {{-- Name  --}}
             <div class="flex  flex-col gap-2">
                 <div class="input-box-wrapper">
