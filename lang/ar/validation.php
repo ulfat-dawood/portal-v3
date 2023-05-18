@@ -107,7 +107,7 @@ return [
     'prohibited_unless' => 'الحقل :attribute محظور في حال ما لم يكون :other يساوي :value.',
     'prohibits' => 'الحقل :attribute يحظر :other من اي يكون موجود',
     'regex' => 'صيغة الحقل :attribute .غير صحيحة',
-    'required' => 'الحقل :attribute مطلوب.',
+    'required' => 'حقل :attribute مطلوب.',
     'required_array_keys' => 'الحقل :attribute يجب ان يحتوي علي مدخلات للقيم التالية :values.',
     'required_if' => 'الحقل :attribute مطلوب في حال ما إذا كان :other يساوي :value.',
     'required_unless' => 'الحقل :attribute مطلوب في حال ما لم يكن :other يساوي :values.',
