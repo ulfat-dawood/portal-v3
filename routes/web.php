@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SlotController;
-use App\Http\Livewire\Account as LivewireAccount;
+use App\Http\Livewire\Account\Index as LivewireAccount;
 use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 

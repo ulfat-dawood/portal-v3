@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Account;
 
 use Livewire\Component;
 
-class Account extends Component
+class Index extends Component
 {
     public $selectedTab;
     public $tabs = [];
