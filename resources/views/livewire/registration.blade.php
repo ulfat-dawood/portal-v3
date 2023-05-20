@@ -22,7 +22,7 @@
             {{-- mobile number  --}}
             <div class="flex  flex-col gap-2">
                 <div class="input-box-wrapper">
-                    <input value="{{ old('mobile') }}" required type="text" id="mobile" name="mobile"
+                    <input value="{{ old('mobile') }}" required type="text" id="registation-mobile" name="mobile"
                         wire:model.lazy="mobile" class="input-box" style="direction: ltr">
                     <label for="mobile" title="@lang('Mobile number')"></label>
                     <i class="icofont-mobile-phone"></i>

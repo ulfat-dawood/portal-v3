@@ -7,7 +7,7 @@
             {{-- MOBILE NO --}}
             <div class="flex  flex-col gap-2">
                 <div class="input-box-wrapper">
-                    <input @if (Route::current()->getName() == 'login') autofocus @endif required type="text" id="login-mobile"
+                    <input  required type="text" id="login-mobile"
                         name="loginMobile" class="input-box" style="direction: ltr">
                     <label for="login-mobile" title="@lang('Mobile number')"></label>
                     <i class="icofont-mobile-phone"></i>

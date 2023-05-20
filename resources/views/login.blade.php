@@ -27,109 +27,36 @@
     <script>
         // MOBILE NUMBER LOGIN
         var loginMobileField = document.getElementById('login-mobile');
-        var loginMobileOptions = {
+        var loginregistrationMobileOptions = {
             mask: '{9665}00000000',
             lazy: true,
             placeholderChar: '_ '
         };
-        var loginMobileMask = IMask(loginMobileField, loginMobileOptions);
+        var loginMobileMask = IMask(loginMobileField, loginregistrationMobileOptions);
         loginMobileField.addEventListener('focus', function() {
             loginMobileMask.updateOptions({
                 lazy: false,
             });
         }, true);
-        // loginMobileField.addEventListener('blur', function() {
-        //     loginMobileMask.updateOptions({
-        //         lazy: true
-        //     });
-        //     NEXT IS OPTIONAL
-        //     if (!loginMobileMask.masked.rawInputValue) {
-        //         loginMobileMask.value = '';
-        //     }
-        // }, true);
-        // DOCUMENT NUMBER LOGIN
-        var documentLoginField = document.getElementById('login-nationalId');
-        var documentLoginFieldOptions = {
-            mask: '0000000000',
-            lazy: true,
-            placeholderChar: '_ '
-        };
-        var documentLoginMask = IMask(documentLoginField, documentLoginFieldOptions);
 
-        documentLoginField.addEventListener('focus', function() {
-            documentLoginMask.updateOptions({
-                lazy: false,
-            });
-        }, true);
-        documentLoginField.addEventListener('blur', function() {
-            documentLoginMask.updateOptions({
-                lazy: true
-            });
-            // NEXT IS OPTIONAL
-            if (!documentLoginMask.masked.rawInputValue) {
-                documentLoginMask.value = '';
-            }
-        }, true);
 
-        // MOBILE NUMBER
-        var mobileField = document.getElementById('mobile');
-        var mobileOptions = {
+        // MOBILE NUMBER REGISTRATION
+        var registrationMobileField = document.getElementById('registation-mobile');
+        var registrationMobileOptions = {
             mask: '{966}500000000',
             lazy: true,
             placeholderChar: '_ '
         };
-        var mobileMask = IMask(mobileField, mobileOptions);
-        mobileField.addEventListener('focus', function() {
+        var mobileMask = IMask(registrationMobileField, registrationMobileOptions);
+        registrationMobileField.addEventListener('focus', function() {
             mobileMask.updateOptions({
                 lazy: false,
             });
         }, true);
-        mobileField.addEventListener('blur', function() {
-            mobileMask.updateOptions({
-                lazy: true
-            });
-            // NEXT IS OPTIONAL
-            if (!mobileMask.masked.rawInputValue) {
-                mobileMask.value = '';
-            }
-        }, true);
 
 
-        //DOB
-        //     year
-        var yearField = document.getElementById('year');
-        var yearOptions = {
-            mask: '0000',
-            lazy: true,
-            placeholderChar: '_ '
-        };
-        var yearMask = IMask(yearField, yearOptions);
 
-        yearField.addEventListener('focus', function() {
-            yearMask.updateOptions({
-                lazy: false,
-            });
-        }, true);
-        yearField.addEventListener('blur', function() {
-            yearMask.updateOptions({
-                lazy: true
-            });
-            // NEXT IS OPTIONAL
-            if (!yearMask.masked.rawInputValue) {
-                yearMask.value = '';
-            }
-        }, true);
 
-        //     dropdown
-        document.querySelectorAll('.dob-dropdown').forEach(dropdown => {
-            //after revisting page on invalid validation -> dropdown is selected, thus color is dark
-            if (dropdown.value != 'Day' && dropdown.value != 'Month') {
-                dropdown.style.color = '#707070';
-            }
-            dropdown.addEventListener('change', () => {
-                dropdown.style.color = '#707070';
-            })
-        });
     </script>
 
 @endsection
