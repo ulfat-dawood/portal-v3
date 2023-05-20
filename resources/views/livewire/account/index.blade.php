@@ -44,7 +44,8 @@
                         @break
 
                         @case(2)
-                            <p class="text-center">@lang('No past appointmes recoreded.')</p>
+                            <livewire:account.past-appointments/>
+
                         @break
 
                         @case(3)

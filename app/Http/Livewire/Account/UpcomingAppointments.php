@@ -19,12 +19,7 @@ class UpcomingAppointments extends Component
             $response = $response[0];
 
             $onlyUpcomingAppt = array_filter($response->json()['data'], function($arr) {
-                $date_now = time();
-                $date_appt = strtotime($arr['APPT_DATE']);
-                if ($date_now < $date_appt)
-                    return TRUE;
-                else
-                    return FALSE;
+                return time() < strtotime($arr['APPT_DATE']);
             });
             $this->appointments = $onlyUpcomingAppt;
         }
