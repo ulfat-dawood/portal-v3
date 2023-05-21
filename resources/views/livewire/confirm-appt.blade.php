@@ -45,7 +45,7 @@
                         @lang('New patient')
                     </div>
                     @if ($showNewPatient)
-                        <div class="flex flex-col lg:gap-1 sm:gap-5 pt-4 sm:flex-row">
+                        <div class="flex flex-col sm:gap-5 pt-4 lg:flex-col sm:flex-row gap-y-5">
                             {{-- PATIENT NAME  --}}
                             <div class="flex  flex-col gap-1">
                                 <div class="input-box-wrapper">
