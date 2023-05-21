@@ -15,6 +15,7 @@
 - SIDEBAR
 - BANNER
 - RADIO BUTTONS
+- POLICY
 
 
 - RTL ENHANCMENTS
@@ -612,6 +613,29 @@ body * {
 
 
 
+//////////  POLICY (start) //////////
+.t-c {
+    direction: ltr;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.t-c .title {
+    color: #11585E;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.t-c .subtitle {
+    color: #11585E;
+    font-size: 18px;
+    font-weight: 600;
+}
+//////////  POLICY (end) //////////
+
+
+
 
 //////////  APPT TIMELINE (start) //////////
 .timeline {
@@ -844,23 +868,23 @@ input:checked+label {
 
 
 ////////// RADIO BUTTON (start) //////////
-input[type="radio"].classic-radio + label span {
+input[type="radio"].classic-radio+label span {
     transition: background .2s,
-      transform .2s;
+        transform .2s;
 }
 
-input[type="radio"].classic-radio + label span:hover,
-input[type="radio"] + label:hover span{
-  transform: scale(1.2);
+input[type="radio"].classic-radio+label span:hover,
+input[type="radio"]+label:hover span {
+    transform: scale(1.2);
 }
 
-input[type="radio"].classic-radio:checked + label span {
-  background-color: $main-500; //bg-blue
-  box-shadow: 0px 0px 0px 2px white inset;
+input[type="radio"].classic-radio:checked+label span {
+    background-color: $main-500; //bg-blue
+    box-shadow: 0px 0px 0px 2px white inset;
 }
 
-input[type="radio"].classic-radio:checked + label{
-   color: $main-600; //text-blue
+input[type="radio"].classic-radio:checked+label {
+    color: $main-600; //text-blue
 }
 
 ////////// RADIO BUTTON (end) //////////
