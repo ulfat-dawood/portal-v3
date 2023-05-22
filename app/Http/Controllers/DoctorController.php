@@ -15,7 +15,7 @@ class DoctorController extends Controller
         ]);
         $response = FeachPortalAPI::feach('/doctors/search', [
             'pageNo' => '',
-            'perPage' => $request->perpage ? $request->perpage : 20,
+            // 'perPage' => $request->perpage ? $request->perpage : 20,
             'cityId' =>  $request->cityId,
             'clinicId' =>  $request->clinicId,
             'allowCache' => 0,
