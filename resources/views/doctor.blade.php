@@ -88,6 +88,20 @@
                                                 @endif
 
                                             </div>
+                                            @if (!is_null($doctor['PORTAL_DISCOUNT']) && isset($doctor['PORTAL_DISCOUNT']) )
+                                                <div class="flex gap-1 text-grey-border3 text-sm items-center">
+                                                    <div>
+                                                        <i class="icofont-sale-discount text-grey-border3 text-sm"></i>
+                                                    </div>
+
+                                                    <div>
+                                                        {{$doctor['PORTAL_DISCOUNT']}}% @lang('discount')
+                                                    </div>
+                                                    <div>
+                                                        @lang('on online payment.')
+                                                    </div>
+                                                </div>
+                                            @endif
 
                                             @if (isset($doctor['earliest_appointment']) && !is_null($doctor['earliest_appointment']) && $doctor['earliest_appointment'] !== '')
                                                 <div class="text-grey-border3 text-sm mt-3">
