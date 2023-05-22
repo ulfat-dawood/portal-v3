@@ -176,8 +176,8 @@
                 <div class="flex justify-between p-3 hover:bg-grey-bg1">
                     <!-- start  -->
                     <div>
-                        <div class="text-grey-border3 text-sm font-normal">
-                            {{ $doctor['HOSPITAL_NAME'] }}
+                        <div class="text-grey-border3 text-sm font-normal ms-3.5">
+                            {{ $doctor['CENTER_NAME'] }}
 
                         </div>
                         <div>
