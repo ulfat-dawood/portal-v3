@@ -5,7 +5,7 @@
 
     <div class="container xl:px-[9vw]">
 
-        <x-master.breadcrumbs  current="@lang('Appointment confirmation')" />
+        <x-master.breadcrumbs  current="{{__('Appointment confirmation')}}" />
         <div class="container mb-10">
             <div class="flex items-start gap-10 flex-col lg:flex-row">
 
