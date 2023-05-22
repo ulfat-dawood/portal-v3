@@ -55,7 +55,8 @@ class DoctorController extends Controller
             'doctor' => $response[0]->json()['data'][0],
             'days' => collect($response[1]->json()['data'])->pluck('available_days'),
             'param' => $parameters,
-            'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1']
+            'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'],
+            'apptType' => request('appt_type_in')
         ]);
     }
 }

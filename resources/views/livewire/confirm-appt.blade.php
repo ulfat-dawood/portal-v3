@@ -87,7 +87,7 @@
         @if (!is_null($slot ['PORTAL_DISCOUNT']) && isset($slot  ['PORTAL_DISCOUNT']))
             <div class="flex gap-1 text-grey-border3 text-sm items-center">
                 <div>
-                    <i class="icofont-sale-discount text-grey-border3 text-sm"></i>
+                    <i class="icofont-sale-discount text-secondary-300 text-sm"></i>
                 </div>
 
                 <div>
