@@ -11,7 +11,7 @@ class ClinicAppt extends Component
     public $clinics;
     public $cityId;
     public $clinicId;
-    public $appt_type_in = 225;
+    public $appt_type_in = 224;
 
     public function mount($cities, $clinics)
     {
