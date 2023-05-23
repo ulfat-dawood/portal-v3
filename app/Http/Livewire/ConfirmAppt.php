@@ -39,7 +39,7 @@ class ConfirmAppt extends Component
         $response = $response[0];
         $this->patients = $response->json()['data'];
 
-        if ($this->slot['APPT_TYPE_ID'] == 224) $this->slotType = 'home';
+        if ($this->slot['APPT_TYPE_ID'] == 225) $this->slotType = 'home';
     }
 
     public function updatedSelectedPatient()
