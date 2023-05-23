@@ -22,9 +22,16 @@ class DoctorController extends Controller
             'appt_type_in' => $request->appt_type_in ? $request->appt_type_in : 225,
         ]);
 
+        //if error
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
 
+        //if no doctors returned:
+        if(!count($response->json()['data']['doctors'])){
+            return redirect()->back()->with('warning', __('No matching search results please use a different search keyword.'));
+        }
+
+        //if doctors returned successfully:
         return view('doctors', [
             'totalePages' => $response->json()['data']['totalPages'],
             'pageNo' => $response->json()['data']['pageNo'],
