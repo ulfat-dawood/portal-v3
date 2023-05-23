@@ -160,12 +160,12 @@
                     <div class="flex gap-2 mt-2 md:flex-col md:mt-0">
                         <div
                             class="border  border-main-600 text-main-600 rounded-lg text-center text-xs px-3 py-1 bg-white  hover:bg-main-50 basis-1/2 sm:basis-auto">
-                            @lang('View profile')
-                        </div>
-                        <div
-                            class="border border-secondary-300 text-secondary-300 rounded-lg text-center text-xs px-3 py-1 bg-white hover:bg-secondary-100 basis-1/2 sm:basis-auto">
                             @lang('Book appointment')
                         </div>
+                        {{-- <div
+                            class="border border-secondary-300 text-secondary-300 rounded-lg text-center text-xs px-3 py-1 bg-white hover:bg-secondary-100 basis-1/2 sm:basis-auto">
+                            @lang('View profile')
+                        </div> --}}
                     </div>
                 </div>
             </a>
