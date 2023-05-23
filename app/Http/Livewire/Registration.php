@@ -29,7 +29,7 @@ class Registration extends Component
 
         $this->validate([
             'name' => 'required',
-            'mobile' => 'required',
+            'mobile' => 'required|numeric|min:12',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
             'policy' => 'required'
