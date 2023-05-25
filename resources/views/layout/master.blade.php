@@ -52,6 +52,14 @@ dir="rtl" @endif>
     <!-- Livewire  -->
     <livewire:scripts />
 
+
+    <!--------------------------- Libraries (start)  --------------------------------->
+    <!-- Tom Select  -->
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
+    <!-- Swiper JS  -->
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!--------------------------- Libraries (end)  --------------------------------->
+    
     <!-- Template  -->
     @yield('script')
 
@@ -70,12 +78,6 @@ dir="rtl" @endif>
         }
     </script>
 
-    <!--------------------------- Libraries (start)  --------------------------------->
-    <!-- Tom Select  -->
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
-    <!-- Swiper JS  -->
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <!--------------------------- Libraries (end)  --------------------------------->
 
 </body>
 

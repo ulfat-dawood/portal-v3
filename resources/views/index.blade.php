@@ -10,7 +10,7 @@
 
 <x-home.packages :packages="$packages"/>
 
-<x-home.partners/>
+{{-- <x-home.partners/> --}}
 
 <x-home.features/>
 

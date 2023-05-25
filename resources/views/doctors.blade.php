@@ -5,9 +5,9 @@
 
     <div class="container xl:px-[15vw]">
 
-        {{-- <x-master.breadcrumbs  path="{{__('doctors')}}" current="{{$breadcrumb}}"/> --}}
+        <x-master.breadcrumbs  current="{{__('doctors')}}"/>
 
-        <div class="flex gap-10 items-start my-10">
+        <div class="flex gap-10 items-start mb-10">
             {{-- <x-doctors.filter/> --}}
 
             <x-doctors.cards :doctors="$doctors" apptType="{{$appt_type_in}}" totalPages="{{ $totalePages }}" pageNumber="{{ $pageNo }}" />

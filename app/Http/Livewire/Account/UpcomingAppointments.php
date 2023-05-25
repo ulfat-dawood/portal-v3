@@ -17,8 +17,11 @@ class UpcomingAppointments extends Component
             $this->msg = $response[2];
         } else {
             $response = $response[0];
-            // Appointmetns retreived successfully
-            $this->appointments = $response->json()['data'];
+
+            $onlyUpcomingAppt = array_filter($response->json()['data'], function($arr) {
+                return time() < strtotime($arr['APPT_DATE']);
+            });
+            $this->appointments = $onlyUpcomingAppt;
         }
     }
 

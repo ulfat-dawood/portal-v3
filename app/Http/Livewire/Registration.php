@@ -17,6 +17,7 @@ class Registration extends Component
     public $otp;
     public $isOtpSent;
     public $msg;
+    public $otpRequestError;
 
     public function mount()
     {
@@ -28,7 +29,7 @@ class Registration extends Component
 
         $this->validate([
             'name' => 'required',
-            'mobile' => 'required',
+            'mobile' => 'required|numeric|min:12',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
             'policy' => 'required'
@@ -41,12 +42,21 @@ class Registration extends Component
             "email" => $this->email,
             "password" => $this->password,
         ], 'post');
+        if (!$response[0]) {
+
+            return  $this->otpRequestError = $response[2];
+        } else {
+
         $response = $response[0];
 
         // OTP sent successfully
         $this->isOtpSent = true;
+        }
     }
 
+    public function cancelOtp(){
+        $this->isOtpSent = false;
+    }
     public function submitOtp()
     {
         $this->validate(['otp' => 'required']);

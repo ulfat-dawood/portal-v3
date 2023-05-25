@@ -9,7 +9,7 @@ class HomeVisitAppt extends Component
     public $cities;
     public $clinics;
     public $msg ='';
-    public $appt_type_in = 224;
+    public $appt_type_in = 225;
     public $cityId;
     public $clinicId;
 

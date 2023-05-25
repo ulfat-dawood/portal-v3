@@ -11,9 +11,9 @@
         @endforelse
     </div>
 
-    @if (count($doctors) != 0)
-        <!-- Pagination  -->
+    <!-- Pagination  -->
+    {{-- @if (count($doctors) != 0)
         <x-doctors.cards.pagination totalPages="{{ $totalPages }}" pageNumber="{{ $pageNumber }}" />
-    @endif
+    @endif --}}
 
 </div>

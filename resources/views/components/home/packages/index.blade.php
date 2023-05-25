@@ -1,11 +1,11 @@
-<section id="packages" class="w-full py-20">
+<section id="packages" class="w-full py-20 bg-grey-bg2">
     <div class="container">
         <!-- title  -->
         <div class="container items-center mb-14 px-11 inline-flex">
             <h2 class=" mr-8 w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
-            <a href="{{ route('getPackages', ['locale' => session('locale')]) }}" class="text-sm text-secondary-400 flex-shrink-0">
+            <a href="{{ route('getPackages', [ 'locale' => session('locale')]) }}" class="text-sm text-secondary-400 flex-shrink-0">
                 @lang('All packages')
             </a>
         </div>
@@ -36,10 +36,10 @@
                                         <div class="text-left w-3/4">
                                             @if ($package['PKG_PRICE'] != $package['SRVC_PRICE'])
                                                 <h2 class="pl-1 inline-block text-sm text-white line-through">
-                                                    {{ $package['PKG_PRICE'] }}
+                                                    {{ $package['SRVC_PRICE'] }}
                                                 </h2>
                                                 <h2 class="px-3 py-1 inline-block bg-white rounded-3xl text-sm font-bold text-main-700">
-                                                    {{ $package['SRVC_PRICE'] }}
+                                                    {{ $package['PKG_PRICE'] }}
                                                     @lang('SR')</h2>
                                             @else
                                                 <h2 class="px-3 py-1 inline-block bg-white rounded-3xl text-sm font-bold text-main-700">

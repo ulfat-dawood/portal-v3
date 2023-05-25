@@ -15,16 +15,23 @@ class DoctorController extends Controller
         ]);
         $response = FeachPortalAPI::feach('/doctors/search', [
             'pageNo' => '',
-            'perPage' => $request->perpage ? $request->perpage : 20,
+            // 'perPage' => $request->perpage ? $request->perpage : 20,
             'cityId' =>  $request->cityId,
             'clinicId' =>  $request->clinicId,
             'allowCache' => 0,
             'appt_type_in' => $request->appt_type_in ? $request->appt_type_in : 225,
         ]);
 
+        //if error
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
 
+        //if no doctors returned:
+        if(!count($response->json()['data']['doctors'])){
+            return redirect()->back()->with('warning', __('No matching search results please use a different search keyword.'));
+        }
+
+        //if doctors returned successfully:
         return view('doctors', [
             'totalePages' => $response->json()['data']['totalPages'],
             'pageNo' => $response->json()['data']['pageNo'],
@@ -55,7 +62,8 @@ class DoctorController extends Controller
             'doctor' => $response[0]->json()['data'][0],
             'days' => collect($response[1]->json()['data'])->pluck('available_days'),
             'param' => $parameters,
-            'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1']
+            'breadcrumb' => session('locale') == 'ar' ? 'د. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'] : 'Dr. ' . $response[0]->json()['data'][0]['DOCTOR_NAME_1'],
+            'apptType' => request('appt_type_in')
         ]);
     }
 }

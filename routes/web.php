@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SlotController;
-use App\Http\Livewire\Account as LivewireAccount;
+use App\Http\Livewire\Account\Index as LivewireAccount;
 use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +43,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     //Packages
     Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
-    Route::get('/packages', [PackageController::class, 'getPackages'])->name('getPackages');
+    Route::get('/packages/{clinicId?}/{clinicName?}', [PackageController::class, 'getPackages'])->name('getPackages');
 
 
 

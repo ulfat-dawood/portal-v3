@@ -23,7 +23,33 @@ class PackageController extends Controller
         $response = FeachPortalAPI::feach('/packages');
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
-        return  view('components.home.packages.packages', ['packages' => $response->json()['data']]);
+        $packages = $response->json()['data'];
+
+        //Create list of ClinicName + ClinicId:
+        $clinics = [];
+        foreach($response->json()['data'] as $package) {
+            if (is_null($package['CLINIC_NAME']) || is_null($package['CLINIC_NAME'])) continue;
+
+            $newItem = [ 'CLINIC_ID'=> $package['CLINIC_ID'], 'CLINIC_NAME' => $package['CLINIC_NAME'] ];
+            if (in_array($newItem, $clinics)) continue;
+
+            array_push( $clinics, $newItem );
+        }
+
+        // Filter packages by clinic if clinic selected:
+        if(!is_null(request('clinicId')) && request('clinicId') > 0  ){
+
+            $tempPackages = array_filter($packages, function($package) {
+                return $package['CLINIC_ID'] == request('clinicId');
+            });
+            $packages = $tempPackages;
+        }
+
+        return  view('components.home.packages.packages', [
+            'clinics' => $clinics,
+            'packages' => $packages,
+            'clinicId' => is_null(request('clinicId')) ? 0 : request('clinicId')
+        ]);
     }
 
     public function orderPackage(Request $request)

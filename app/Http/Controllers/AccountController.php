@@ -10,8 +10,11 @@ class AccountController extends Controller
 
     public function login(LoginRequest $request)
     {
+        //trim mobile number:
+        $mobile = '966' . substr($request->loginMobile, -9);
+ 
         $request->validate(['loginMobile' => 'required|min:9', 'loginPassword' => 'required|min:6']);
-        $response = FeachPortalAPI::feach('/account/login', ['mobile' =>  $request->loginMobile, 'password' =>  $request->loginPassword], 'post');
+        $response = FeachPortalAPI::feach('/account/login', ['mobile' =>  $mobile, 'password' =>  $request->loginPassword], 'post');
         if (!$response[0]) return redirect()->back()->with($response[1], $response[2]);
         $response = $response[0];
         // user successfully logged

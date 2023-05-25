@@ -2,7 +2,7 @@
     <div class="box px-5 py-7">
         <h2>@lang('Create a new account')</h2>
         <div class="this-was-a-form text-left space-y-7">
-
+            <div></div>
             {{-- Name  --}}
             <div class="flex  flex-col gap-2">
                 <div class="input-box-wrapper">
@@ -12,7 +12,7 @@
                     <i class="icofont-id-card"></i>
                 </div>
                 @error('name')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
@@ -22,17 +22,24 @@
             {{-- mobile number  --}}
             <div class="flex  flex-col gap-2">
                 <div class="input-box-wrapper">
-                    <input value="{{ old('mobile') }}" required type="text" id="mobile" name="mobile"
+                    <input value="{{ old('mobile') }}" required type="text" id="registation-mobile" name="mobile"
                         wire:model.lazy="mobile" class="input-box" style="direction: ltr">
                     <label for="mobile" title="@lang('Mobile number')"></label>
                     <i class="icofont-mobile-phone"></i>
                 </div>
                 @error('mobile')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
                 @enderror
+
+                @if($otpRequestError)
+                     <span class="text-secondary-300 text-xs text-start break-words"><i
+                            class="icofont-warning-alt text-secondary-300"></i>
+                        {{ $otpRequestError }}
+                    </span>
+                @endif
             </div>
 
 
@@ -45,7 +52,7 @@
                     <i class="icofont-ui-email text-xs"></i>
                 </div>
                 @error('email')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
@@ -62,7 +69,7 @@
                     <i class="icofont-unlock"></i>
                 </div>
                 @error('password')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
@@ -80,7 +87,7 @@
                     <i class="icofont-unlock"></i>
                 </div>
                 @error('password_confirmation')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
@@ -106,12 +113,13 @@
                     </label>
                 </div>
                 @error('policy')
-                    <span class="text-secondary-300 text-xs break-words"><i
+                    <span class="text-secondary-300 text-xs text-start break-words"><i
                             class="icofont-warning-alt text-secondary-300"></i>
                         {{ $message }}
                     </span>
                 @enderror
             </div>
+
 
 
             <div>
@@ -132,6 +140,7 @@
                 <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                     role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                     <div class="flex gap-5 flex-col bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <p class="text-start">@lang('OTP has been sent to'): {{ $mobile }}</p>
                         <p class="text-red-600 text-center">{{ $msg }}</p>
                         {{-- OTP  --}}
                         <div class="flex  flex-col gap-2">
@@ -143,7 +152,7 @@
                                 <i class="icofont-unlock"></i>
                             </div>
                             @error('otp')
-                                <span class="text-secondary-300 text-xs break-words"><i
+                                <span class="text-secondary-300 text-xs text-start break-words"><i
                                         class="icofont-warning-alt text-secondary-300"></i>
                                     {{ $message }}
                                 </span>
@@ -151,9 +160,12 @@
                         </div>
 
                         {{-- BUTTON --}}
-                        <div>
+                        <div class="flex gap-x-2">
                             <button class="btn-primary w-full" wire:click='submitOtp'>
                                 @lang('Confirm OTP')
+                            </button>
+                            <button class="btn-secondary" wire:click='cancelOtp'>
+                                @lang('Cancel')
                             </button>
                         </div>
 
