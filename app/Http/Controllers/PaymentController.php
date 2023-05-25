@@ -37,10 +37,11 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
+        $portalPrice = $data['EXAM_PRICE'] - ($data['EXAM_PRICE'] / 100) * $data['PORTAL_DISCOUNT'] ;
         // $data['EXAM_PRICE'] = .25;
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
-            ->sendCart($data['CLIN_APPT_SLOT_ID'], $data['EXAM_PRICE'], 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
+            ->sendCart($data['CLIN_APPT_SLOT_ID'], $portalPrice, 'Appointment number :' . $data['CLIN_APPT_SLOT_ID'])
             ->sendCustomerDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendShippingDetails($data['firstName'], $data['mobile'] . '@athir.com.sa', $data['mobile'], 'temp address', 'Jeddah', 'Makkah', 'SA', '12345', request()->ip())
             ->sendHideShipping(true)
@@ -86,7 +87,7 @@ class PaymentController extends Controller
             // if payment successful
             if ($request->respStatus == 'A') {
                 $data = Checkout::where(['CLIN_APPT_SLOT_ID' => $request->cartId])->latest()->first();
-                $response = FeachPortalAPI::feach('/slot/payment', [
+                $responsePayment = FeachPortalAPI::feach('/slot/payment', [
                     "service_type" => 'APPT',
                     "amount" => $data['EXAM_PRICE'],
                     "portal_discount" =>  $data['PORTAL_DISCOUNT'],
@@ -103,6 +104,8 @@ class PaymentController extends Controller
                     "card_info" => $request->cartId,
                     "card_owner" => $data['firstName'],
                 ], 'post');
+                if (!$responsePayment[0]) return redirect()->route('payment.failed', ['locale' => app()->getLocale()])->with('warning', $responsePayment[2]);
+
                 //reserve the appointment
                 $response = FeachPortalAPI::feach('/slot/create', [
                     'firstName' => $data['firstName'],

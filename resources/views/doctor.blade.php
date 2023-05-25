@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', __('Doctors'))
+@section('title', $breadcrumb)
 
 @section('content')
 
