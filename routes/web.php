@@ -43,7 +43,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
 
     //Packages
     Route::get('/package/{packageId}', [PackageController::class, 'getPackage'])->name('getPackage');
-    Route::get('/packages', [PackageController::class, 'getPackages'])->name('getPackages');
+    Route::get('/packages/{clinicId?}/{clinicName?}', [PackageController::class, 'getPackages'])->name('getPackages');
 
 
 

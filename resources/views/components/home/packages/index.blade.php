@@ -5,7 +5,7 @@
             <h2 class=" mr-8 w-11/12 text-gray-text1 text-lg">
                 @lang('Packages')
             </h2>
-            <a href="{{ route('getPackages', ['locale' => session('locale')]) }}" class="text-sm text-secondary-400 flex-shrink-0">
+            <a href="{{ route('getPackages', [ 'locale' => session('locale')]) }}" class="text-sm text-secondary-400 flex-shrink-0">
                 @lang('All packages')
             </a>
         </div>
