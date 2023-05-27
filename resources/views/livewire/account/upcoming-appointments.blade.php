@@ -83,11 +83,11 @@
                                     @lang('appointment for') {{ $appt['Patient_Name'] }}
                                 </div>
                                 @if ($appt['is_paid'])
-                                    <div class="text-xs text-main-700 ">
+                                    <div class="text-xs text-main-600">
                                         @lang('Paid')
                                     </div>
                                 @else
-                                    <div class="text-xs text-secondary-400 ">
+                                    <div class="text-xs text-secondary-400">
                                         @lang('Not paid')
                                     </div>
                                 @endif
@@ -146,6 +146,6 @@
 
         <p class="text-center ">{{ $msg }}</p>
     </div>
-   
+
 
 </div>
