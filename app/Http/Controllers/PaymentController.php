@@ -85,7 +85,7 @@ class PaymentController extends Controller
             // log response to DB
             LogPayment::create(['title' => $request->cartId, 'data' => json_encode($request->input())]);
             // if payment successful
-            dd($request->respStatus);
+
             if ($request->respStatus == 'A') {
                 $data = Checkout::where(['CLIN_APPT_SLOT_ID' => $request->cartId])->latest()->first();
                 $responsePayment = FeachPortalAPI::feach('/slot/payment', [
@@ -121,6 +121,8 @@ class PaymentController extends Controller
                 $response = $response[0];
                 session('success', __('Appointment booked successfully'));
                 return '<script>window.parent.location.href = "' . route('payment.success', ['locale' => app()->getLocale()]) . '";</script>';
+            }elseif($request->respStatus == 'C'){
+                return '<script>window.parent.location.href = "' . route('payment.cancelled', ['locale' => app()->getLocale()]) . '";</script>';
             }
             else {
                 session('error', __('Appointment book failed'));
