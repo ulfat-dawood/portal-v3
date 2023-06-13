@@ -60,6 +60,7 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['Localization']], functi
         Route::get('checkout/package/{package_id}', [PaymentController::class, 'packageCheckout'])->name('checkout.package');
         Route::get('payment/success', [PaymentController::class, 'success'])->name('payment.success');
         Route::get('payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
+        Route::get('payment/cancelled', [PaymentController::class, 'cancelled'])->name('payment.cancelled');
     });
     // failed to load first page
     Route::view('failed', 'errors.failed')->name('failed');

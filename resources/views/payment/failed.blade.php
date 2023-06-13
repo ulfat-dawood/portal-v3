@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('errors.layout')
 @section('title', __('Payment Information'))
 
 @section('content')
@@ -20,7 +20,7 @@
                             </svg>
 
                             <div class="text-center">
-                                <h1 class="font-bold text-xl my-7">@lang('There was a problem executing the action.')!</h1>
+                                <h1 class="font-bold text-xl my-7">@lang('We are unable to process your payment. Please contact customer support.')!</h1>
                                 <p class="text-gray-400 mt-4 mb-14">{{ Session::get('error') }}</p>
                                 <p class="text-gray-400 mt-4 mb-14">{{ Session::get('warning') }}</p>
                                 <a href="{{ route('home') }}" class="button rounded-md px-12 py-3 mx-4 bg-main-500 text-white">@lang('Home page')

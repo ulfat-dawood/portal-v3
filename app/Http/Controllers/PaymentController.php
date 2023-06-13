@@ -37,7 +37,7 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success', ['locale' => app()->getLocale()])->with('success', __('Appointment booked successfully'));
         }
-        $portalPrice = $data['EXAM_PRICE'] - ($data['EXAM_PRICE'] / 100) * $data['PORTAL_DISCOUNT'] ;
+        $portalPrice = $data['EXAM_PRICE'] - ($data['EXAM_PRICE'] / 100) * $data['PORTAL_DISCOUNT'];
         // $data['EXAM_PRICE'] = .25;
         $pay = paypage::sendPaymentCode('creditcard,mada,stcpay,applepay')
             ->sendTransaction('sale')
@@ -162,6 +162,9 @@ class PaymentController extends Controller
                 $response = $response[0];
                 session('success', __('Package ordered successfully'));
                 return '<script>window.parent.location.href = "' . route('payment.success', ['locale' => app()->getLocale()]) . '";</script>';
+            } elseif ($request->respStatus == 'C') {
+                session('error', __('Package ordered Cancelled'));
+                return '<script>window.parent.location.href = "' . route('payment.cancelled') . '";</script>';
             } else {
                 session('error', __('Package ordered failed'));
                 return '<script>window.parent.location.href = "' . route('payment.failed') . '";</script>';
@@ -234,5 +237,18 @@ class PaymentController extends Controller
         //  cancel the appointment
         session()->forget('checkout');
         return view('payment.failed');
+    }
+
+    /**
+     * cancelled page
+     * clearing session data
+     *
+     * @param Request $request
+     * @return view
+     */
+    public function cancelled(Request $request) //callback
+    {
+        session()->forget('checkout');
+        return view('payment.cancelled');
     }
 }
